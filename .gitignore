@@ -31,9 +31,14 @@ bower_components
 
 # Compiled binary addons (http://nodejs.org/api/addons.html)
 build/Release
+build/
+dist/
 
-# Dependency directories
+# Dependency directorys
+# Deployed apps should consider commenting these lines out:
+# see https://npmjs.org/doc/faq.html#Should-I-check-my-node_modules-folder-into-git
 node_modules/
+bower_components/
 jspm_packages/
 
 # Typescript v1 declaration files
