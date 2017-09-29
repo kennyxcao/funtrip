@@ -1,14 +1,14 @@
-# funtrip
+# FunTrip
 hrsf82 greenfield project
 
 > Pithy project description
 
 ## Team
 
-  - teamMember
-  - teamMember
-  - teamMember
-  - teamMember
+  - Kenny Cao
+  - Aileen Fan
+  - Lena Bartosh
+  - Javier Enriquez
 
 ## Table of Contents
 
@@ -26,11 +26,11 @@ hrsf82 greenfield project
 
 ## Requirements
 
-- Node 6.4.x
-- Redis 2.6.x
-- Postgresql 9.1.x
-- etc
-- etc
+- Node 6.11.1
+- React 15.4.2
+- MongoDB 3.4.2
+- Mongoose 4.9.6
+- Express 4.15.0
 
 ## Development
 
