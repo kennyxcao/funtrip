@@ -10,7 +10,6 @@ const Schema = mongoose.Schema;
 const ObjectId = Schema.Types.ObjectId;
 
 const mongodbURI = process.env.MONGODB_URI || 'mongodb://localhost/funtrip';
-//const mongodbURI = 'mongodb://localhost/funtrip';
 mongoose.connect(mongodbURI);
 
 let db = mongoose.connection;
@@ -109,7 +108,10 @@ let objectiveSchema = mongoose.Schema({
   lat: Number,
   lng: Number,
   date: Date,
-  checked: Boolean,
+  checked: {
+    type: Boolean,
+    default: 0
+  },
   created: {
     type: Date,
     default: Date.now
@@ -127,12 +129,15 @@ let objectiveSchema = mongoose.Schema({
 let preparationItemSchema = mongoose.Schema({
   name: String,
   dueDate: Date,
-  checked: Boolean,
-    created: {
+  checked: {
+    type: Boolean,
+    default: 0
+  },
+  created: {
     type: Date,
     default: Date.now
   },
-  user: {
+  responsibleUser: {
     type: ObjectId,
     ref: 'User'
   },
@@ -153,9 +158,48 @@ let Reservation = mongoose.model('Reservation', reservationSchema);
 let Objective = mongoose.model('Objective', objectiveSchema);
 let PreparationItem = mongoose.model('PreparationItem', preparationItemSchema);
 
+var createUser = function(username, pw, firstName, lastName, email) {
 
-//Load Sample Data
-sampleData.userSamples.forEach(function(user) {
+}
+
+var createTrip = function(name, user) {
+
+}
+
+var createDestination = function(name, startDate, endDate, lat, lng, trip) {
+
+}
+
+var createReservation = function(name, category, referenceNumber, date, destination) {
+
+}
+
+var createObjective = function(name, category, lat, lng, date, trip, destination) {
+
+}
+
+var createPreparationItem = function(name, dueDate, responsibleUser, trip, destination) {
+
+}
+
+var dropAllCollections = function() {
+  var collections = ['users', 'trips', 'destinations', 'reservations', 'objectives', 'preparationItems'];
+  collections.forEach( function(collectionName) {
+    var collection = db.collections[collectionName];
+    if (collection) {
+      collection.drop(function(error) {
+        if (error) {
+          console.log('Drop collection error: ', collectionName, error.message);
+        } else {
+          console.log('Collection was dropped:', collectionName);
+        }
+      })
+    }
+  })
+}
+
+var loadAllSampleData = function() {
+  sampleData.userSamples.forEach(function(user) {
   var newUser = new User({
     username: user.username,
     pw: user.pw
@@ -167,11 +211,16 @@ sampleData.userSamples.forEach(function(user) {
     }
   });
 });
+}
+
+//Load Sample Data
+// dropAllCollections();
+// loadAllSampleData();
 
 module.exports.db = db;
-module.exports.User = User;
-module.exports.Trip = Trip;
-module.exports.Destination = Destination;
-module.exports.Reservation = Reservation;
-module.exports.Objective = Objective;
-module.exports.PreparationItem = PreparationItem;
+// module.exports.User = User;
+// module.exports.Trip = Trip;
+// module.exports.Destination = Destination;
+// module.exports.Reservation = Reservation;
+// module.exports.Objective = Objective;
+// module.exports.PreparationItem = PreparationItem;
