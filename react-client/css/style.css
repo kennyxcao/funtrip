@@ -1,2 +1,59 @@
 @import url("http://netdna.bootstrapcdn.com/bootstrap/3.0.0-rc2/css/bootstrap-glyphicons.css");
+}
 
+
+.res {
+  margin: 20px;
+}
+
+.res-table {
+  display: flex;
+  flex-flow: column nowrap;
+  margin: 0.5rem;
+  line-height: 1.5;
+  flex: 1 1 auto;
+  border: 1px solid #d0d0d0;
+}
+
+.res-header {
+  display: none;
+  font-weight: 700;
+  font-size: 1.1em;
+  background-color: #f2f2f2;
+}
+
+.res-header > .res-data {
+  white-space: normal;
+}
+
+.res-row {
+  width: 100%;
+  display: flex;
+  flex-flow: row nowrap;
+}
+
+.res-row:nth-of-type(even) {
+  background-color: #f2f2f2;
+}
+
+.res-row:nth-of-type(odd) {
+  background-color: #ffffff;
+}
+
+.res-row:hover {
+  color: #C0163A;
+}
+
+.res-data {
+  display: flex;
+  flex-flow: row nowrap;
+  flex-grow: 1;
+  flex-basis: 0;
+  padding: 0.5em;
+  word-break: break-word;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  min-width: 0px;
+  white-space: nowrap;
+  border-bottom: 1px solid #d0d0d0;
+}
