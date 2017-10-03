@@ -3,35 +3,19 @@ import PrepItem from './PrepItem.jsx';
 class PrepList extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {
-      list: [
-        { 
-          id: 1,
-          description: 'Passport',
-          status: 'unchecked'
-        },
-        { 
-          id: 2,
-          description: 'Toothbrush',
-          status: 'unchecked'
-        },
-        { 
-          id: 3,
-          description: 'Phone',
-          status: 'unchecked'
-        }
-      ]
-    };
+  }
+  addItemHandler() {
+    console.log('Add button was clicked');
   }
   render() {
     return (
       <div> 
-        <h3 className="componentTitle">Prep List</h3>
+        <h3 className="componentTitle">Preparation List <button onClick={this.addItemHandler.bind(this)}>[+]</button></h3>
         <div> 
-          There are {this.state.list.length} items to bring
+          There are {this.props.preparationItems.length} items to bring
         </div>
         <div> 
-         {this.state.list.map((item, index) =>
+          {this.props.preparationItems.map((item, index) =>
             <PrepItem item={item} key={index}/>
           )}
         </div>
