@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom';
 import $ from 'jquery';
 import _ from 'lodash';
 import Login from './components/Login.jsx';
+import Logout from './components/Logout.jsx';
 import Checklist from './components/checkList.jsx';
 import ObjList from './components/objList.jsx';
 import CurrentInfo from './components/CurrentInfo.jsx';
@@ -13,31 +14,73 @@ class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      loggedIn: false
+      loggedIn: false,
+      user: ''
     };
 
     this.handleLogin = this.handleLogin.bind(this);
+    this.handleLogout = this.handleLogout.bind(this);    
   }
 
   componentDidMount() {
     console.log('App Mounted');
+    this.handleLogin();
   }
 
-  handleLogin() {
-
+  handleLogin(loginInfo) {
+    $.ajax({
+      type: 'POST',
+      url: '/login', 
+      data: loginInfo ? JSON.stringify(loginInfo) : JSON.stringify({username: null}),
+      contentType: 'application/json',
+      success: (results, status, xhr) => {
+        if (results.username) {
+          console.log('Sucessiful Login');
+          this.setState({
+            loggedIn: true,
+            user: results.username
+          });          
+        } else {
+          console.log('Incorrect Login');          
+        }
+      },
+      error: (xhr, status, error) => {
+        console.error('Login Error');
+        console.error(xhr, status, error);        
+      }
+    });  
   }
+
+  handleLogout (e) {
+    $.ajax({
+      type: 'POST',
+      url: '/logout',
+      success: (results, status, xhr) => {
+        console.log('Sucessiful Logout');
+        this.setState({
+          loggedIn: false,
+          user: ''
+        });
+      },
+      error: (xhr, status, error) => {
+        console.error('Logout Failed');
+        console.error(xhr, status, error);        
+      }
+    });
+  }  
 
   render () {
     return (<div className='.container-fluid'>
-      <nav className="navbar navbar-default bg-faded">
+      <nav className='navbar navbar-default bg-faded'>
         <h1 id="app-title" className="navbar-brand">FunTrip</h1>
       </nav>
-      <div className="col-md-12">
+      <div className='col-md-12'>
         <Login loggedIn={this.state.loggedIn} handleLogin={this.handleLogin}/>
+        <Logout loggedIn={this.state.loggedIn} user={this.state.user} handleLogout={this.handleLogout} />
         <CurrentInfo/>
         <Reservations/>
       </div>
-      <div className="main">
+      <div className="main col-md-12">
         <Checklist />
         <ObjList />
         <MapView />

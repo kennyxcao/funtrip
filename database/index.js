@@ -367,5 +367,18 @@ var loadAllSampleData = function() {
 //     console.log('Trip all data:', data);
 //   })
 
+// sampleData.userSamples.forEach(function(user) {
+//   var newUser = new User({
+//     username: user.username,
+//     pw: user.pw,
+//   }).save(function(err) {
+//     if (err) {
+//       console.log(err);
+//     } else {
+//       console.log('user saved');
+//     }
+//   });
+// });
 
 module.exports.db = db;
+module.exports.User = User;
