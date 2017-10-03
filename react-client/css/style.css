@@ -1,6 +1,4 @@
 @import url("http://netdna.bootstrapcdn.com/bootstrap/3.0.0-rc2/css/bootstrap-glyphicons.css");
-}
-
 
 .res {
   margin: 20px;
@@ -57,8 +55,6 @@
   white-space: nowrap;
   border-bottom: 1px solid #d0d0d0;
 }
-<<<<<<< HEAD
-
 
 .wrapper {
     display: flex;
@@ -170,7 +166,7 @@ ul ul a {
 
 
 .userLogo {
-   display: block;
+  display: block;
   max-width:230px;
   max-height:95px;
   width: auto;
@@ -180,5 +176,5 @@ ul ul a {
 
 .addNewClass {
   color: black;
-      background: red;
+  background: red;
 }
