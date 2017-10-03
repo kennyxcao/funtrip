@@ -21,7 +21,7 @@ class Login extends React.Component {
   }
 
   getLoginData (e) {
-    this.props.handleLogin({name: this.state.username, pw: this.state.pw});
+    this.props.handleLogin({username: this.state.username, pw: this.state.pw});
     this.setState({
       username: '',
       pw: ''
