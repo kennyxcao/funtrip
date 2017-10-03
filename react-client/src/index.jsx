@@ -3,11 +3,11 @@ import ReactDOM from 'react-dom';
 import $ from 'jquery';
 import _ from 'lodash';
 import Login from './components/Login.jsx';
-import Checklist from './components/checklist.jsx';
-import ObjList from './components/objlist.jsx';
+import Checklist from './components/checkList.jsx';
+import ObjList from './components/objList.jsx';
 import CurrentInfo from './components/CurrentInfo.jsx';
 import Reservations from './components/Reservations.jsx';
-import MapView from './components/mapview.jsx';
+import MapView from './components/mapView.jsx';
 
 class App extends React.Component {
   constructor(props) {

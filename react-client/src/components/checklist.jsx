@@ -1,5 +1,5 @@
 import React from 'react';
-import Todo from './prepitem.jsx';
+import Todo from './prepItem.jsx';
 class Checklist extends React.Component {
   constructor(props) {
     super(props);

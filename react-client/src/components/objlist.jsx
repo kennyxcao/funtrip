@@ -1,5 +1,5 @@
 import React from 'react';
-import ObjTodo from './objitem.jsx';
+import ObjTodo from './objItem.jsx';
 class ObjList extends React.Component {
   constructor(props) {
     super(props);
