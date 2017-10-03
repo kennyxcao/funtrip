@@ -1,6 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import {Grid, Row, PageHeader, Navbar, } from 'react-bootstrap';
+import {Grid, Row, Col, PageHeader, Navbar} from 'react-bootstrap';
 import $ from 'jquery';
 import _ from 'lodash';
 import Login from './components/Login.jsx';
