@@ -1,4 +1,4 @@
-"use strict";
+'use strict';
 const sampleData = require('./data.js');
 const mongoose = require('mongoose');
 
@@ -143,16 +143,20 @@ let Objective = mongoose.model('Objective', objectiveSchema);
 let PreparationItem = mongoose.model('PreparationItem', preparationItemSchema);
 
 var createUser = function(username, pw, firstName, lastName, email) {
-}
+};
 
 var getUser = function(username) {
   return User.findOne({username: username});
-}
+};
 
 var createTrip = function(name, user) {
   //link with user
   //add trip to user.trips
-}
+};
+
+var getTrip = function(tripId) {
+  return Trip.findOne({_id: tripId});
+};
 
 var getUserTrips = function(username) {
   return User.findOne({username: username}).populate('trips')
@@ -161,59 +165,60 @@ var getUserTrips = function(username) {
     })
     .catch(function(error) {
       console.log('getUserTrips error:', error.message);
-    })
-}
+    });
+};
 
 var createDestination = function(name, startDate, endDate, lat, lng, trip) {
   //link with trip
-}
+};
 
 var getDestinationForTrip = function(tripId) {
-  return Destination.find({trip: tripId})
-}
+  return Destination.find({trip: tripId});
+};
 
 var createReservation = function(name, category, referenceNumber, date, trip, destination) {
   //link with trip
   //link with destination
-}
+};
 
 var getReservationsForTrip = function(tripId) {
-  return Reservation.find({trip: tripId})
-}
+  return Reservation.find({trip: tripId});
+};
 
 var createObjective = function(name, category, lat, lng, date, trip, destination) {
   //link with trip
   //link with destination
-}
+};
 
 var getObjectivesForTrip = function(tripId) {
-  return Objective.find({trip: tripId})
-}
+  return Objective.find({trip: tripId});
+};
 
 var createPreparationItem = function(name, dueDate, responsibleUser, trip) {
   //link with trip
-}
+};
 
 var getPreparationItemsForTrip = function(tripId) {
-  return PreparationItem.find({trip: tripId})
-}
+  return PreparationItem.find({trip: tripId});
+};
 
 var getAllDataForTrip = function(tripId) {
-  return Promise.all([getDestinationForTrip(tripId), getReservationsForTrip(tripId), 
+  return Promise.all([getTrip(tripId), getDestinationForTrip(tripId), getReservationsForTrip(tripId), 
     getObjectivesForTrip(tripId), getPreparationItemsForTrip(tripId)])
-    .then(function([destinations, reservations, objectives, preparationItems]) {
+    .then(function([trip, destinations, reservations, objectives, preparationItems]) {
       var allData = {
+        'trip': trip,
         'destinations': destinations,
         'reservations': reservations,
         'objectives': objectives,
         'preparationItems': preparationItems
-      }
-      return Promise.resolve(allData)
+      };
+      return Promise.resolve(allData);
     })
     .catch(function(error) {
       console.log('getAllDataForTrip error:', error.message);
-    })
-}
+    });
+};
 
 var loadAllSampleData = function() {
   var sampleUser = sampleData.userSamples[0];
@@ -230,19 +235,19 @@ var loadAllSampleData = function() {
   var preparationItemTwo = sampleData.preparationSample[1];
 
   Promise.all([User.create(sampleUser), 
-               Trip.create(sampleTrip),
-               Destination.create(londonDest),
-               Destination.create(parisDest),
-               Destination.create(barcelonaDest),
-               Reservation.create(londonReser),
-               Reservation.create(parisReser),
-               Reservation.create(barcelonaReser),
-               Objective.create(objectiveOne),
-               Objective.create(objectiveTwo),
-               PreparationItem.create(preparationItemOne),
-               PreparationItem.create(preparationItemTwo)])
+    Trip.create(sampleTrip),
+    Destination.create(londonDest),
+    Destination.create(parisDest),
+    Destination.create(barcelonaDest),
+    Reservation.create(londonReser),
+    Reservation.create(parisReser),
+    Reservation.create(barcelonaReser),
+    Objective.create(objectiveOne),
+    Objective.create(objectiveTwo),
+    PreparationItem.create(preparationItemOne),
+    PreparationItem.create(preparationItemTwo)])
     .then(function([user, trip, londonDest, parisDest, barcelonaDest, londonReser, parisReser, 
-                    barcelonaReser, objectiveOne, objectiveTwo, preparationItemOne, preparationItemTwo]) {
+      barcelonaReser, objectiveOne, objectiveTwo, preparationItemOne, preparationItemTwo]) {
       var userPromise = User.findByIdAndUpdate(user._id, {'$push': {'trips': trip._id}});
       var tripPromise = Trip.findByIdAndUpdate(trip._id, {'$push': {'users': user._id}});
       var londonDestPromise = Destination.findByIdAndUpdate(londonDest._id, {'$set': {'trip': trip._id}});
@@ -264,10 +269,10 @@ var loadAllSampleData = function() {
     })
     .catch(function(error) {
       console.log('Load sample data error: ', error.message);
-    })
+    });
 
 
-}
+};
 
 //TO DELETE ALL THE DATA AND LOAD SAMPLE DATA UNCOMMENT THIS:
 // db.dropDatabase()
@@ -276,49 +281,49 @@ var loadAllSampleData = function() {
 //   })
 //   .catch(function(error) {
 //     console.log('Drop collections error: ', error.message);
-//   })
+//   });
 
 //TO CHECK FORMAT FOR ALL GETTER FUNCTIONS UNCOMMENT THIS:
 // getUserTrips('kenny')
 //   .then(function(data) {
 //     console.log('User trips:', data);
-//     return getDestinationForTrip(data[0]._id)
+//     return getDestinationForTrip(data[0]._id);
 //   })
 //   .then(function(data) {
 //     console.log('Trip destinations:', data);
-//   })
+//   });
 
 // getUserTrips('kenny')
 //   .then(function(data) {
-//     return getReservationsForTrip(data[0]._id)
+//     return getReservationsForTrip(data[0]._id);
 //   })
 //   .then(function(data) {
 //     console.log('Trip Reservations:', data);
-//   }) 
+//   });
 
 // getUserTrips('kenny')
 //   .then(function(data) {
-//     return getObjectivesForTrip(data[0]._id)
+//     return getObjectivesForTrip(data[0]._id);
 //   })
 //   .then(function(data) {
 //     console.log('Trip objectives:', data);
-//   })
+//   });
 
 // getUserTrips('kenny')
 //   .then(function(data) {
-//     return getPreparationItemsForTrip(data[0]._id)
+//     return getPreparationItemsForTrip(data[0]._id);
 //   })
 //   .then(function(data) {
 //     console.log('Trip preparationItems:', data);
-//   })
+//   });
 
 // getUserTrips('kenny')
 //   .then(function(data) {
-//     return getAllDataForTrip(data[0]._id)
+//     return getAllDataForTrip(data[0]._id);
 //   })
 //   .then(function(data) {
 //     console.log('Trip all data:', data);
-//   })
+//   });
 
 // sampleData.userSamples.forEach(function(user) {
 //   var newUser = new User({
