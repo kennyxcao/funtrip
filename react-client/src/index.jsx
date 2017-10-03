@@ -30,6 +30,7 @@ class App extends React.Component {
     this.handleLogin = this.handleLogin.bind(this);
     this.handleLogout = this.handleLogout.bind(this);    
     this.handleObjAdd = this.handleObjAdd.bind(this);
+    this.handleAddReservation = this.handleAddReservation.bind(this);      
   }
 
   componentDidMount() {
@@ -101,28 +102,45 @@ class App extends React.Component {
   handleObjAdd(item) {
     console.log('handleObjAdd', item);
   }
+
+  handleAddReservation(data) {
+    console.log(data);
+  }
+
   render () {
     console.log(this.state);
     return (
-      <div className='.container-fluid'>
-        <nav className='navbar navbar-default bg-faded'>
-          <div id="app-title" className="navbar-brand">FunTrip</div>
-          <ul className="nav navbar-nav">
-            <li className="active"><a href="#">Overview</a></li>
-            <li><a href="#">City 1</a></li>
-            <li><a href="#">City 2</a></li>
-            <li><a href="#">City 3</a></li>
-          </ul>
-        </nav>
-        <div className='col-md-12'>
-          <Login loggedIn={this.state.loggedIn} handleLogin={this.handleLogin}/>
-          <Logout loggedIn={this.state.loggedIn} user={this.state.user} handleLogout={this.handleLogout} />
-        </div>
+     <div className='root'>
+
+        <Navbar fluid>
+          <Navbar.Header>
+            <Navbar.Brand>
+              <a id='app-title' href="#">FunTrip</a>
+            </Navbar.Brand>
+            <ul className="nav navbar-nav">
+              <li className="active"><a href="#">Overview</a></li>
+              <li><a href="#">City 1</a></li>
+              <li><a href="#">City 2</a></li>
+              <li><a href="#">City 3</a></li>
+            </ul>          
+          </Navbar.Header>
+        </Navbar>
+
+        <Grid fluid>
+          <Row>
+            <Col xs={12} md={12}>
+              <Login loggedIn={this.state.loggedIn} handleLogin={this.handleLogin}/>
+              <Logout loggedIn={this.state.loggedIn} user={this.state.user} handleLogout={this.handleLogout} />
+            </Col>
+          </Row>      
+        </Grid>
+
         <button type="button" className="btn btn-primary" onClick = {() => { this.setState({sideBarOn: !this.state.sideBarOn}); }}>
           <i class="glyphicon glyphicon-align-left"></i>
         Toggle Sidebar
         </button>
         {this.state.sideBarOn ? <SideBar trips = {this.state.trips} userName = {'user1'} /> : null}
+        
         <div className="main col-md-12">
           <CurrentInfo/>
           <ReservationList items = {this.state.lastTrip.reservations}/>
