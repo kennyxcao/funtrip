@@ -4,8 +4,6 @@ import $ from 'jquery';
 import _ from 'lodash';
 import Login from './components/Login.jsx';
 import Logout from './components/Logout.jsx';
-import Checklist from './components/checkList.jsx';
-import ObjList from './components/objList.jsx';
 import PrepList from './components/PrepList.jsx';
 import ObjList from './components/ObjList.jsx';
 import CurrentInfo from './components/CurrentInfo.jsx';
@@ -79,11 +77,8 @@ class App extends React.Component {
       <div className='col-md-12'>
         <Login loggedIn={this.state.loggedIn} handleLogin={this.handleLogin}/>
         <Logout loggedIn={this.state.loggedIn} user={this.state.user} handleLogout={this.handleLogout} />
-        <CurrentInfo/>
-        <Reservations/>
       </div>
       <div className="main col-md-12">
-        <Checklist />
         <CurrentInfo/>
         <ReservationList/>
         <PrepList />
