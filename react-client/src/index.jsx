@@ -9,13 +9,19 @@ import ObjList from './components/ObjList.jsx';
 import CurrentInfo from './components/CurrentInfo.jsx';
 import ReservationList from './components/ReservationList.jsx';
 import MapView from './components/MapView.jsx';
+import Reservations from './components/ReservationList.jsx';
+import SideBar from './components/SideBar.jsx';
+
+var sidebarTestData = [{location:'Paris'}, {location: 'San Francisco'}, {location: 'Alaska'}];
+
 
 class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       loggedIn: false,
-      user: ''
+      user: '',
+      sideBarOn: true
     };
 
     this.handleLogin = this.handleLogin.bind(this);
@@ -70,7 +76,9 @@ class App extends React.Component {
   }  
 
   render () {
-    return (<div className='.container-fluid'>
+    return (
+      
+    <div className='.container-fluid'>
       <nav className='navbar navbar-default bg-faded'>
         <h1 id="app-title" className="navbar-brand">FunTrip</h1>
       </nav>
@@ -78,6 +86,11 @@ class App extends React.Component {
         <Login loggedIn={this.state.loggedIn} handleLogin={this.handleLogin}/>
         <Logout loggedIn={this.state.loggedIn} user={this.state.user} handleLogout={this.handleLogout} />
       </div>
+      <button type="button" className="btn btn-primary" onClick = {() => { this.setState({sideBarOn: !this.state.sideBarOn}); }}>
+      <i class="glyphicon glyphicon-align-left"></i>
+      Toggle Sidebar
+      </button>
+      {this.state.sideBarOn ? <SideBar testData = {sidebarTestData} userName = {'user1'} /> : null}
       <div className="main col-md-12">
         <CurrentInfo/>
         <ReservationList/>
@@ -85,8 +98,13 @@ class App extends React.Component {
         <ObjList />
         <MapView />
       </div>
-    </div>);
+    </div>
+
+
+    );
+
   }
 }
+
 
 ReactDOM.render(<App />, document.getElementById('app'));
