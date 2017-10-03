@@ -10,6 +10,14 @@ class Login extends React.Component {
     this.getLoginData = this.getLoginData.bind(this);
     this.handleUsernameChange = this.handleUsernameChange.bind(this);
     this.handlePasswordChange = this.handlePasswordChange.bind(this);
+    this.resetState = this.resetState.bind(this);
+  }
+
+  resetState() {
+    this.setState({
+      username: '',
+      pw: ''
+    });
   }
 
   handleUsernameChange (e) {
@@ -22,10 +30,7 @@ class Login extends React.Component {
 
   getLoginData (e) {
     this.props.handleLogin({username: this.state.username, pw: this.state.pw});
-    this.setState({
-      username: '',
-      pw: ''
-    });
+    this.resetState();
   }
 
   render() {
@@ -46,13 +51,5 @@ class Login extends React.Component {
   </div>);
   }
 }
-
-
-// PropTypes tell other developers what `props` a component expects
-// Warnings will be shown in the console when the defined rules are violated
-Login.propTypes = {
-  loggedIn: React.PropTypes.bool.isRequired,
-  handleLogin: React.PropTypes.func.isRequired
-};
 
 export default Login;
