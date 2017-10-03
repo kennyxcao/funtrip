@@ -228,13 +228,30 @@ var createPreparationItem = function(name, dueDate, responsibleUser, trip) {
   //add preparationItem to trip preparationItems
 }
 
-var getPreparationItemForTrip = function(tripId) {
+var getPreparationItemsForTrip = function(tripId) {
   return Trip.findOne({_id: tripId}).populate('preparationItems')
     .then(function(data) {
       return Promise.resolve(data.preparationItems);
     })
     .catch(function(error) {
       console.log('getPreparationItemForTrip error:', error.message);
+    })
+}
+
+var getAllDataForTrip = function(tripId) {
+  return Promise.all([getDestinationForTrip(tripId), getReservationsForTrip(tripId), 
+    getObjectivesForTrip(tripId), getPreparationItemsForTrip(tripId)])
+    .then(function([destinations, reservations, objectives, preparationItems]) {
+      var allData = {
+        'destinations': destinations,
+        'reservations': reservations,
+        'objectives': objectives,
+        'preparationItems': preparationItems
+      }
+      return Promise.resolve(allData)
+    })
+    .catch(function(error) {
+      console.log('getAllDataForTrip error:', error.message);
     })
 }
 
@@ -336,10 +353,19 @@ var loadAllSampleData = function() {
 
 // getUserTrips('kenny')
 //   .then(function(data) {
-//     return getPreparationItemForTrip(data[0]._id)
+//     return getPreparationItemsForTrip(data[0]._id)
 //   })
 //   .then(function(data) {
 //     console.log('Trip preparationItems:', data);
 //   })
+
+// getUserTrips('kenny')
+//   .then(function(data) {
+//     return getAllDataForTrip(data[0]._id)
+//   })
+//   .then(function(data) {
+//     console.log('Trip all data:', data);
+//   })
+
 
 module.exports.db = db;
