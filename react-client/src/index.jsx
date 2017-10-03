@@ -7,6 +7,7 @@ import Checklist from './components/checklist.jsx';
 import ObjList from './components/objlist.jsx';
 import CurrentInfo from './components/CurrentInfo.jsx';
 import Reservations from './components/Reservations.jsx';
+import MapView from './components/mapview.jsx';
 
 class App extends React.Component {
   constructor(props) {
@@ -39,6 +40,7 @@ class App extends React.Component {
       <div className="main">
         <Checklist />
         <ObjList />
+        <MapView />
       </div>
     </div>);
   }
