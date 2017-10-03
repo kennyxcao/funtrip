@@ -17,6 +17,7 @@ var userSamples = [
   }
 ];
 
+
 var tripSamples = [{
   name: 'Family trip to Europe'
 }]
@@ -88,3 +89,8 @@ let preparationSample = [{
 }];
 
 module.exports.userSamples = userSamples;
+module.exports.tripSamples = tripSamples;
+module.exports.destinationSamples = destinationSamples;
+module.exports.reservationSample = reservationSample;
+module.exports.objectiveSample = objectiveSample;
+module.exports.preparationSample = preparationSample;
