@@ -151,7 +151,6 @@ let Objective = mongoose.model('Objective', objectiveSchema);
 let PreparationItem = mongoose.model('PreparationItem', preparationItemSchema);
 
 var createUser = function(username, pw, firstName, lastName, email) {
-
 }
 
 var getUser = function(username) {
@@ -164,14 +163,13 @@ var createTrip = function(name, user) {
 }
 
 var getUserTrips = function(username) {
-  return Trip.find({username: username}).populate('trips')
-  .then((data) => {
-    return data.trips;
-  })
-}
-
-var getReservations = function(username) {
-
+  return User.findOne({username: username}).populate('trips')
+    .then(function(data) {
+      return Promise.resolve(data.trips);
+    })
+    .catch(function(error) {
+      console.log('getUserTrips error:', error.message);
+    })
 }
 
 var createDestination = function(name, startDate, endDate, lat, lng, trip) {
@@ -179,9 +177,32 @@ var createDestination = function(name, startDate, endDate, lat, lng, trip) {
   //add destination to trip destinations
 }
 
+var getDestinationForTrip = function(tripId) {
+  return Trip.findOne({_id: tripId}).populate('destinations')
+    .then(function(data) {
+      return Promise.resolve(data.destinations);
+    })
+    .catch(function(error) {
+      console.log('getDestinationForTrip error:', error.message);
+    })
+}
+
 var createReservation = function(name, category, referenceNumber, date, destination) {
   //link with destination
   //add reservation to destination reservations
+}
+
+var getReservationsForTrip = function(tripId) {
+  return Trip.findOne({_id: tripId}).populate('destinations')
+    .then(function(data) {
+      var reservations = data.destinations.reduce(function(acc, destination) {
+        return acc.concat(destination.reservations)
+        }, []);
+      return Reservation.find({_id: {'$in': reservations}});
+    })
+    .catch(function(error) {
+      console.log('getReservationsForTrip error:', error.message);
+    })
 }
 
 var createObjective = function(name, category, lat, lng, date, destination) {
@@ -189,21 +210,32 @@ var createObjective = function(name, category, lat, lng, date, destination) {
   //add objective to destination objectives
 }
 
+var getObjectivesForTrip = function(tripId) {
+  return Trip.findOne({_id: tripId}).populate('destinations')
+    .then(function(data) {
+      var objectives = data.destinations.reduce(function(acc, destination) {
+        return acc.concat(destination.objectives)
+        }, []);
+      return Objective.find({_id: {'$in': objectives}});
+    })
+    .catch(function(error) {
+      console.log('getObjectivesForTrip error:', error.message);
+    })
+}
+
 var createPreparationItem = function(name, dueDate, responsibleUser, trip) {
   //link to trip
   //add preparationItem to trip preparationItems
 }
 
-var dropAllCollections = function() {
-  var collections = ['users', 'trips', 'destinations', 'reservations', 'objectives', 'preparationItems'];
-  var promises = [];
-  collections.forEach( function(collectionName) {
-    var collection = db.collections[collectionName];
-    if (collection) {
-      promises.push(collection.drop());
-    }
-  })
-  return Promise.all(promises);
+var getPreparationItemForTrip = function(tripId) {
+  return Trip.findOne({_id: tripId}).populate('preparationItems')
+    .then(function(data) {
+      return Promise.resolve(data.preparationItems);
+    })
+    .catch(function(error) {
+      console.log('getPreparationItemForTrip error:', error.message);
+    })
 }
 
 var loadAllSampleData = function() {
@@ -241,8 +273,8 @@ var loadAllSampleData = function() {
       var tripDestinationBarcelona = Trip.findByIdAndUpdate(trip._id, {'$push': {'destinations': barcelonaDest._id}});
       var tripPreparationOne = Trip.findByIdAndUpdate(trip._id, {'$push': {'preparationItems': preparationItemOne._id}});
       var tripPreparationTwo = Trip.findByIdAndUpdate(trip._id, {'$push': {'preparationItems': preparationItemTwo._id}});
-      var londonDestPromise = Destination.findByIdAndUpdate(londonDest._id, {'$set': {'trip': trip._id}, '$push': {'reservations': londonReser._id}});
-      var parisDestPromise = Destination.findByIdAndUpdate(parisDest._id, {'$set': {'trip': trip._id}, '$push': {'reservations': parisReser._id}});
+      var londonDestPromise = Destination.findByIdAndUpdate(londonDest._id, {'$set': {'trip': trip._id}, '$push': {'reservations': londonReser._id, 'objectives': objectiveOne._id}});
+      var parisDestPromise = Destination.findByIdAndUpdate(parisDest._id, {'$set': {'trip': trip._id}, '$push': {'reservations': parisReser._id, 'objectives': objectiveTwo._id}});
       var barcelonaDestPromise = Destination.findByIdAndUpdate(barcelonaDest._id, {'$set': {'trip': trip._id}, '$push': {'reservations': barcelonaReser._id}});
       var londonReserPromise = Reservation.findByIdAndUpdate(londonReser._id, {'$set': {'destination': londonDest._id}});
       var parisReserPromise = Reservation.findByIdAndUpdate(parisReser._id, {'$set': {'destination': parisDest._id}});
@@ -267,26 +299,47 @@ var loadAllSampleData = function() {
 
 }
 
-//Load Sample Data
-dropAllCollections()
-.then(function(data) {
-  return loadAllSampleData();
-})
-.catch(function(error) {
-  console.log('Drop collections error: ', error.message);
-})
+//TO DELETE ALL THE DATA AND LOAD SAMPLE DATA UNCOMMENT THIS:
+// db.dropDatabase()
+//   .then(function(data) {
+//     return loadAllSampleData();
+//   })
+//   .catch(function(error) {
+//     console.log('Drop collections error: ', error.message);
+//   })
 
-
-
+//TO CHECK FORMAT FOR ALL GETTER FUNCTIONS UNCOMMENT THIS:
+// getUserTrips('kenny')
+//   .then(function(data) {
+//     console.log('User trips:', data);
+//     return getDestinationForTrip(data[0]._id)
+//   })
+//   .then(function(data) {
+//     console.log('Trip destinations:', data);
+//   })
 
 // getUserTrips('kenny')
-// .then((data) => console.log(data));
+//   .then(function(data) {
+//     return getReservationsForTrip(data[0]._id)
+//   })
+//   .then(function(data) {
+//     console.log('Trip Reservations:', data);
+//   }) 
 
+// getUserTrips('kenny')
+//   .then(function(data) {
+//     return getObjectivesForTrip(data[0]._id)
+//   })
+//   .then(function(data) {
+//     console.log('Trip objectives:', data);
+//   })
+
+// getUserTrips('kenny')
+//   .then(function(data) {
+//     return getPreparationItemForTrip(data[0]._id)
+//   })
+//   .then(function(data) {
+//     console.log('Trip preparationItems:', data);
+//   })
 
 module.exports.db = db;
-// module.exports.User = User;
-// module.exports.Trip = Trip;
-// module.exports.Destination = Destination;
-// module.exports.Reservation = Reservation;
-// module.exports.Objective = Objective;
-// module.exports.PreparationItem = PreparationItem;
