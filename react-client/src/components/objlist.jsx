@@ -1,5 +1,5 @@
 import React from 'react';
-import ObjTodo from './objItem.jsx';
+import ObjItem from './ObjItem.jsx';
 class ObjList extends React.Component {
   constructor(props) {
     super(props);
@@ -32,7 +32,7 @@ class ObjList extends React.Component {
         </div>
         <div> 
          {this.state.list.map((item, index) =>
-            <ObjTodo item={item} key={index}/>
+            <ObjItem item={item} key={index}/>
           )}
         </div>
       </div>

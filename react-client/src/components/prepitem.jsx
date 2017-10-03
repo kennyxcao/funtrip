@@ -1,6 +1,6 @@
 import React from 'react';
 
-class Todo extends React.Component {
+class PrepItem extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -19,4 +19,4 @@ class Todo extends React.Component {
 }
 
 
-export default Todo;
+export default PrepItem;

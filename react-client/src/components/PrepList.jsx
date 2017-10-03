@@ -1,6 +1,6 @@
 import React from 'react';
-import Todo from './prepItem.jsx';
-class Checklist extends React.Component {
+import PrepItem from './PrepItem.jsx';
+class PrepList extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -26,13 +26,13 @@ class Checklist extends React.Component {
   render() {
     return (
       <div> 
-        <h3 className="componentTitle">Checklist</h3>
+        <h3 className="componentTitle">Prep List</h3>
         <div> 
           There are {this.state.list.length} items to bring
         </div>
         <div> 
          {this.state.list.map((item, index) =>
-            <Todo item={item} key={index}/>
+            <PrepItem item={item} key={index}/>
           )}
         </div>
       </div>
@@ -40,4 +40,4 @@ class Checklist extends React.Component {
   }
 }
 
-export default Checklist;
+export default PrepList;

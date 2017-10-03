@@ -6,9 +6,11 @@ import Login from './components/Login.jsx';
 import Logout from './components/Logout.jsx';
 import Checklist from './components/checkList.jsx';
 import ObjList from './components/objList.jsx';
+import PrepList from './components/PrepList.jsx';
+import ObjList from './components/ObjList.jsx';
 import CurrentInfo from './components/CurrentInfo.jsx';
-import Reservations from './components/Reservations.jsx';
-import MapView from './components/mapView.jsx';
+import ReservationList from './components/ReservationList.jsx';
+import MapView from './components/MapView.jsx';
 
 class App extends React.Component {
   constructor(props) {
@@ -82,6 +84,9 @@ class App extends React.Component {
       </div>
       <div className="main col-md-12">
         <Checklist />
+        <CurrentInfo/>
+        <ReservationList/>
+        <PrepList />
         <ObjList />
         <MapView />
       </div>

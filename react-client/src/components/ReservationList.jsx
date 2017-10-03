@@ -1,4 +1,4 @@
-import ReservationItem from './ReservationItem.jsx'
+import ReservationItem from './ReservationItem.jsx';
 const React = require('react');
 const testData = [{
   date: '12/25/2017',
@@ -31,7 +31,8 @@ const testData = [{
 }
 
 ];
-class Reservations extends React.Component {
+
+class ReservationList extends React.Component {
 	constructor(props){
 		super(props);
 		this.state = {
@@ -61,4 +62,4 @@ class Reservations extends React.Component {
 
 }
 
-export default Reservations;
+export default ReservationList;

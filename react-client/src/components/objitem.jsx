@@ -1,6 +1,6 @@
 import React from 'react';
 
-class ObjTodo extends React.Component {
+class ObjItem extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -19,4 +19,4 @@ class ObjTodo extends React.Component {
 }
 
 
-export default ObjTodo;
+export default ObjItem;

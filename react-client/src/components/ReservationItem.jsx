@@ -8,6 +8,6 @@ const ReservationItem = (props) => (
   <div className="res-data">{props.item.name}</div>
   <div className="res-data">{props.item.reference}</div>
 </div>
-)
+);
 
-export default ReservationItem
+export default ReservationItem;
