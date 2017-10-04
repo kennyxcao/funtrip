@@ -22,7 +22,7 @@ class App extends React.Component {
     this.state = {
       user: '',
       trips: [],
-      lastTrip: {destinations: [], reservations: [], preparationItems: [], objectives: []},
+      lastTrip: {destinations: [], reservations: [], preparationItems: [], objectives: [], trip: {}},
       loggedIn: false,
       sideBarOn: false
     };
@@ -30,7 +30,10 @@ class App extends React.Component {
     this.handleLogin = this.handleLogin.bind(this);
     this.handleLogout = this.handleLogout.bind(this);    
     this.handleObjAdd = this.handleObjAdd.bind(this);
-    this.handleAddReservation = this.handleAddReservation.bind(this);
+    this.handleReservationAdd = this.handleReservationAdd.bind(this);
+    this.handlePrepAdd = this.handlePrepAdd.bind(this);
+    this.handlePrepItemChange = this.handlePrepItemChange.bind(this);
+    this.handlePrepItemDelete = this.handlePrepItemDelete.bind(this);
   }
 
   componentDidMount() {
@@ -105,14 +108,26 @@ class App extends React.Component {
     console.log('handleObjAdd', item);
   }
 
-  handleAddReservation(data) {
-    console.log(data);
+  handleReservationAdd({name, category, referenceNumber, date}) {
+    console.log(name, category, referenceNumber, date);
   }
 
+  handlePrepAdd ({name, dueDate, responsibleUser}) {
+    console.log(name, responsibleUser, dueDate);
+  }
+
+  handlePrepItemChange (prepId) {
+    console.log(prepId);
+  }
+
+  handlePrepItemDelete (prepId) {
+    console.log(prepId);
+  }
+
+
   render () {
-    console.log(this.state);
     return (
-     <div className='root'>
+     <div className='react-root'>
         <Navbar fluid>
           <Navbar.Header>
             <Navbar.Brand>
@@ -121,44 +136,75 @@ class App extends React.Component {
             <Navbar.Toggle />
           </Navbar.Header>
           <Navbar.Collapse>
-            <TripList loggedIn={this.state.loggedIn} trips={this.state.trips} />
-            <DesinationList loggedIn={this.state.loggedIn} destinations={this.state.lastTrip.destinations} />
-
+            <DesinationList 
+              loggedIn={this.state.loggedIn} 
+              destinations={this.state.lastTrip.destinations} 
+            />
+            <TripList 
+              loggedIn={this.state.loggedIn} 
+              trips={this.state.trips} 
+            />
             <Nav pullRight>
-              <Login loggedIn={this.state.loggedIn} handleLogin={this.handleLogin}/>
-              <Logout loggedIn={this.state.loggedIn} user={this.state.user} handleLogout={this.handleLogout} />
+              <Login 
+                loggedIn={this.state.loggedIn} 
+                handleLogin={this.handleLogin}
+              />
+              <Logout 
+                loggedIn={this.state.loggedIn} 
+                user={this.state.user} 
+                handleLogout={this.handleLogout}
+              />
             </Nav>
           </Navbar.Collapse>
         </Navbar>
 
         <Grid fluid>
           <Row>
-            <Col xs={6} md={6}>
-              <PrepList preparationItems={this.state.lastTrip.preparationItems}/>
+            <Col sm={6} md={5} mdOffset={1}>
+              <PrepList 
+                preparationItems={this.state.lastTrip.preparationItems}
+                users={this.state.lastTrip.trip.users ? this.state.lastTrip.trip.users : []} // users object not yet implemented in fetching trip state - only userId avaiable
+                handlePrepAdd={this.handlePrepAdd} 
+                handlePrepItemChange={this.handlePrepItemChange} 
+                handlePrepItemDelete={this.handlePrepItemDelete}
+              />
             </Col>
-            <Col xs={6} md={6}>
-              <ObjList objectives={this.state.lastTrip.objectives} handleObjAdd={this.handleObjAdd}/>
+            <Col sm={6} md={5}>
+              <ObjList 
+                objectives={this.state.lastTrip.objectives} 
+                handleObjAdd={this.handleObjAdd}
+              />
             </Col>            
-          </Row>    
+          </Row>
+          <Row>
+            <Col sm={6} md={5} mdOffset={1}>
+              <CurrentInfo/>
+            </Col>
+            <Col sm={6} md={5}>
+              <ReservationList 
+                reservations={this.state.lastTrip.reservations} 
+                handleReservationAdd={this.handleReservationAdd}
+              />
+            </Col>            
+          </Row>
+          <Row>
+            <Col sm={10} md={10} mdOffset={1}>
+              <MapView />
+            </Col>          
+          </Row>             
         </Grid>
-
-        <div className="main col-md-12">
-          <CurrentInfo/>
-          <ReservationList reservations={this.state.lastTrip.reservations} handleAddReservation={this.handleAddReservation}/>
-          <MapView />
-        </div>
-
-        <button type="button" className="btn btn-primary" onClick = {() => { this.setState({sideBarOn: !this.state.sideBarOn}); }}>
-          <i className="glyphicon glyphicon-align-left"></i>
-        Toggle Sidebar
-        </button>
-        {this.state.sideBarOn ? <SideBar trips={this.state.trips} userName={this.state.user}/> : null}
-        
-
       </div>
     );
   }
 }
 
-
 ReactDOM.render(<App />, document.getElementById('app'));
+
+// Side Bar
+// <Nav pullRight>
+//   <button type="button" className="btn btn-primary" onClick = {() => { this.setState({sideBarOn: !this.state.sideBarOn}); }}>
+//     <i className="glyphicon glyphicon-align-left"></i>
+//   My Trips
+//   </button>
+//   {this.state.sideBarOn ? <SideBar trips={this.state.trips} userName={this.state.user}/> : null}
+// </Nav>

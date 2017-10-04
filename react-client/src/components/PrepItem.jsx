@@ -1,25 +1,33 @@
+import {Checkbox, Button, Glyphicon} from 'react-bootstrap';
 import React from 'react';
 
 class PrepItem extends React.Component {
-  constructor(props) {
-    super(props);  
+  constructor (props) {
+    super(props);
+    this.state = {
+      hover: false
+    };
+    this.mouseEnter = this.mouseEnter.bind(this);
+    this.mouseLeave = this.mouseLeave.bind(this);
   }
-  
-  changeStatusHandler(e) {
-    console.log('PrepItem was clicked', e.target.id, e.target.checked);
+
+  mouseEnter () {
+    this.setState({hover: true});
   }
-  
-  deleteItemHandler(e) {
-    console.log('PrepItem should be deleted', e.target.id);
+
+  mouseLeave () {
+    this.setState({hover: false});
   }
 
   render() {
     return (
-      <div>
-        <input type="checkbox" id={this.props.item._id}
-          checked={this.props.item.checked} 
-          onChange={this.changeStatusHandler.bind(this)}/>
-        {this.props.item.name}<button onClick={this.deleteItemHandler.bind(this)}> [X] </button>
+      <div className='prep-item' onMouseEnter={this.mouseEnter} onMouseLeave={this.mouseLeave}>
+        <Checkbox checked={this.props.preparation.checked} onChange={() => this.props.handlePrepItemChange(this.props.preparation._id)}>
+          {this.props.preparation.name}
+          {this.state.hover ? 
+            <Button bsStyle="default" bsSize="xsmall" onClick={() => this.props.handlePrepItemDelete(this.props.preparation._id)}><Glyphicon glyph="remove"/></Button>
+            : null}
+        </Checkbox>
       </div>
     );
   }
