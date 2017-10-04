@@ -47,8 +47,9 @@ class Login extends React.Component {
             <button type="button" className="btn btn-primary" onClick={this.getLoginData}>Login</button>
           </form>
         </div>
-      }
-  </div>);
+        }
+      </div>
+    );
   }
 }
 
