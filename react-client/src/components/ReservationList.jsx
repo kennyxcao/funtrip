@@ -6,7 +6,7 @@ const React = require('react');
 
 const ReservationList = (props) => (
   <div className='reservation-list'>
-    <ReservationModal handleReservationAdd={props.handleReservationAdd}/>
+    <ReservationModal handleReservationAdd={props.handleReservationAdd} destinations={props.destinations}/>
     <Table striped bordered condensed hover>
       <thead>
         <tr>
@@ -14,10 +14,11 @@ const ReservationList = (props) => (
           <th>Type</th>
           <th>Name</th>
           <th>Reference #</th>
+          <th>Delete</th>
         </tr>
       </thead>
       <tbody>
-        {props.reservations.map((reservation, index) => <ReservationItem reservation={reservation} key={index}/>)}
+        {props.reservations.map((reservation, index) => <ReservationItem reservation={reservation} key={index} handleReservationDelete={props.handleReservationDelete}/>)}
       </tbody>
     </Table>
   </div>
