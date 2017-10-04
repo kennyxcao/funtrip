@@ -16,7 +16,7 @@ class PrepItem extends React.Component {
   render() {
     return (
       <div>
-        <input type="checkbox" id={this.props.item._id} 
+        <input type="checkbox" id={this.props.item._id}
           checked={this.props.item.checked} 
           onChange={this.changeStatusHandler.bind(this)}/>
         {this.props.item.name}<button onClick={this.deleteItemHandler.bind(this)}> [X] </button>

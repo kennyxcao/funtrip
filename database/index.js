@@ -194,8 +194,17 @@ var getObjectivesForTrip = function(tripId) {
   return Objective.find({trip: tripId});
 };
 
-var createPreparationItem = function(name, dueDate, responsibleUser, trip) {
-  //link with trip
+var createPreparationItem = function(name, dueDate, responsibleUser, tripId) {
+  var newPreparationItem = new PreparationItem({name: name, dueDate: dueDate, responsibleUser: responsibleUser, trip: tripId});
+  return newPreparationItem.save();
+};
+
+var deletePreparationItem = function(id) {
+  return PreparationItem.remove({_id: id});
+};
+
+var updatePreparationItem = function(id, checked) {
+  return PreparationItem.findOneAndUpdate({_id: id}, { $set: { checked: checked }});
 };
 
 var getPreparationItemsForTrip = function(tripId) {
