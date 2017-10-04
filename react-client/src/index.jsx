@@ -106,7 +106,13 @@ class App extends React.Component {
       
     <div className='.container-fluid'>
       <nav className='navbar navbar-default bg-faded'>
-        <h1 id="app-title" className="navbar-brand">FunTrip</h1>
+       <div id="app-title" className="navbar-brand">FunTrip</div>
+        <ul className="nav navbar-nav">
+          <li className="active"><a href="#">Overview</a></li>
+          <li><a href="#">City 1</a></li>
+          <li><a href="#">City 2</a></li>
+          <li><a href="#">City 3</a></li>
+        </ul>
       </nav>
       <div className='col-md-12'>
         <Login loggedIn={this.state.loggedIn} handleLogin={this.handleLogin}/>
@@ -121,36 +127,10 @@ class App extends React.Component {
         <CurrentInfo/>
         <ReservationList items = {this.state.lastTrip.reservations}/>
         <PrepList />
-        <ObjList />
+        <ObjList handleObjAdd={this.handleObjAdd}/>
         <MapView />
       </div>
     </div>
-
-
-    );
-
-      <div className='.container-fluid'>
-        <nav className='navbar navbar-default bg-faded'>
-          <div id="app-title" className="navbar-brand">FunTrip</div>
-          <ul className="nav navbar-nav">
-            <li className="active"><a href="#">Overview</a></li>
-            <li><a href="#">City 1</a></li>
-            <li><a href="#">City 2</a></li>
-            <li><a href="#">City 3</a></li>
-          </ul>
-        </nav>
-        <div className='col-md-12'>
-          <Login loggedIn={this.state.loggedIn} handleLogin={this.handleLogin}/>
-          <Logout loggedIn={this.state.loggedIn} user={this.state.user} handleLogout={this.handleLogout} />
-        </div>
-        <div className="main col-md-12">
-          <CurrentInfo/>
-          <ReservationList/>
-          <PrepList />
-          <ObjList handleObjAdd={this.handleObjAdd}/>
-          <MapView />
-        </div>
-      </div>
     );
   }
 }

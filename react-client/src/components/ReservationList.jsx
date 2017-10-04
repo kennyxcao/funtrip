@@ -6,7 +6,7 @@ class ReservationList extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      testData: testData
+      
     };
   }
 
