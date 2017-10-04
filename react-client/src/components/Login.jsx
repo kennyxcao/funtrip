@@ -52,7 +52,7 @@ class Login extends React.Component {
             <ControlLabel>Password</ControlLabel>
             <FormControl
               type='password'
-              value={this.state.username}
+              value={this.state.pw}
               onChange={this.handlePasswordChange}
             />
           </FormGroup>
