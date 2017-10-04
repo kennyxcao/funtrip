@@ -31,7 +31,11 @@ class App extends React.Component {
     this.handleLogin = this.handleLogin.bind(this);
     this.handleLogout = this.handleLogout.bind(this);    
     this.handleObjAdd = this.handleObjAdd.bind(this);
+<<<<<<< HEAD
     this.handleAddReservation = this.handleAddReservation.bind(this);      
+=======
+    this.handleAddReservation = this.handleAddReservation.bind(this);  
+>>>>>>> Implement Reservation Modal popup form
   }
 
   componentDidMount() {
@@ -100,6 +104,7 @@ class App extends React.Component {
       }
     });
   }  
+
   handleObjAdd(item) {
     console.log('handleObjAdd', item);
   }
@@ -149,6 +154,7 @@ class App extends React.Component {
           <ObjList handleObjAdd={this.handleObjAdd}/>
           <MapView />
         </div>
+
       </div>
     );
   }

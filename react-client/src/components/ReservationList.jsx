@@ -1,4 +1,7 @@
+import {Modal} from 'react-bootstrap';
 import ReservationItem from './ReservationItem.jsx';
+import ReservationModal from './ReservationModal.jsx';
+
 const React = require('react');
 
 
@@ -30,7 +33,6 @@ class ReservationList extends React.Component {
   </div>
     );
   }
-
 }
 
 export default ReservationList;
