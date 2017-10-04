@@ -1,38 +1,27 @@
-import {Modal} from 'react-bootstrap';
+import {Table} from 'react-bootstrap';
 import ReservationItem from './ReservationItem.jsx';
 import ReservationModal from './ReservationModal.jsx';
 
 const React = require('react');
 
-
-class ReservationList extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      
-    };
-  }
-
-  render() {
-    return (
-     <div>
-    <h3>Reservations</h3>
-      <div className="res">
-        <div className="res-table">
-          <div className="res-header res-row">
-            <div className="res-data">Date</div>
-            <div className="res-data">Time</div>
-            <div className="res-data">Type</div>
-            <div className="res-data">Name</div>
-            <div className="res-data">Reference #</div>
-          </div>
-  {console.log(this.props.items)}
-            {this.props.items.map((el, index) => <ReservationItem item = {el} key = {index}/>)}
-        </div>
-      </div>
+const ReservationList = (props) => (
+  <div className='reservation-list'>
+    <ReservationModal handleAddReservation={props.handleAddReservation}/>
+    <Table striped bordered condensed hover>
+      <thead>
+        <tr>
+          <th>Date</th>
+          <th>Type</th>
+          <th>Name</th>
+          <th>Reference #</th>
+        </tr>
+      </thead>
+      <tbody>
+        {props.reservations.map((reservation, index) => <ReservationItem reservation={reservation} key={index}/>)}
+      </tbody>
+    </Table>
   </div>
-    );
-  }
-}
+);
+
 
 export default ReservationList;
