@@ -21,7 +21,7 @@ class Sidebar extends React.Component {
           <li>
           <a href="#homeSubmenu" data-toggle="collapse" aria-expanded="false"> Your Trips</a>
           <ul className="collapse list-unstyled" id="homeSubmenu">
-          {this.props.testData.map((el, index) => <SidebarTrips trip = {el} key = {index}/>)}
+          {this.props.trips.map((el, index) => <SidebarTrips trip = {el} key = {index}/>)}
         </ul>
         </li>
         <button type="button" className="btn btn-success"> Add New Trip </button>
@@ -32,7 +32,7 @@ class Sidebar extends React.Component {
 } 
 
 const SidebarTrips = (props) => (
-	<li><a href="#">{props.trip.location}</a></li>
+	<li><a href="#">{props.trip.name}</a></li>
 );
 
 export default Sidebar;

@@ -60,6 +60,20 @@ app.post('/logout', (req, res, next) => {
   });
 });
 
+app.post('/trips', (req, res) => {
+  var dataToSend = {};
+  DB.getUserTrips(req.body.userName).then(function(data) {
+    var lastTripId = data[0]._id;
+    dataToSend.trips = data;
+    return DB.getAllDataForTrip(lastTripId);
+  }).then(function(data) {
+    dataToSend.lastTrip = data;
+    res.send(dataToSend);
+  }).catch(function(error) {
+    console.log('error on dataToSend', error);
+    res.send(dataToSend);
+  }); 
+});
 
 app.get('/user', (req, res, next) => {
   console.log('/user get received');

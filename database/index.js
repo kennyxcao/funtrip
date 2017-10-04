@@ -274,7 +274,7 @@ var loadAllSampleData = function() {
 
 };
 
-//TO DELETE ALL THE DATA AND LOAD SAMPLE DATA UNCOMMENT THIS:
+// // TO DELETE ALL THE DATA AND LOAD SAMPLE DATA UNCOMMENT THIS:
 // db.dropDatabase()
 //   .then(function(data) {
 //     return loadAllSampleData();
@@ -340,3 +340,5 @@ var loadAllSampleData = function() {
 
 module.exports.db = db;
 module.exports.User = User;
+module.exports.getUserTrips = getUserTrips;
+module.exports.getAllDataForTrip = getAllDataForTrip;
