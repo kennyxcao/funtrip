@@ -178,3 +178,7 @@ ul ul a {
   color: black;
   background: red;
 }
+
+div.trip-list .navbar-right {
+  margin-left: 20px;
+}

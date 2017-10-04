@@ -7,10 +7,11 @@ import Login from './components/Login.jsx';
 import Logout from './components/Logout.jsx';
 import PrepList from './components/PrepList.jsx';
 import ObjList from './components/ObjList.jsx';
-import CurrentInfo from './components/CurrentInfo.jsx';
 import ReservationList from './components/ReservationList.jsx';
+import TripList from './components/TripList.jsx';
+import DesinationList from './components/DestinationList.jsx';
+import CurrentInfo from './components/CurrentInfo.jsx';
 import MapView from './components/MapView.jsx';
-import Reservations from './components/ReservationList.jsx';
 import SideBar from './components/SideBar.jsx';
 
 var sidebarTestData = [{location: 'Paris'}, {location: 'San Francisco'}, {location: 'Alaska'}];
@@ -19,10 +20,10 @@ class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
+      user: '',
       trips: [],
       lastTrip: {destinations: [], reservations: [], preparationItems: [], objectives: []},
       loggedIn: false,
-      user: '',
       sideBarOn: false
     };
 
@@ -120,18 +121,9 @@ class App extends React.Component {
             <Navbar.Toggle />
           </Navbar.Header>
           <Navbar.Collapse>
-            <Nav>
-              <NavDropdown eventKey={1} title="My Trips" id="basic-nav-dropdown">
-                <MenuItem eventKey={1.1}>Trip 1</MenuItem>
-                <MenuItem eventKey={1.2}>Trip 2</MenuItem>
-                <MenuItem eventKey={1.3}>Trip 3</MenuItem>
-                <MenuItem eventKey={1.4}>Trip 4</MenuItem>
-              </NavDropdown>
-              <NavItem eventKey={1} href="#">Overview</NavItem>
-              <NavItem eventKey={2} href="#">City 1</NavItem>
-              <NavItem eventKey={2} href="#">City 2</NavItem>
-              <NavItem eventKey={2} href="#">City 2</NavItem>            
-            </Nav>
+            <TripList loggedIn={this.state.loggedIn} trips={this.state.trips} />
+            <DesinationList loggedIn={this.state.loggedIn} destinations={this.state.lastTrip.destinations} />
+
             <Nav pullRight>
               <Login loggedIn={this.state.loggedIn} handleLogin={this.handleLogin}/>
               <Logout loggedIn={this.state.loggedIn} user={this.state.user} handleLogout={this.handleLogout} />
@@ -155,7 +147,7 @@ class App extends React.Component {
           <ReservationList reservations={this.state.lastTrip.reservations} handleAddReservation={this.handleAddReservation}/>
           <MapView />
         </div>
-        
+
         <button type="button" className="btn btn-primary" onClick = {() => { this.setState({sideBarOn: !this.state.sideBarOn}); }}>
           <i className="glyphicon glyphicon-align-left"></i>
         Toggle Sidebar
