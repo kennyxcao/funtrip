@@ -9,6 +9,7 @@ class ReservationModal extends React.Component {
       showModal: false,
       name: '',
       category: '',
+      destination: '',
       referenceNumber: '',
       date: ''
     };
@@ -18,6 +19,7 @@ class ReservationModal extends React.Component {
     this.handleNameChange = this.handleNameChange.bind(this);
     this.handleCategoryChange = this.handleCategoryChange.bind(this);
     this.handleDateChange = this.handleDateChange.bind(this);
+    this.handleDestinationChange = this.handleDestinationChange.bind(this);
     this.handleReferenceChange = this.handleReferenceChange.bind(this);
     this.handleClickSubmit = this.handleClickSubmit.bind(this);
   }
@@ -47,6 +49,10 @@ class ReservationModal extends React.Component {
 
   handleCategoryChange (e) {
     this.setState({ category: e.target.value });    
+  }
+
+  handleDestinationChange (e) {
+    this.setState({ destination: e.target.value });    
   }
 
   handleReferenceChange (e) {
@@ -115,7 +121,20 @@ class ReservationModal extends React.Component {
                   <option value='train'>Train</option>
                   <option value='rental'>Rental</option>
                 </FormControl>
-              </FormGroup>          
+              </FormGroup>
+
+              <FormGroup controlId='reservationDestination'>
+                <ControlLabel>Destination</ControlLabel>
+                <FormControl
+                  componentClass='select' 
+                  placeholder='select' 
+                  onChange={this.handleDestinationChange}
+                  value={this.state.destination}
+                >
+                  <option value='' disabled hidden>Choose a trip destination</option>
+                  {this.props.destinations.map((destination, index) => <option value={destination._id} key={index}>{destination.name}</option>)}
+                </FormControl>
+              </FormGroup>                           
             </form>
           </Modal.Body>
           <Modal.Footer>

@@ -14,8 +14,6 @@ import CurrentInfo from './components/CurrentInfo.jsx';
 import MapView from './components/MapView.jsx';
 import SideBar from './components/SideBar.jsx';
 
-var sidebarTestData = [{location: 'Paris'}, {location: 'San Francisco'}, {location: 'Alaska'}];
-
 class App extends React.Component {
   constructor(props) {
     super(props);
@@ -36,6 +34,7 @@ class App extends React.Component {
     this.handlePrepAdd = this.handlePrepAdd.bind(this);
     this.handlePrepItemChange = this.handlePrepItemChange.bind(this);
     this.handlePrepItemDelete = this.handlePrepItemDelete.bind(this);
+    this.handleReservationDelete = this.handleReservationDelete.bind(this);
   }
 
   componentDidMount() {
@@ -106,8 +105,8 @@ class App extends React.Component {
     });
   }  
 
-  handleObjAdd(item) {
-    console.log('handleObjAdd', item);
+  handleObjAdd({name, category, date, destination}) {
+    console.log(name, category, date, destination);
   }
 
   handleObjItemChange (objId) {
@@ -118,8 +117,12 @@ class App extends React.Component {
     console.log(objId);
   }
 
-  handleReservationAdd({name, category, referenceNumber, date}) {
-    console.log(name, category, referenceNumber, date);
+  handleReservationAdd({name, category, referenceNumber, date, destination}) {
+    console.log(name, category, referenceNumber, date, destination);
+  }
+
+  handleReservationDelete (resId) {
+    console.log(resId);
   }
 
   handlePrepAdd ({name, dueDate, responsibleUser}) {
@@ -195,8 +198,10 @@ class App extends React.Component {
             </Col>
             <Col sm={6} md={5}>
               <ReservationList 
-                reservations={this.state.lastTrip.reservations} 
+                reservations={this.state.lastTrip.reservations}
+                destinations={this.state.lastTrip.destinations}
                 handleReservationAdd={this.handleReservationAdd}
+                handleReservationDelete={this.handleReservationDelete}
               />
             </Col>            
           </Row>
@@ -214,6 +219,7 @@ class App extends React.Component {
 ReactDOM.render(<App />, document.getElementById('app'));
 
 // Side Bar
+// var sidebarTestData = [{location: 'Paris'}, {location: 'San Francisco'}, {location: 'Alaska'}];
 // <Nav pullRight>
 //   <button type="button" className="btn btn-primary" onClick = {() => { this.setState({sideBarOn: !this.state.sideBarOn}); }}>
 //     <i className="glyphicon glyphicon-align-left"></i>
