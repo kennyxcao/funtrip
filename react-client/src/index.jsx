@@ -30,6 +30,8 @@ class App extends React.Component {
     this.handleLogin = this.handleLogin.bind(this);
     this.handleLogout = this.handleLogout.bind(this);    
     this.handleObjAdd = this.handleObjAdd.bind(this);
+    this.handleObjItemChange = this.handleObjItemChange.bind(this);
+    this.handleObjItemDelete = this.handleObjItemDelete.bind(this);
     this.handleReservationAdd = this.handleReservationAdd.bind(this);
     this.handlePrepAdd = this.handlePrepAdd.bind(this);
     this.handlePrepItemChange = this.handlePrepItemChange.bind(this);
@@ -108,6 +110,14 @@ class App extends React.Component {
     console.log('handleObjAdd', item);
   }
 
+  handleObjItemChange (objId) {
+    console.log(objId);
+  }
+
+  handleObjItemDelete (objId) {
+    console.log(objId);
+  }
+
   handleReservationAdd({name, category, referenceNumber, date}) {
     console.log(name, category, referenceNumber, date);
   }
@@ -171,8 +181,11 @@ class App extends React.Component {
             </Col>
             <Col sm={6} md={5}>
               <ObjList 
-                objectives={this.state.lastTrip.objectives} 
+                objectives={this.state.lastTrip.objectives}
+                destinations={this.state.lastTrip.destinations}
                 handleObjAdd={this.handleObjAdd}
+                handleObjItemChange={this.handleObjItemChange}
+                handleObjItemDelete={this.handleObjItemDelete}
               />
             </Col>            
           </Row>

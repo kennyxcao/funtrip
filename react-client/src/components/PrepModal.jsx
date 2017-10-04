@@ -63,7 +63,7 @@ class PrepModal extends React.Component {
 
         <Modal show={this.state.showModal} onHide={this.close}>
           <Modal.Header closeButton>
-            <Modal.Title>Add a New preparation</Modal.Title>
+            <Modal.Title>Add a New Preparation Item</Modal.Title>
           </Modal.Header>
           <Modal.Body>
             <form>

@@ -1,28 +1,36 @@
+import {Checkbox, Button, Glyphicon} from 'react-bootstrap';
 import React from 'react';
 
 class ObjItem extends React.Component {
-  constructor(props) {
+  constructor (props) {
     super(props);
     this.state = {
-     
+      hover: false
     };
-    // this.handleDelete = this.handleDelete.bind(this);
+    this.mouseEnter = this.mouseEnter.bind(this);
+    this.mouseLeave = this.mouseLeave.bind(this);
   }
-  handleDelete(props) {
-    console.log('hi', props);
+
+  mouseEnter () {
+    this.setState({hover: true});
   }
-  handleStatus(props) {
-    console.log('hi', props);
+
+  mouseLeave () {
+    this.setState({hover: false});
   }
+
   render() {
     return (
-      <div>
-        <input onClick={this.handleStatus.bind(this, this.props.item)}type="checkbox"/>{this.props.item.description}  
-        <button onClick={this.handleDelete.bind(this, this.props.item)} type="button" className="btn btn-default btn-xs">-</button>
+      <div className='objective-item' onMouseEnter={this.mouseEnter} onMouseLeave={this.mouseLeave}>
+        <Checkbox checked={this.props.objective.checked} onChange={() => this.props.handleObjItemChange(this.props.objective._id)}>
+          {this.props.objective.name}
+          {this.state.hover ? 
+            <Button bsStyle="default" bsSize="xsmall" onClick={() => this.props.handleObjItemDelete(this.props.objective._id)}><Glyphicon glyph="remove"/></Button>
+            : null}
+        </Checkbox>
       </div>
     );
   }
 }
-
 
 export default ObjItem;
