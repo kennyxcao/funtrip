@@ -1,4 +1,4 @@
-import {Modal, Button, FormGroup, ControlLabel, FormControl, HelpBlock} from 'react-bootstrap';
+import {Modal, Button, FormGroup, ControlLabel, FormControl, HelpBlock, Glyphicon} from 'react-bootstrap';
 import DatePicker from 'react-bootstrap-date-picker';
 const React = require('react');
 
@@ -10,8 +10,7 @@ class ReservationModal extends React.Component {
       name: '',
       category: '',
       referenceNumber: '',
-      date: '',
-      formattedDate: ''
+      date: ''
     };
     this.close = this.close.bind(this);
     this.open = this.open.bind(this);
@@ -57,26 +56,18 @@ class ReservationModal extends React.Component {
   handleDateChange (value, formattedValue) {
     this.setState({
       date: value, // ISO String, ex: "2016-11-19T12:00:00.000Z"
-      formattedDate: formattedValue // Formatted String, ex: "11/19/2016"
     });
   }
 
   handleClickSubmit () {
-    //console.log(this.state);
     this.props.handleAddReservation(this.state);
     this.close();
   }
 
   render() {
     return (
-      <div className='reservation-modal'>
-        <Button
-          bsStyle='primary'
-          bsSize='small'
-          onClick={this.open}
-        >
-          Add a Reservation
-        </Button>
+      <div className='reservation-modal inline'>
+        <h3>Reservations <Button bsStyle="primary" bsSize="small" onClick={this.open}><Glyphicon glyph="plus" /></Button></h3>
 
         <Modal show={this.state.showModal} onHide={this.close}>
           <Modal.Header closeButton>

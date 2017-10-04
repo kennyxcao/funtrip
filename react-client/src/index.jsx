@@ -15,33 +15,28 @@ import SideBar from './components/SideBar.jsx';
 
 var sidebarTestData = [{location: 'Paris'}, {location: 'San Francisco'}, {location: 'Alaska'}];
 
-
 class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       trips: [],
       lastTrip: {destinations: [], reservations: [], preparationItems: [], objectives: []},
-      /////////////////
       loggedIn: false,
       user: '',
-      sideBarOn: true
+      sideBarOn: false
     };
 
     this.handleLogin = this.handleLogin.bind(this);
     this.handleLogout = this.handleLogout.bind(this);    
     this.handleObjAdd = this.handleObjAdd.bind(this);
-<<<<<<< HEAD
-    this.handleAddReservation = this.handleAddReservation.bind(this);      
-=======
-    this.handleAddReservation = this.handleAddReservation.bind(this);  
->>>>>>> Implement Reservation Modal popup form
+    this.handleAddReservation = this.handleAddReservation.bind(this);
   }
 
   componentDidMount() {
     console.log('App Mounted');
     this.handleLogin();
   }
+
   updateStateForTrips() {
     //upon signing in, retrieves data for the user and rerenders trips and lastTrip
     $.ajax({
@@ -142,16 +137,16 @@ class App extends React.Component {
         </Grid>
 
         <button type="button" className="btn btn-primary" onClick = {() => { this.setState({sideBarOn: !this.state.sideBarOn}); }}>
-          <i class="glyphicon glyphicon-align-left"></i>
+          <i className="glyphicon glyphicon-align-left"></i>
         Toggle Sidebar
         </button>
-        {this.state.sideBarOn ? <SideBar trips = {this.state.trips} userName = {'user1'} /> : null}
+        {this.state.sideBarOn ? <SideBar trips={this.state.trips} userName={this.state.user}/> : null}
         
         <div className="main col-md-12">
           <CurrentInfo/>
-          <ReservationList items = {this.state.lastTrip.reservations}/>
-          <PrepList preparationItems = {this.state.lastTrip.preparationItems}/>
-          <ObjList handleObjAdd={this.handleObjAdd}/>
+          <ReservationList reservations={this.state.lastTrip.reservations} handleAddReservation={this.handleAddReservation}/>
+          <PrepList preparationItems={this.state.lastTrip.preparationItems}/>
+          <ObjList objectives={this.state.lastTrip.objectives} handleObjAdd={this.handleObjAdd}/>
           <MapView />
         </div>
 

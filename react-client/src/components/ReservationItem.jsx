@@ -1,12 +1,13 @@
-var React = require('react');
+import Moment from 'react-moment';
+const React = require('react');
 
 const ReservationItem = (props) => (
-<div className="res-row">
-  <div className="res-data">{props.item.date}</div>
-  <div className="res-data">{props.item.category}</div>
-  <div className="res-data">{props.item.name}</div>
-  <div className="res-data">{props.item.referenceNumber}</div>
-</div>
+  <tr>
+    <td><Moment format='YYYY/MM/DD' date={props.reservation.date}/></td>
+    <td>{props.reservation.category}</td>
+    <td>{props.reservation.name}</td>
+    <td>{props.reservation.referenceNumber}</td>
+  </tr>
 );
 
 export default ReservationItem;
