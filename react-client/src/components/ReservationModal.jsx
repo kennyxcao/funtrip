@@ -60,7 +60,7 @@ class ReservationModal extends React.Component {
   }
 
   handleClickSubmit () {
-    this.props.handleAddReservation(this.state);
+    this.props.handleReservationAdd(this.state);
     this.close();
   }
 
