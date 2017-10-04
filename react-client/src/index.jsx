@@ -1,6 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import {Grid, Row, Col, PageHeader, Navbar} from 'react-bootstrap';
+import {Grid, Row, Col, PageHeader, Navbar, Nav, NavDropdown, NavItem, MenuItem} from 'react-bootstrap';
 import $ from 'jquery';
 import _ from 'lodash';
 import Login from './components/Login.jsx';
@@ -112,43 +112,56 @@ class App extends React.Component {
     console.log(this.state);
     return (
      <div className='root'>
-
         <Navbar fluid>
           <Navbar.Header>
             <Navbar.Brand>
               <a id='app-title' href="#">FunTrip</a>
             </Navbar.Brand>
-            <ul className="nav navbar-nav">
-              <li className="active"><a href="#">Overview</a></li>
-              <li><a href="#">City 1</a></li>
-              <li><a href="#">City 2</a></li>
-              <li><a href="#">City 3</a></li>
-            </ul>          
+            <Navbar.Toggle />
           </Navbar.Header>
+          <Navbar.Collapse>
+            <Nav>
+              <NavDropdown eventKey={1} title="My Trips" id="basic-nav-dropdown">
+                <MenuItem eventKey={1.1}>Trip 1</MenuItem>
+                <MenuItem eventKey={1.2}>Trip 2</MenuItem>
+                <MenuItem eventKey={1.3}>Trip 3</MenuItem>
+                <MenuItem eventKey={1.4}>Trip 4</MenuItem>
+              </NavDropdown>
+              <NavItem eventKey={1} href="#">Overview</NavItem>
+              <NavItem eventKey={2} href="#">City 1</NavItem>
+              <NavItem eventKey={2} href="#">City 2</NavItem>
+              <NavItem eventKey={2} href="#">City 2</NavItem>            
+            </Nav>
+            <Nav pullRight>
+              <Login loggedIn={this.state.loggedIn} handleLogin={this.handleLogin}/>
+              <Logout loggedIn={this.state.loggedIn} user={this.state.user} handleLogout={this.handleLogout} />
+            </Nav>
+          </Navbar.Collapse>
         </Navbar>
 
         <Grid fluid>
           <Row>
-            <Col xs={12} md={12}>
-              <Login loggedIn={this.state.loggedIn} handleLogin={this.handleLogin}/>
-              <Logout loggedIn={this.state.loggedIn} user={this.state.user} handleLogout={this.handleLogout} />
+            <Col xs={6} md={6}>
+              <PrepList preparationItems={this.state.lastTrip.preparationItems}/>
             </Col>
-          </Row>      
+            <Col xs={6} md={6}>
+              <ObjList objectives={this.state.lastTrip.objectives} handleObjAdd={this.handleObjAdd}/>
+            </Col>            
+          </Row>    
         </Grid>
 
+        <div className="main col-md-12">
+          <CurrentInfo/>
+          <ReservationList reservations={this.state.lastTrip.reservations} handleAddReservation={this.handleAddReservation}/>
+          <MapView />
+        </div>
+        
         <button type="button" className="btn btn-primary" onClick = {() => { this.setState({sideBarOn: !this.state.sideBarOn}); }}>
           <i className="glyphicon glyphicon-align-left"></i>
         Toggle Sidebar
         </button>
         {this.state.sideBarOn ? <SideBar trips={this.state.trips} userName={this.state.user}/> : null}
         
-        <div className="main col-md-12">
-          <CurrentInfo/>
-          <ReservationList reservations={this.state.lastTrip.reservations} handleAddReservation={this.handleAddReservation}/>
-          <PrepList preparationItems={this.state.lastTrip.preparationItems}/>
-          <ObjList objectives={this.state.lastTrip.objectives} handleObjAdd={this.handleObjAdd}/>
-          <MapView />
-        </div>
 
       </div>
     );

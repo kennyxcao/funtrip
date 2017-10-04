@@ -1,3 +1,5 @@
+import {Navbar, Button, FormGroup, ControlLabel, FormControl, HelpBlock, Glyphicon} from 'react-bootstrap';
+
 import React from 'react';
 
 class Login extends React.Component {
@@ -35,18 +37,27 @@ class Login extends React.Component {
 
   render() {
     return (
-      <div>
+      <div className='login'>
         {this.props.loggedIn ? null :
-        <div className='login'>
-          <h4>Login Page</h4>
-          <form>
-            <label htmlFor="username">Username:</label>
-            <input id="username" type="text" value={this.state.username} onChange={this.handleUsernameChange} />
-            <label htmlFor="password">Password:</label>
-            <input id="password" type="password" value={this.state.pw} onChange={this.handlePasswordChange} />
-            <button type="button" className="btn btn-primary" onClick={this.getLoginData}>Login</button>
-          </form>
-        </div>
+        <Navbar.Form pullLeft>
+          <FormGroup controlId='username'>
+            <ControlLabel>Username</ControlLabel>
+            <FormControl
+              type='text'
+              value={this.state.username}
+              onChange={this.handleUsernameChange}
+            />
+          </FormGroup>
+          <FormGroup controlId='password'>
+            <ControlLabel>Password</ControlLabel>
+            <FormControl
+              type='password'
+              value={this.state.username}
+              onChange={this.handlePasswordChange}
+            />
+          </FormGroup>
+          <Button bsStyle="primary" bsSize="small" onClick={this.getLoginData}>Login</Button>
+        </Navbar.Form>
         }
       </div>
     );
