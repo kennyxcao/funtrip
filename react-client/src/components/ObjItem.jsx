@@ -6,13 +6,19 @@ class ObjItem extends React.Component {
     this.state = {
      
     };
-    
+    // this.handleDelete = this.handleDelete.bind(this);
   }
-
+  handleDelete(props) {
+    console.log('hi', props);
+  }
+  handleStatus(props) {
+    console.log('hi', props);
+  }
   render() {
     return (
       <div>
-        <input type="checkbox"/> {this.props.item.description}
+        <input onClick={this.handleStatus.bind(this, this.props.item)}type="checkbox"/>{this.props.item.description}  
+        <button onClick={this.handleDelete.bind(this, this.props.item)} type="button" className="btn btn-default btn-xs">-</button>
       </div>
     );
   }
