@@ -95,6 +95,7 @@ class ObjModal extends React.Component {
                   componentClass='select' 
                   placeholder='select' 
                   onChange={this.handleCategoryChange}
+                  value={this.state.category}
                 >
                   <option value='' disabled hidden>Choose here</option>
                   <option value='sightseeing'>Sightseeing</option>
@@ -109,6 +110,7 @@ class ObjModal extends React.Component {
                   componentClass='select' 
                   placeholder='select' 
                   onChange={this.handleDestinationChange}
+                  value={this.state.destination}
                 >
                   <option value='' disabled hidden>Choose a trip destination</option>
                   {this.props.destinations.map((destination, index) => <option value={destination._id} key={index}>{destination.name}</option>)}

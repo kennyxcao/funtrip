@@ -88,6 +88,7 @@ class PrepModal extends React.Component {
                   componentClass='select' 
                   placeholder='select' 
                   onChange={this.handleUserChange}
+                  value={this.state.responsibleUser}
                 >
                   <option value='' disabled hidden>Choose a group member</option>
                   {this.props.users.map((user, index) => <option value={user} key={index}>{user}</option>)}
