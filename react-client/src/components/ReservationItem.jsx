@@ -28,7 +28,7 @@ class ReservationItem extends React.Component {
           <td>{this.props.reservation.name}</td>
           <td>{this.props.reservation.referenceNumber}</td>
           <td>{this.state.hover ? 
-            <Button bsStyle="default" bsSize="xsmall" onClick={() => this.props.handleObjItemDelete(this.props.reservation._id)}><Glyphicon glyph="remove"/></Button>
+            <Button bsStyle="default" bsSize="xsmall" onClick={() => this.props.handleReservationDelete(this.props.reservation._id)}><Glyphicon glyph="remove"/></Button>
             : null}
           </td>
         </tr>
