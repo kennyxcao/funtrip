@@ -1,4 +1,4 @@
-import {Nav, NavDropdown, NavItem, MenuItem} from 'react-bootstrap';
+import {Nav, NavDropdown, NavItem} from 'react-bootstrap';
 import DestinationItem from './DestinationItem.jsx';
 import DestinationModal from './DestinationModal.jsx';
 

@@ -1,4 +1,4 @@
-import {Checkbox, Button, Glyphicon, MenuItem} from 'react-bootstrap';
+import {Button, Glyphicon, MenuItem} from 'react-bootstrap';
 import React from 'react';
 
 class TripItem extends React.Component {
