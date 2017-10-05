@@ -23,7 +23,6 @@ class App extends React.Component {
       lastTrip: {destinations: [], reservations: [], preparationItems: [], objectives: [], trip: {}},
       loggedIn: false,
       sideBarOn: false
-
     };
 
     this.handleLogin = this.handleLogin.bind(this);
@@ -39,6 +38,8 @@ class App extends React.Component {
     this.handleTripAdd = this.handleTripAdd.bind(this);
     this.handleTripDelete = this.handleTripDelete.bind(this); 
     this.handleTripJoin = this.handleTripJoin.bind(this);
+    this.handleDestinationAdd = this.handleDestinationAdd.bind(this);
+    this.handleDestinationDelete = this.handleDestinationDelete.bind(this);
   }
 
   componentDidMount() {
@@ -248,6 +249,15 @@ class App extends React.Component {
     console.log(tripId);
   }
 
+  handleDestinationAdd ({name, startDate, endDate}) {
+    // Need to get fetch lat and lng value using google map API
+    console.log(name, startDate, endDate);
+  }
+
+  handleDestinationDelete (destinationId) {
+    console.log(destinationId);
+  }  
+
   render () {
     return (
      <div className='react-root'>
@@ -261,7 +271,9 @@ class App extends React.Component {
           <Navbar.Collapse>
             <DesinationList 
               loggedIn={this.state.loggedIn} 
-              destinations={this.state.lastTrip.destinations} 
+              destinations={this.state.lastTrip.destinations}
+              handleDestinationAdd={this.handleDestinationAdd}
+              handleDestinationDelete={this.handleDestinationDelete}
             />
             <TripList 
               loggedIn={this.state.loggedIn} 
