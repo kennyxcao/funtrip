@@ -105,7 +105,6 @@ a[aria-expanded="true"]::before {
 
 @import "https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700";
 
-
 body {
     font-family: 'Poppins', sans-serif;
     background: #fafafa;
@@ -126,10 +125,6 @@ a, a:hover, a:focus {
 }
 
 #sidebar {
-<<<<<<< c060bb38bedc9b3eba87235b59532b4f4c36c952
-=======
-    /* don't forget to add all the previously mentioned styles here too */
->>>>>>> feature-added sidebar
     background: #7386D5;
     color: #fff;
     transition: all 0.3s;
@@ -169,19 +164,10 @@ ul ul a {
     padding-left: 30px !important;
     background: #6d7fcc;
 }
-<<<<<<< c060bb38bedc9b3eba87235b59532b4f4c36c952
 */
-
 
 .userLogo {
   display: block;
-=======
-
-
-
-.userLogo {
-   display: block;
->>>>>>> feature-added sidebar
   max-width:230px;
   max-height:95px;
   width: auto;
@@ -191,7 +177,6 @@ ul ul a {
 
 .addNewClass {
   color: black;
-<<<<<<< c060bb38bedc9b3eba87235b59532b4f4c36c952
   background: red;
 }
 
@@ -210,8 +195,3 @@ div.prep-item button {
 div.objective-item  button {
   margin-left: 5px;
 }
-=======
-      background: red;
-
-}
->>>>>>> feature-added sidebar

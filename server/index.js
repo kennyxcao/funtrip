@@ -92,15 +92,15 @@ app.post('/deletePrep', (req, res) => {
 });
 
 app.post('/addPrepItem', (req, res) => {
-  DB.createPreparationItem(req.body.name, req.body.dueDate, 
-    req.body.responsibleUser, req.body.tripId).then(function(data) {
-    res.status(200);
-    res.send('added new PrepItem');
-  }).catch(function(error) {
-    console.log('error on adding prep item', error);
-    res.status(200);
-    res.send('error on adding prep item');
-  }); 
+  DB.createPreparationItem(req.body.name, req.body.dueDate, req.body.responsibleUser, req.body.tripId)
+    .then(function(data) {
+      res.status(200);
+      res.send('added new PrepItem');
+    }).catch(function(error) {
+      console.log('error on adding prep item', error);
+      res.status(200);
+      res.send('error on adding prep item');
+    }); 
 });
 
 app.post('/checkedPrepItem', (req, res) => {
@@ -122,9 +122,9 @@ app.post('/obj', (req, res) => {
   console.log(req.body);
   var promise = DB.createObjective(name, category, tripId, destinationId);
   promise.then(function(result) {
-     res.send('obj updated');
+    res.send('obj updated');
   }).error(function(error) {
-     console.log(error);
+    console.log(error);
   }); 
 });
 
@@ -132,12 +132,13 @@ app.post('/obj/:Objid', (req, res) => {
   var id = req.body.id;
   var checked = req.body.checked;
   var promise = DB.updateObjItem(id, checked);
-  promise.then(function(result){
-     res.send('updated Obj checked state');
-  }).error(function(error){
-     console.log(error);
+  promise.then(function(result) {
+    res.send('updated Obj checked state');
+  }).error(function(error) {
+    console.log(error);
   }); 
 });
+
 app.delete('/obj/:Objid', (req, res) => {
   var id = req.body.id;
   var promise = DB.deleteObjItem(id);

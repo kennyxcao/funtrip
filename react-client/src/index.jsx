@@ -8,15 +8,11 @@ import Logout from './components/Logout.jsx';
 import PrepList from './components/PrepList.jsx';
 import ObjList from './components/ObjList.jsx';
 import ReservationList from './components/ReservationList.jsx';
-import ReservationItem from './components/ReservationItem.jsx';
-
 import TripList from './components/TripList.jsx';
 import DesinationList from './components/DestinationList.jsx';
 import CurrentInfo from './components/CurrentInfo.jsx';
 import MapView from './components/MapView.jsx';
 import SideBar from './components/SideBar.jsx';
-
-var sidebarTestData = [{location:'Paris'}, {location: 'San Francisco'}, {location: 'Alaska'}];
 
 class App extends React.Component {
   constructor(props) {
@@ -119,7 +115,7 @@ class App extends React.Component {
       category: category,
       trip: trip,
       destination: destination,
-    }
+    };
     $.ajax({
       method: 'POST',
       url: '/obj',
@@ -163,7 +159,7 @@ class App extends React.Component {
     var url = '/obj/' + objId;
     var data = {id: objId};
     var self = this;
-     $.ajax({
+    $.ajax({
       method: 'DELETE',
       url: url,
       data: JSON.stringify(data),
