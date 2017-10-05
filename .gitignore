@@ -64,3 +64,6 @@ typings/
 
 # MacOS System File
 .DS_Store
+
+# npm package-lock.json
+package-lock.json
