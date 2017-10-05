@@ -197,7 +197,6 @@ var getObjectivesForTrip = function(tripId) {
 
 var createPreparationItem = function(name, dueDate, responsibleUser, tripId) {
   var newPreparationItem = new PreparationItem({name: name, dueDate: dueDate, responsibleUser: responsibleUser, trip: tripId});
-  console.log('added an item in db')
   return newPreparationItem.save();
 };
 
@@ -355,3 +354,4 @@ module.exports.getUserTrips = getUserTrips;
 module.exports.getAllDataForTrip = getAllDataForTrip;
 module.exports.deletePreparationItem = deletePreparationItem;
 module.exports.createPreparationItem = createPreparationItem;
+module.exports.updatePreparationItem = updatePreparationItem;

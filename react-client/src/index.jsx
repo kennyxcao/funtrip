@@ -146,10 +146,22 @@ class App extends React.Component {
       }
     }); 
   }
-  
 
-  handlePrepItemChange (prepId, newChecked) {
-    console.log(prepId, newChecked);
+  handlePrepItemChange (prepId, checked) {
+    $.ajax({
+      method: 'POST',
+      url: '/checkedPrepItem', 
+      data: JSON.stringify({_id: prepId, checked: checked}),
+      contentType: 'application/json',
+      success: (results) => {
+        console.log('successfully checked prep item');
+        this.updateStateForTrips();
+      },
+      error: (error) => {
+        console.error('Trips Error');
+        console.error(error);        
+      }
+    }); 
   }
 
   handlePrepItemDelete (prepId) {

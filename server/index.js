@@ -103,6 +103,17 @@ app.post('/addPrepItem', (req, res) => {
   }); 
 });
 
+app.post('/checkedPrepItem', (req, res) => {
+  DB.updatePreparationItem(req.body._id, req.body.checked).then(function(data) {
+    res.status(200);
+    res.send('checked prep id');
+  }).catch(function(error) {
+    console.log('error on checked prep item', error);
+    res.status(200);
+    res.send('error on checked prep item');
+  });
+});
+
 let port = process.env.PORT || 3000;
 
 app.listen(port, () => {
