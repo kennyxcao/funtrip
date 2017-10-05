@@ -92,9 +92,8 @@ app.post('/deletePrep', (req, res) => {
 });
 
 app.post('/addPrepItem', (req, res) => {
-  //{name: name, dueDate: dueDate, responsibleUser:responsibleUser, tripId:responsibleUser}
   DB.createPreparationItem(req.body.name, req.body.dueDate, 
-    '59d5c6cb18c753740525761f', '59d5c6cb18c753740525761f').then(function(data) {
+    req.body.responsibleUser, req.body.tripId).then(function(data) {
     res.status(200);
     res.send('added new PrepItem');
   }).catch(function(error) {

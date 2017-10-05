@@ -131,11 +131,10 @@ class App extends React.Component {
   }
 
   handlePrepAdd ({name, dueDate, responsibleUser}) {
-    console.log(name, responsibleUser, dueDate);
     $.ajax({
       method: 'POST',
       url: '/addPrepItem', 
-      data: JSON.stringify({name: name, dueDate: dueDate, responsibleUser: this.state.trips._id, tripId: this.state.trips._id}),
+      data: JSON.stringify({name: name, dueDate: dueDate, responsibleUser: this.state.trips[0]._id, tripId: this.state.trips[0]._id}),
       contentType: 'application/json',
       success: (results) => {
         console.log('successfully Added prep item');

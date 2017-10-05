@@ -161,6 +161,7 @@ var getTrip = function(tripId) {
 var getUserTrips = function(username) {
   return User.findOne({username: username}).populate('trips')
     .then(function(data) {
+      console.log('got stuff from all user trip')
       return Promise.resolve(data.trips);
     })
     .catch(function(error) {
