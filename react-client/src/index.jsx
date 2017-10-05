@@ -109,8 +109,8 @@ class App extends React.Component {
     console.log(name, category, date, destination);
   }
 
-  handleObjItemChange (objId) {
-    console.log(objId);
+  handleObjItemChange (objId, newChecked) {
+    console.log(objId, newChecked);
   }
 
   handleObjItemDelete (objId) {
@@ -129,8 +129,8 @@ class App extends React.Component {
     console.log(name, responsibleUser, dueDate);
   }
 
-  handlePrepItemChange (prepId) {
-    console.log(prepId);
+  handlePrepItemChange (prepId, newChecked) {
+    console.log(prepId, newChecked);
   }
 
   handlePrepItemDelete (prepId) {

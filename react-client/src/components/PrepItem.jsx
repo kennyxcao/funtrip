@@ -22,7 +22,7 @@ class PrepItem extends React.Component {
   render() {
     return (
       <div className='prep-item' onMouseEnter={this.mouseEnter} onMouseLeave={this.mouseLeave}>
-        <Checkbox checked={this.props.preparation.checked} onChange={() => this.props.handlePrepItemChange(this.props.preparation._id)}>
+        <Checkbox checked={this.props.preparation.checked} onChange={() => this.props.handlePrepItemChange(this.props.preparation._id, !this.props.preparation.checked)}>
           {this.props.preparation.name}
           {this.state.hover ? 
             <Button bsStyle="default" bsSize="xsmall" onClick={() => this.props.handlePrepItemDelete(this.props.preparation._id)}><Glyphicon glyph="remove"/></Button>

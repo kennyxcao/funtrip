@@ -22,7 +22,7 @@ class ObjItem extends React.Component {
   render() {
     return (
       <div className='objective-item' onMouseEnter={this.mouseEnter} onMouseLeave={this.mouseLeave}>
-        <Checkbox checked={this.props.objective.checked} onChange={() => this.props.handleObjItemChange(this.props.objective._id)}>
+        <Checkbox checked={this.props.objective.checked} onChange={() => this.props.handleObjItemChange(this.props.objective._id, !this.props.objective.checked)}>
           {this.props.objective.name}
           {this.state.hover ? 
             <Button bsStyle="default" bsSize="xsmall" onClick={() => this.props.handleObjItemDelete(this.props.objective._id)}><Glyphicon glyph="remove"/></Button>
