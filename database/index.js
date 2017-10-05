@@ -186,9 +186,19 @@ var getReservationsForTrip = function(tripId) {
   return Reservation.find({trip: tripId});
 };
 
-var createObjective = function(name, category, lat, lng, date, trip, destination) {
+var createObjective = function(name, category, tripId, destinationId) {
   //link with trip
   //link with destination
+  var newObjItem = new Objective({name: name, category: category, trip: tripId, destination: destinationId});
+  return newObjItem.save();
+};
+
+var deleteObjItem = function(id) {
+  return Objective.remove({_id: id});
+};
+
+var updateObjItem = function(id, checked) {
+  return Objective.findOneAndUpdate({_id: id}, { $set: { checked: checked }});
 };
 
 var getObjectivesForTrip = function(tripId) {
@@ -355,3 +365,6 @@ module.exports.getAllDataForTrip = getAllDataForTrip;
 module.exports.deletePreparationItem = deletePreparationItem;
 module.exports.createPreparationItem = createPreparationItem;
 module.exports.updatePreparationItem = updatePreparationItem;
+module.exports.createObjective = createObjective;
+module.exports.deleteObjItem = deleteObjItem;
+module.exports.updateObjItem = updateObjItem;

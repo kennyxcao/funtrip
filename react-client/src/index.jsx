@@ -111,15 +111,71 @@ class App extends React.Component {
   }  
 
   handleObjAdd({name, category, date, destination}) {
-    console.log(name, category, date, destination);
+    //console.log(name, category, date, destination);
+    var trip = this.state.lastTrip.trip._id;
+    var self = this;
+    var obj = {
+      name: name,
+      category: category,
+      trip: trip,
+      destination: destination,
+    }
+    $.ajax({
+      method: 'POST',
+      url: '/obj',
+      data: JSON.stringify(obj),
+      contentType: 'application/json',
+      success: (results) => {
+        self.updateStateForTrips();
+      },
+      error: (error) => {
+        console.error('Objective Error');
+        console.error(error);
+      }
+    });  
   }
 
   handleObjItemChange (objId, newChecked) {
-    console.log(objId, newChecked);
+    //console.log(objId, newChecked);
+    var self = this;
+    var url = '/obj/' + objId;
+    var obj = {
+      id: objId,
+      checked: newChecked
+    };
+    $.ajax({
+      method: 'POST',
+      url: url,
+      data: JSON.stringify(obj),
+      contentType: 'application/json',
+      success: (results) => {
+        self.updateStateForTrips();
+      },
+      error: (error) => {
+        console.error('Objective Error');
+        console.error(error);     
+      }
+    });
   }
 
   handleObjItemDelete (objId) {
-    console.log(objId);
+    //console.log(objId);
+    var url = '/obj/' + objId;
+    var data = {id: objId};
+    var self = this;
+     $.ajax({
+      method: 'DELETE',
+      url: url,
+      data: JSON.stringify(data),
+      contentType: 'application/json',
+      success: (results) => {
+        self.updateStateForTrips();
+      },
+      error: (error) => {
+        console.error('Not able to delete Obj');
+        console.error(error);
+      }
+    });
   }
 
   handleReservationAdd({name, category, referenceNumber, date, destination}) {
