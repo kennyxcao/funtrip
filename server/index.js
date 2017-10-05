@@ -71,6 +71,7 @@ app.post('/trips', (req, res) => {
     res.send(dataToSend);
   }).catch(function(error) {
     console.log('error on dataToSend', error);
+    res.status(200);
     res.send(dataToSend);
   }); 
 });
@@ -79,7 +80,29 @@ app.get('/user', (req, res, next) => {
   console.log('/user get received');
 });
 
+app.post('/deletePrep', (req, res) => {
+  DB.deletePreparationItem(req.body._id).then(function(data) {
+    res.status(200);
+    res.send('deleted prep id');
+  }).catch(function(error) {
+    console.log('error on delete prep item', error);
+    res.status(200);
+    res.send('error on delete prep item');
+  }); 
+});
 
+app.post('/addPrepItem', (req, res) => {
+  //{name: name, dueDate: dueDate, responsibleUser:responsibleUser, tripId:responsibleUser}
+  DB.createPreparationItem(req.body.name, req.body.dueDate, 
+    '59d5c6cb18c753740525761f', '59d5c6cb18c753740525761f').then(function(data) {
+    res.status(200);
+    res.send('added new PrepItem');
+  }).catch(function(error) {
+    console.log('error on adding prep item', error);
+    res.status(200);
+    res.send('error on adding prep item');
+  }); 
+});
 
 let port = process.env.PORT || 3000;
 

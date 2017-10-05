@@ -132,14 +132,42 @@ class App extends React.Component {
 
   handlePrepAdd ({name, dueDate, responsibleUser}) {
     console.log(name, responsibleUser, dueDate);
+    $.ajax({
+      method: 'POST',
+      url: '/addPrepItem', 
+      data: JSON.stringify({name: name, dueDate: dueDate, responsibleUser: this.state.trips._id, tripId: this.state.trips._id}),
+      contentType: 'application/json',
+      success: (results) => {
+        console.log('successfully Added prep item');
+        this.updateStateForTrips();
+      },
+      error: (error) => {
+        console.error('Add trip error');
+        console.error(error);        
+      }
+    }); 
   }
+  
 
   handlePrepItemChange (prepId, newChecked) {
     console.log(prepId, newChecked);
   }
 
   handlePrepItemDelete (prepId) {
-    console.log(prepId);
+    $.ajax({
+      method: 'POST',
+      url: '/deletePrep', 
+      data: JSON.stringify({_id: prepId}),
+      contentType: 'application/json',
+      success: (results) => {
+        console.log('successfully deleted prep item');
+        this.updateStateForTrips();
+      },
+      error: (error) => {
+        console.error('Trips Error');
+        console.error(error);        
+      }
+    }); 
   }
 
 
