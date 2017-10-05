@@ -1,5 +1,4 @@
 import React from 'react';
-
 //Line 27 add form functionality 
 class Sidebar extends React.Component {
   constructor(props) {
@@ -34,5 +33,6 @@ class Sidebar extends React.Component {
 const SidebarTrips = (props) => (
 	<li><a href="#">{props.trip.name}</a></li>
 );
+
 
 export default Sidebar;

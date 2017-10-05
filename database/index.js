@@ -283,14 +283,14 @@ var loadAllSampleData = function() {
 
 };
 
-// // TO DELETE ALL THE DATA AND LOAD SAMPLE DATA UNCOMMENT THIS:
-// db.dropDatabase()
-//   .then(function(data) {
-//     return loadAllSampleData();
-//   })
-//   .catch(function(error) {
-//     console.log('Drop collections error: ', error.message);
-//   });
+// TO DELETE ALL THE DATA AND LOAD SAMPLE DATA UNCOMMENT THIS:
+db.dropDatabase()
+  .then(function(data) {
+    return loadAllSampleData();
+  })
+  .catch(function(error) {
+    console.log('Drop collections error: ', error.message);
+  });
 
 //TO CHECK FORMAT FOR ALL GETTER FUNCTIONS UNCOMMENT THIS:
 // getUserTrips('kenny')

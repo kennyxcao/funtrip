@@ -8,11 +8,15 @@ import Logout from './components/Logout.jsx';
 import PrepList from './components/PrepList.jsx';
 import ObjList from './components/ObjList.jsx';
 import ReservationList from './components/ReservationList.jsx';
+import ReservationItem from './components/ReservationItem.jsx';
+
 import TripList from './components/TripList.jsx';
 import DesinationList from './components/DestinationList.jsx';
 import CurrentInfo from './components/CurrentInfo.jsx';
 import MapView from './components/MapView.jsx';
 import SideBar from './components/SideBar.jsx';
+
+var sidebarTestData = [{location:'Paris'}, {location: 'San Francisco'}, {location: 'Alaska'}];
 
 class App extends React.Component {
   constructor(props) {
@@ -23,6 +27,7 @@ class App extends React.Component {
       lastTrip: {destinations: [], reservations: [], preparationItems: [], objectives: [], trip: {}},
       loggedIn: false,
       sideBarOn: false
+
     };
 
     this.handleLogin = this.handleLogin.bind(this);
@@ -215,6 +220,7 @@ class App extends React.Component {
     );
   }
 }
+
 
 ReactDOM.render(<App />, document.getElementById('app'));
 

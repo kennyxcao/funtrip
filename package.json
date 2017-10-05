@@ -28,6 +28,7 @@
     "moment": "^2.18.1",
     "mongoose": "^4.9.6",
     "morgan": "^1.9.0",
+    "nodemon": "^1.12.1",
     "react": "^15.4.2",
     "react-bootstrap": "^0.31.3",
     "react-bootstrap-date-picker": "^5.1.0",
