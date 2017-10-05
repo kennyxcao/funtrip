@@ -14,6 +14,7 @@ import CurrentInfo from './components/CurrentInfo.jsx';
 import MapView from './components/MapView.jsx';
 import SideBar from './components/SideBar.jsx';
 
+
 class App extends React.Component {
   constructor(props) {
     super(props);
@@ -260,7 +261,7 @@ class App extends React.Component {
 
   render () {
     return (
-     <div className='react-root'>
+      <div className='react-root'>
         <Navbar fluid>
           <Navbar.Header>
             <Navbar.Brand>
@@ -334,7 +335,9 @@ class App extends React.Component {
           </Row>
           <Row>
             <Col sm={10} md={10} mdOffset={1}>
-              <MapView />
+              <MapView 
+                destinations={this.state.lastTrip.destinations}
+              />
             </Col>          
           </Row>             
         </Grid>
