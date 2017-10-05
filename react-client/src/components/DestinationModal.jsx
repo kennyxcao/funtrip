@@ -9,7 +9,7 @@ class DestinationModal extends React.Component {
       showModal: false,
       name: '',
       startDate: '',
-      endDate: '',
+      endDate: ''
     };
     this.close = this.close.bind(this);
     this.open = this.open.bind(this);
@@ -22,7 +22,9 @@ class DestinationModal extends React.Component {
 
   reset () {
     this.setState({
-      tripId: ''
+      name: '',
+      startDate: '',
+      endDate: ''
     });
   }
 

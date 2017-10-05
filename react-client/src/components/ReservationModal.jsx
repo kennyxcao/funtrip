@@ -28,9 +28,9 @@ class ReservationModal extends React.Component {
     this.setState({
       name: '',
       category: '',
+      destination: '',
       referenceNumber: '',
-      date: '',
-      formattedDate: ''      
+      date: ''
     });
   }
 
