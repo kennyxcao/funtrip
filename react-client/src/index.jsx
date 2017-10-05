@@ -36,6 +36,9 @@ class App extends React.Component {
     this.handlePrepItemChange = this.handlePrepItemChange.bind(this);
     this.handlePrepItemDelete = this.handlePrepItemDelete.bind(this);
     this.handleReservationDelete = this.handleReservationDelete.bind(this);
+    this.handleTripAdd = this.handleTripAdd.bind(this);
+    this.handleTripDelete = this.handleTripDelete.bind(this); 
+    this.handleTripJoin = this.handleTripJoin.bind(this);
   }
 
   componentDidMount() {
@@ -233,6 +236,17 @@ class App extends React.Component {
     }); 
   }
 
+  handleTripAdd ({name}) {
+    console.log(name);
+  }
+
+  handleTripDelete (tripId) {
+    console.log(tripId);
+  }
+
+  handleTripJoin (tripId) {
+    console.log(tripId);
+  }
 
   render () {
     return (
@@ -251,7 +265,10 @@ class App extends React.Component {
             />
             <TripList 
               loggedIn={this.state.loggedIn} 
-              trips={this.state.trips} 
+              trips={this.state.trips}
+              handleTripAdd={this.handleTripAdd}
+              handleTripDelete={this.handleTripDelete}
+              handleTripJoin={this.handleTripJoin}
             />
             <Nav pullRight>
               <Login 
@@ -290,7 +307,9 @@ class App extends React.Component {
           </Row>
           <Row>
             <Col sm={6} md={5} mdOffset={1}>
-              <CurrentInfo/>
+              <CurrentInfo
+                trip={this.state.lastTrip.trip}
+              />
             </Col>
             <Col sm={6} md={5}>
               <ReservationList 

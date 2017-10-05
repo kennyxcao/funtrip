@@ -9,6 +9,7 @@ class CurrentInfo extends React.Component {
     return (
       <div>
         <h3 className = 'componentTitle'> Current Information </h3>
+        <p> Current TripId: {this.props.trip._id} </p>
         <p> Weather Info : its hot </p>
         <p> Currency Info : it's expensive </p>
       </div>
