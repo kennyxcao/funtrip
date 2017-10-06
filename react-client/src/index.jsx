@@ -28,7 +28,8 @@ class App extends React.Component {
       lastTrip: {destinations: [], reservations: [], preparationItems: [], objectives: [], trip: {}},
       reservations: [],
       preparationItems: [],
-      objectives: []
+      objectives: [],
+      destId: ''
     };
 
     this.handleLogin = this.handleLogin.bind(this);
@@ -78,6 +79,11 @@ class App extends React.Component {
       this.setState({
         lastTrip: results.trip
       });
+      if (this.state.destId) {        
+        this.renderComponentsByDestination(this.state.destId);
+      } else {
+        this.renderComponentsByDestination();
+      }
     });    
   }
 
@@ -89,7 +95,7 @@ class App extends React.Component {
         trips: results.trips, 
       });
       if (!this.state.lastTrip.trip._id) {
-        this.fetchTrip(result.trips[result.trips.length - 1]._id);
+        this.fetchTrip(results.trips[results.trips.length - 1]._id);
       } else {
         this.fetchTrip(this.state.lastTrip.trip._id);        
       }
@@ -139,7 +145,11 @@ class App extends React.Component {
         user: '',
         userId: '',
         trips: [],
-        lastTrip: {destinations: [], reservations: [], preparationItems: [], objectives: [], trip: {}}
+        lastTrip: {destinations: [], reservations: [], preparationItems: [], objectives: [], trip: {}},
+        reservations: [],
+        preparationItems: [],
+        objectives: [],
+        destId: ''        
       });
     });
   }  
@@ -227,7 +237,10 @@ class App extends React.Component {
   }
 
   handleDestinationSelect (destId) {
-    console.log(destId);
+    this.setState({
+      destId: destId
+    });
+    this.renderComponentsByDestination(destId);
   }
 
   handleDestinationAdd ({name, startDate, endDate}) {
@@ -323,7 +336,7 @@ class App extends React.Component {
           <Row>
             <Col sm={6} md={5} mdOffset={1}>
               <PrepList 
-                preparationItems={this.state.lastTrip.preparationItems}
+                preparationItems={this.state.preparationItems}
                 users={this.state.lastTrip.trip.users ? this.state.lastTrip.trip.users : []} // users object not yet implemented in fetching trip state - only userId avaiable
                 handlePrepAdd={this.handlePrepAdd} 
                 handlePrepItemChange={this.handlePrepItemChange} 
@@ -332,7 +345,7 @@ class App extends React.Component {
             </Col>
             <Col sm={6} md={5}>
               <ObjList 
-                objectives={this.state.lastTrip.objectives}
+                objectives={this.state.objectives}
                 destinations={this.state.lastTrip.destinations}
                 handleObjAdd={this.handleObjAdd}
                 handleObjItemChange={this.handleObjItemChange}
@@ -348,7 +361,7 @@ class App extends React.Component {
             </Col>
             <Col sm={6} md={5}>
               <ReservationList 
-                reservations={this.state.lastTrip.reservations}
+                reservations={this.state.reservations}
                 destinations={this.state.lastTrip.destinations}
                 handleReservationAdd={this.handleReservationAdd}
                 handleReservationDelete={this.handleReservationDelete}
