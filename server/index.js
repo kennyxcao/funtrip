@@ -41,7 +41,7 @@ app.post('/login', Auth.verifySessionLogin, (req, res, next) => {
     .then(user => {
       if (user) {
         req.session.userId = user._id;
-        res.status(200).json({username: user.username});
+        res.status(200).json({username: user.username, userId: user._id});
       } else {
         res.status(200).json({username: null});
       }
@@ -60,9 +60,9 @@ app.post('/logout', (req, res, next) => {
   });
 });
 
-app.post('/trips', (req, res) => {
+app.get('/trips', (req, res) => {
   var dataToSend = {};
-  DB.getUserTrips(req.body.userName).then(function(data) {
+  DB.getUserTrips(req.query.username).then(function(data) {
     var lastTripId = data[0]._id;
     dataToSend.trips = data;
     return DB.getAllDataForTrip(lastTripId);
