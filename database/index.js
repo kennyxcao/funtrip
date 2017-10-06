@@ -142,12 +142,12 @@ let Reservation = mongoose.model('Reservation', reservationSchema);
 let Objective = mongoose.model('Objective', objectiveSchema);
 let PreparationItem = mongoose.model('PreparationItem', preparationItemSchema);
 
-var getUser = function(username) {
-  return User.findOne({username: username});
+var getUser = function({username, pw}) {
+  return User.findOne({username, pw});
 };
 
-var createUser = function(username, pw, firstName, lastName, email) {
-  // TODO - Implement create new user
+var createUser = function({username, pw, firstName, lastName, email}) {
+  return User.create({username, pw}); // implement firstName, lastName, email later
 };
 
 var addUserTrip = function(userId, tripId) {
@@ -375,6 +375,8 @@ var loadAllSampleData = function() {
 module.exports = {
   db,
   User,
+  createUser,
+  getUser,
   getUserTrips,
   addUserTrip,
   deleteUserTrip,
@@ -388,6 +390,7 @@ module.exports = {
   createReservation,
   deleteReservation,
   createTrip,
-  deleteTrip
+  deleteTrip,
+  addTripUser
 };
 

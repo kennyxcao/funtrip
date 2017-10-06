@@ -195,3 +195,7 @@ div.prep-item button {
 div.objective-item  button {
   margin-left: 5px;
 }
+
+div.login div > * {
+  margin-left: 10px;
+}
