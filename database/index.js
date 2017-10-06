@@ -22,6 +22,7 @@ db.once('open', function() {
 });
 
 
+// Database Schema definitions
 let userSchema = mongoose.Schema({
   username: {
     type: String,
@@ -135,6 +136,8 @@ let preparationItemSchema = mongoose.Schema({
   }
 });
 
+
+// Instantiate all collections
 let User = mongoose.model('User', userSchema);
 let Trip = mongoose.model('Trip', tripSchema);
 let Destination = mongoose.model('Destination', destinationSchema);
@@ -142,6 +145,8 @@ let Reservation = mongoose.model('Reservation', reservationSchema);
 let Objective = mongoose.model('Objective', objectiveSchema);
 let PreparationItem = mongoose.model('PreparationItem', preparationItemSchema);
 
+
+// Database helpers functions
 var getUser = function({username, pw}) {
   return User.findOne({username, pw});
 };

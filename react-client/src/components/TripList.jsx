@@ -10,7 +10,7 @@ const TripList = (props) => (
     {!props.loggedIn ? null :
       <Nav pullRight>
         <NavDropdown eventKey={1} title="My Trips" id="basic-nav-dropdown">
-          {props.trips.map((trip, index) => <TripItem trip={trip} key={index} handleTripDelete={props.handleTripDelete}/>)}
+          {props.trips.map((trip, index) => <TripItem trip={trip} key={index} handleTripDelete={props.handleTripDelete} handleTripSelect={props.handleTripSelect}/>)}
           <MenuItem divider />
           <TripAddModal handleTripAdd={props.handleTripAdd} />
           <TripJoinModal handleTripJoin={props.handleTripJoin} />

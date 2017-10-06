@@ -22,7 +22,7 @@ class TripItem extends React.Component {
   render() {
     return (
       <MenuItem eventKey={1 + +this.props.key * 0.1} className='trip-item' onMouseEnter={this.mouseEnter} onMouseLeave={this.mouseLeave}>
-        {this.props.trip.name}
+        <span onClick={() => this.props.handleTripSelect(this.props.trip._id)}>{this.props.trip.name}</span>
         {this.state.hover ? 
           <Button bsStyle="default" bsSize="xsmall" onClick={() => this.props.handleTripDelete(this.props.trip._id)}><Glyphicon glyph="remove"/></Button>
         : null}

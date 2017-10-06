@@ -43,6 +43,7 @@ class App extends React.Component {
     this.handleTripAdd = this.handleTripAdd.bind(this);
     this.handleTripDelete = this.handleTripDelete.bind(this); 
     this.handleTripJoin = this.handleTripJoin.bind(this);
+    this.handleTripSelect = this.handleTripSelect.bind(this);
     this.handleDestinationAdd = this.handleDestinationAdd.bind(this);
     this.handleDestinationDelete = this.handleDestinationDelete.bind(this);
   }
@@ -51,8 +52,14 @@ class App extends React.Component {
     this.handleLogin();
   }
 
-  fetchTrip () {
+  fetchTrip (tripId) {
     // fetch trip information based on user selection
+    ajaxGet('/trip', {tripId}, 'application/json', 'json', (results) => {
+      console.log('Fetched New Trip', results);
+      this.setState({
+        lastTrip: results.trip
+      });
+    });    
   }
 
   fetchUserTrips() {
@@ -192,6 +199,10 @@ class App extends React.Component {
     });    
   }
 
+  handleTripSelect (tripId) {
+    this.fetchTrip(tripId);
+  }
+
   handleDestinationAdd ({name, startDate, endDate}) {
     // Need to get fetch lat and lng value using google map API
     console.log(name, startDate, endDate);
@@ -244,6 +255,7 @@ class App extends React.Component {
               handleTripAdd={this.handleTripAdd}
               handleTripDelete={this.handleTripDelete}
               handleTripJoin={this.handleTripJoin}
+              handleTripSelect={this.handleTripSelect}
             />
             <Nav pullRight>
               <Login 
