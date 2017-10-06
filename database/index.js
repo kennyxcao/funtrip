@@ -161,7 +161,7 @@ var getTrip = function(tripId) {
 var getUserTrips = function(username) {
   return User.findOne({username: username}).populate('trips')
     .then(function(data) {
-      console.log('got stuff from all user trip')
+      console.log('got stuff from all user trip');
       return Promise.resolve(data.trips);
     })
     .catch(function(error) {
@@ -177,7 +177,8 @@ var getDestinationForTrip = function(tripId) {
   return Destination.find({trip: tripId});
 };
 
-var createReservation = function(name, category, referenceNumber, date, trip, destination) {
+var createReservation = function({name, category, referenceNumber, date, trip, destination}) {
+  
   //link with trip
   //link with destination
 };
@@ -186,11 +187,8 @@ var getReservationsForTrip = function(tripId) {
   return Reservation.find({trip: tripId});
 };
 
-var createObjective = function(name, category, tripId, destinationId) {
-  //link with trip
-  //link with destination
-  var newObjItem = new Objective({name: name, category: category, trip: tripId, destination: destinationId});
-  return newObjItem.save();
+var createObjective = function({name, category, trip, destination}) {
+  return Objective.create({name, category, trip, destination});
 };
 
 var deleteObjItem = function(id) {
@@ -205,9 +203,8 @@ var getObjectivesForTrip = function(tripId) {
   return Objective.find({trip: tripId});
 };
 
-var createPreparationItem = function(name, dueDate, responsibleUser, tripId) {
-  var newPreparationItem = new PreparationItem({name: name, dueDate: dueDate, responsibleUser: responsibleUser, trip: tripId});
-  return newPreparationItem.save();
+var createPreparationItem = function({name, dueDate, responsibleUser, trip}) {
+  return PreparationItem.create({name, dueDate, responsibleUser, trip});
 };
 
 var deletePreparationItem = function(id) {
