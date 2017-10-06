@@ -165,7 +165,7 @@ var getUserTrips = function(username) {
       return Promise.resolve(data.trips);
     })
     .catch(function(error) {
-      console.log('getUserTrips error:', error.message);
+      console.error('getUserTrips error:', error.message);
     });
 };
 
@@ -178,9 +178,11 @@ var getDestinationForTrip = function(tripId) {
 };
 
 var createReservation = function({name, category, referenceNumber, date, trip, destination}) {
+  return Reservation.create({name, category, referenceNumber, date, trip, destination});
+};
 
-  //link with trip
-  //link with destination
+var deleteReservation = function(id) {
+  return Reservation.remove({_id: id});
 };
 
 var getReservationsForTrip = function(tripId) {
@@ -287,8 +289,6 @@ var loadAllSampleData = function() {
     .catch(function(error) {
       console.log('Load sample data error: ', error.message);
     });
-
-
 };
 
 // TO DELETE ALL THE DATA AND LOAD SAMPLE DATA UNCOMMENT THIS:
@@ -355,13 +355,32 @@ var loadAllSampleData = function() {
 //   });
 // });
 
-module.exports.db = db;
-module.exports.User = User;
-module.exports.getUserTrips = getUserTrips;
-module.exports.getAllDataForTrip = getAllDataForTrip;
-module.exports.deletePreparationItem = deletePreparationItem;
-module.exports.createPreparationItem = createPreparationItem;
-module.exports.updatePreparationItem = updatePreparationItem;
-module.exports.createObjective = createObjective;
-module.exports.deleteObjItem = deleteObjItem;
-module.exports.updateObjItem = updateObjItem;
+module.exports = {
+  db,
+  User,
+  getUserTrips,
+  getAllDataForTrip,
+  deletePreparationItem,
+  createPreparationItem,
+  updatePreparationItem,
+  createObjective,
+  deleteObjItem,
+  updateObjItem,
+  createReservation,
+  deleteReservation
+};
+
+
+
+// module.exports.db = db;
+// module.exports.User = User;
+// module.exports.getUserTrips = getUserTrips;
+// module.exports.getAllDataForTrip = getAllDataForTrip;
+// module.exports.deletePreparationItem = deletePreparationItem;
+// module.exports.createPreparationItem = createPreparationItem;
+// module.exports.updatePreparationItem = updatePreparationItem;
+// module.exports.createObjective = createObjective;
+// module.exports.deleteObjItem = deleteObjItem;
+// module.exports.updateObjItem = updateObjItem;
+// module.exports.createReservation = createReservation;
+

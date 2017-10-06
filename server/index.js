@@ -145,6 +145,28 @@ app.delete('/obj/:objId', (req, res) => {
     });
 });
 
+app.post('/res', (req, res) => {
+  DB.createReservation(req.body)
+    .then(result => {
+      res.status(201).send();
+    })
+    .catch(err => {
+      console.error(err);
+      res.status(400).send();
+    });
+});
+
+app.delete('/res/:resId', (req, res) => {
+  DB.deleteReservation(req.params.resId)
+    .then(result => {
+      res.status(202).send();          
+    })
+    .catch(err => {
+      console.error(err);
+      res.status(400).send();
+    });
+});
+
 let port = process.env.PORT || 3000;
 
 app.listen(port, () => {
