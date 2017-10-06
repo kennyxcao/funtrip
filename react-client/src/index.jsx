@@ -50,10 +50,8 @@ class App extends React.Component {
   }
 
   fetchUserTrips() {
-    //upon signing in, retrieves data for the user and rerenders trips and lastTrip
-    let data = JSON.stringify({userName: this.state.user});
-
-    ajaxPost('/trips', data, 'application/json', 'json', (results) => {
+    let data = {userName: this.state.user};
+    ajaxPost('/trips', JSON.stringify(data), 'application/json', 'json', (results) => {
       this.setState({
         trips: results.trips, 
         lastTrip: results.lastTrip
@@ -63,7 +61,6 @@ class App extends React.Component {
 
   handleLogin(loginInfo) {
     let data = loginInfo ? JSON.stringify(loginInfo) : JSON.stringify({username: null});
-
     ajaxPost('/login', data, 'application/json', 'json', (results) => {
       if (results.username) {
         console.log('Sucessiful Login');
@@ -88,70 +85,23 @@ class App extends React.Component {
   }  
 
   handleObjAdd({name, category, date, destination}) {
-    //console.log(name, category, date, destination);
-    var trip = this.state.lastTrip.trip._id;
-    var self = this;
-    var obj = {
-      name: name,
-      category: category,
-      trip: trip,
-      destination: destination,
-    };
-    $.ajax({
-      method: 'POST',
-      url: '/obj',
-      data: JSON.stringify(obj),
-      contentType: 'application/json',
-      success: (results) => {
-        self.fetchUserTrips();
-      },
-      error: (error) => {
-        console.error('Objective Error');
-        console.error(error);
-      }
-    });  
+    let trip = this.state.lastTrip.trip._id;
+    let data = {name, category, date, destination, trip};
+    ajaxPost('/obj', JSON.stringify(data), 'application/json', 'text', (results) => {
+      this.fetchUserTrips();
+    }); 
   }
 
   handleObjItemChange (objId, newChecked) {
-    //console.log(objId, newChecked);
-    var self = this;
-    var url = '/obj/' + objId;
-    var obj = {
-      id: objId,
-      checked: newChecked
-    };
-    $.ajax({
-      method: 'POST',
-      url: url,
-      data: JSON.stringify(obj),
-      contentType: 'application/json',
-      success: (results) => {
-        self.fetchUserTrips();
-      },
-      error: (error) => {
-        console.error('Objective Error');
-        console.error(error);     
-      }
+    let data = {checked: newChecked};
+    ajaxPatch('/obj/' + objId, JSON.stringify(data), 'application/json', 'text', (results) => {
+      this.fetchUserTrips();
     });
   }
 
   handleObjItemDelete (objId) {
-    //console.log(objId);
-    var url = '/obj/' + objId;
-    var data = {id: objId};
-    var self = this;
-    $.ajax({
-      method: 'DELETE',
-      url: url,
-      data: JSON.stringify(data),
-      contentType: 'application/json',
-      success: (results) => {
-        self.fetchUserTrips();
-      },
-      error: (error) => {
-        console.error('Not able to delete Obj');
-        console.error(error);
-      }
+    ajaxDelete('/obj/' + objId, JSON.stringify({}), 'application/json', 'text', (results) => {
+      this.fetchUserTrips();
     });
   }
 

@@ -114,39 +114,55 @@ app.post('/checkedPrepItem', (req, res) => {
   });
 });
 
-app.post('/obj', (req, res) => {
-  var name = req.body.name;
-  var category = req.body.category;
-  var destinationId = req.body.destination;
-  var tripId = req.body.trip;
-  console.log(req.body);
-  var promise = DB.createObjective(name, category, tripId, destinationId);
-  promise.then(function(result) {
-    res.send('obj updated');
-  }).error(function(error) {
-    console.log(error);
-  }); 
+app.post('/obj', (req, res) => {  
+  let name = req.body.name;
+  let category = req.body.category;
+  let destinationId = req.body.destination;
+  let tripId = req.body.trip;
+
+  DB.createObjective(name, category, tripId, destinationId)
+    .then(result => {
+      res.status(201).send();
+    })
+    .catch(err => {
+      console.error(err);
+      res.status(400).send();
+    });
 });
 
-app.post('/obj/:Objid', (req, res) => {
-  var id = req.body.id;
-  var checked = req.body.checked;
-  var promise = DB.updateObjItem(id, checked);
-  promise.then(function(result) {
-    res.send('updated Obj checked state');
-  }).error(function(error) {
-    console.log(error);
-  }); 
+app.patch('/obj/:objId', (req, res) => {
+  let id = req.params.objId;
+  let checked = req.body.checked;
+
+  DB.updateObjItem(id, checked)
+    .then(result => {
+      res.status(202).send();    
+    })
+    .catch(err => {
+      console.error(err);
+      res.status(400).send();
+    });
 });
 
-app.delete('/obj/:Objid', (req, res) => {
-  var id = req.body.id;
-  var promise = DB.deleteObjItem(id);
-  promise.then(function(result) {
-    res.send('deleted Obj Item');
-  }).error(function(error) {
-    console.log(error);
-  });
+app.delete('/obj/:objId', (req, res) => {
+  let id = req.params.objId;
+
+  DB.deleteObjItem(id)
+    .then(result => {
+      res.status(202).send();          
+    })
+    .catch(err => {
+      console.error(err);
+      res.status(400).send();
+    });
+    
+  // let id = req.body.id;
+  // var promise = DB.deleteObjItem(id);
+  // promise.then(function(result) {
+  //   res.send('deleted Obj Item');
+  // }).error(function(error) {
+  //   console.log(error);
+  // });
 });
 
 let port = process.env.PORT || 3000;
