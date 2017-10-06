@@ -21,11 +21,14 @@ class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
+      loggedIn: false,
       user: '',
       userId: '',
       trips: [],
       lastTrip: {destinations: [], reservations: [], preparationItems: [], objectives: [], trip: {}},
-      loggedIn: false
+      reservations: [],
+      preparationItems: [],
+      objectives: []
     };
 
     this.handleLogin = this.handleLogin.bind(this);
@@ -52,6 +55,22 @@ class App extends React.Component {
     this.handleLogin();
   }
 
+  renderComponentsByDestination (destId) {
+    if (!destId) {
+      this.setState({
+        preparationItems: this.state.lastTrip.preparationItems,
+        reservations: this.state.lastTrip.reservations,
+        objectives: this.state.lastTrip.objectives        
+      });
+    } else {
+      this.setState({
+        preparationItems: this.state.lastTrip.preparationItems,
+        reservations: this.state.lastTrip.reservations.filter(reservation => reservation.destination === destId),
+        objectives: this.state.lastTrip.objectives.filter(objective => objective.destination === destId)           
+      });
+    }
+  }
+
   fetchTrip (tripId) {
     // fetch trip information based on user selection
     ajaxGet('/trip', {tripId}, 'application/json', 'json', (results) => {
@@ -70,7 +89,7 @@ class App extends React.Component {
         trips: results.trips, 
       });
       if (!this.state.lastTrip.trip._id) {
-        this.fetchTrip(result.lastTrip.trip._id);
+        this.fetchTrip(result.trips[result.trips.length - 1]._id);
       } else {
         this.fetchTrip(this.state.lastTrip.trip._id);        
       }
@@ -208,7 +227,7 @@ class App extends React.Component {
   }
 
   handleDestinationSelect (destId) {
-
+    console.log(destId);
   }
 
   handleDestinationAdd ({name, startDate, endDate}) {

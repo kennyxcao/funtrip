@@ -72,18 +72,25 @@ app.post('/signup', (req, res, next) => {
 });
 
 app.get('/trips', (req, res) => {
-  let tripsData = {};
   DB.getUserTrips(req.query.username).then(function(trips) {
-    let lastTripId = trips[trips.length - 1]._id;
-    tripsData.trips = trips;
-    return DB.getAllDataForTrip(lastTripId);
-  }).then(function(trip) {
-    tripsData.lastTrip = trip;
-    res.status(200).json(tripsData);
+    res.status(200).json({trips});
   }).catch(function(err) {
     console.error(err);
     res.status(404).send();
   }); 
+
+  // let tripsData = {};
+  // DB.getUserTrips(req.query.username).then(function(trips) {
+  //   let lastTripId = trips[trips.length - 1]._id;
+  //   tripsData.trips = trips;
+  //   return DB.getAllDataForTrip(lastTripId);
+  // }).then(function(trip) {
+  //   tripsData.lastTrip = trip;
+  //   res.status(200).json(tripsData);
+  // }).catch(function(err) {
+  //   console.error(err);
+  //   res.status(404).send();
+  // }); 
 });
 
 app.get('/trip', (req, res) => {

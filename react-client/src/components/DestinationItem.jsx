@@ -22,7 +22,7 @@ class DestinationItem extends React.Component {
   render() {
     return (
       <NavItem className='destination-item' eventKey={3 + this.props.key} href="#" onMouseEnter={this.mouseEnter} onMouseLeave={this.mouseLeave}>
-        {this.props.destination.name}
+        <span onClick={() => this.props.handleDestinationSelect(this.props.destination._id)}>{this.props.destination.name}</span>
         {this.state.hover ? 
           <Button bsStyle="default" bsSize="xsmall" onClick={() => this.props.handleDestinationDelete(this.props.destination._id)}><Glyphicon glyph="remove"/></Button>
         : null}

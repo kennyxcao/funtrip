@@ -9,7 +9,7 @@ const DestinationList = (props) => (
     {!props.loggedIn ? null :
       <Nav>
         <NavItem eventKey={2} href="#">Overview</NavItem>
-        {props.destinations.map((destination, index) => <DestinationItem destination={destination} key={index} handleDestinationDelete={props.handleDestinationDelete} />)}
+        {props.destinations.map((destination, index) => <DestinationItem destination={destination} key={index} handleDestinationDelete={props.handleDestinationDelete} handleDestinationSelect={props.handleDestinationSelect}/>)}
         <DestinationModal handleDestinationAdd={props.handleDestinationAdd}/>
       </Nav>
     }
