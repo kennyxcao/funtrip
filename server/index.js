@@ -226,6 +226,29 @@ app.delete('/res/:resId', (req, res) => {
     });
 });
 
+app.post('/dest', (req, res) => {
+  DB.createDestination(req.body)
+    .then(result => {
+      res.status(201).send();
+    })
+    .catch(err => {
+      console.error(err);
+      res.status(400).send();
+    });
+});
+
+app.delete('/dest/:destId', (req, res) => {
+  DB.deleteDestination(req.params.destId)
+    .then(result => {
+      res.status(202).send();          
+    })
+    .catch(err => {
+      console.error(err);
+      res.status(400).send();
+    });
+});
+
+// Environment port selection based on deployment
 let port = process.env.PORT || 3000;
 
 app.listen(port, () => {
