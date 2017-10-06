@@ -13,7 +13,8 @@
     "server-dev": "nodemon server/index.js",
     "lint": "eslint ./",
     "start": "node server/index.js",
-    "start-babel": "babel-node server.js"
+    "start-babel": "babel-node server.js",
+    "test": "mocha"
   },
   "dependencies": {
     "bluebird": "^3.5.0",
