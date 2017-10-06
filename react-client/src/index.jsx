@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom';
 import {Grid, Row, Col, PageHeader, Navbar, Nav, NavDropdown, NavItem, MenuItem} from 'react-bootstrap';
 import $ from 'jquery';
 import _ from 'lodash';
+import {ajaxGet, ajaxPost, ajaxDelete, ajaxPatch} from './services/ajaxHelpers.js';
 import Login from './components/Login.jsx';
 import Logout from './components/Logout.jsx';
 import PrepList from './components/PrepList.jsx';
@@ -45,70 +46,44 @@ class App extends React.Component {
   }
 
   componentDidMount() {
-    console.log('App Mounted');
     this.handleLogin();
   }
 
-  updateStateForTrips() {
+  fetchUserTrips() {
     //upon signing in, retrieves data for the user and rerenders trips and lastTrip
-    $.ajax({
-      method: 'POST',
-      url: '/trips', 
-      data: JSON.stringify({userName: this.state.user}),
-      contentType: 'application/json',
-      success: (results) => {
-        console.log('success ', results);
-        this.setState({trips: results.trips, lastTrip: results.lastTrip});
-      },
-      error: (error) => {
-        console.error('Trips Error');
-        console.error(error);        
-      }
-    });  
-   
+    let data = JSON.stringify({userName: this.state.user});
+
+    ajaxPost('/trips', data, 'application/json', 'json', (results) => {
+      this.setState({
+        trips: results.trips, 
+        lastTrip: results.lastTrip
+      });
+    });
   }
 
   handleLogin(loginInfo) {
-    $.ajax({
-      type: 'POST',
-      url: '/login', 
-      data: loginInfo ? JSON.stringify(loginInfo) : JSON.stringify({username: null}),
-      contentType: 'application/json',
-      success: (results, status, xhr) => {
-        if (results.username) {
-          console.log('Sucessiful Login');
-          this.setState({
-            loggedIn: true,
-            user: results.username
-          });  
-          //call next function to get username 
-          this.updateStateForTrips();        
-        } else {
-          console.log('Incorrect Login');          
-        }
-      },
-      error: (xhr, status, error) => {
-        console.error('Login Error');
-        console.error(xhr, status, error);        
+    let data = loginInfo ? JSON.stringify(loginInfo) : JSON.stringify({username: null});
+
+    ajaxPost('/login', data, 'application/json', 'json', (results) => {
+      if (results.username) {
+        console.log('Sucessiful Login');
+        this.setState({
+          loggedIn: true, 
+          user: results.username
+        });  
+        this.fetchUserTrips();        
+      } else {
+        console.error('Incorrect Login');          
       }
-    });  
+    });
   }
 
   handleLogout (e) {
-    $.ajax({
-      type: 'POST',
-      url: '/logout',
-      success: (results, status, xhr) => {
-        console.log('Sucessiful Logout');
-        this.setState({
-          loggedIn: false,
-          user: ''
-        });
-      },
-      error: (xhr, status, error) => {
-        console.error('Logout Failed');
-        console.error(xhr, status, error);        
-      }
+    ajaxPost('/logout', '', null, 'text', (results) => {
+      this.setState({
+        loggedIn: false,
+        user: ''
+      });
     });
   }  
 
@@ -128,7 +103,7 @@ class App extends React.Component {
       data: JSON.stringify(obj),
       contentType: 'application/json',
       success: (results) => {
-        self.updateStateForTrips();
+        self.fetchUserTrips();
       },
       error: (error) => {
         console.error('Objective Error');
@@ -151,7 +126,7 @@ class App extends React.Component {
       data: JSON.stringify(obj),
       contentType: 'application/json',
       success: (results) => {
-        self.updateStateForTrips();
+        self.fetchUserTrips();
       },
       error: (error) => {
         console.error('Objective Error');
@@ -171,7 +146,7 @@ class App extends React.Component {
       data: JSON.stringify(data),
       contentType: 'application/json',
       success: (results) => {
-        self.updateStateForTrips();
+        self.fetchUserTrips();
       },
       error: (error) => {
         console.error('Not able to delete Obj');
@@ -196,7 +171,7 @@ class App extends React.Component {
       contentType: 'application/json',
       success: (results) => {
         console.log('successfully Added prep item');
-        this.updateStateForTrips();
+        this.fetchUserTrips();
       },
       error: (error) => {
         console.error('Add trip error');
@@ -213,7 +188,7 @@ class App extends React.Component {
       contentType: 'application/json',
       success: (results) => {
         console.log('successfully checked prep item');
-        this.updateStateForTrips();
+        this.fetchUserTrips();
       },
       error: (error) => {
         console.error('Trips Error');
@@ -230,7 +205,7 @@ class App extends React.Component {
       contentType: 'application/json',
       success: (results) => {
         console.log('successfully deleted prep item');
-        this.updateStateForTrips();
+        this.fetchUserTrips();
       },
       error: (error) => {
         console.error('Trips Error');
