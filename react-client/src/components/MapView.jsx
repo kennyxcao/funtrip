@@ -1,20 +1,7 @@
 import React from 'react';
-
-var loadScript = function(url, callback) {
-  // Adding the script tag to the head as suggested before
-
-  var head = document.getElementsByTagName('head')[0];
-  var script = document.createElement('script');
-  script.type = 'text/javascript';
-  script.src = url;
-  // Then bind the event to the callback function.
-  // There are several events for cross browser compatibility.
-  script.onreadystatechange = callback;
-  script.onload = callback;
-  // Fire the loading
-  head.appendChild(script);
-
-};
+import scriptLoader from 'react-async-script-loader';
+import GOOGLE_MAP_API_KEY from '../config/googlemaps.js';
+var equal = require('deep-equal');
 
 class MapView extends React.Component {
   constructor(props) {
@@ -22,22 +9,38 @@ class MapView extends React.Component {
     this.state = {};
   }
 
+  // componentWillReceiveProps ({ isScriptLoaded, isScriptLoadSucceed }) {
+  //   if (isScriptLoaded && !this.props.isScriptLoaded) {
+  //     if (isScriptLoadSucceed) {
+  //       this.initMap();
+  //     } else {
+  //       console.log('componentWillReceiveProps error: ', error.message);
+  //     }
+  //   }
+  // }
+
   componentDidMount() {
-    console.log('this.props:', this.props);
-    //loadScript('https://maps.googleapis.com/maps/api/js?v=3.exp&key=AIzaSyByH0c5bxYDZ48BLQ401BBsm4DppG6QNkQ', this.initMap.bind(this));
+    if (this.props.isScriptLoaded && this.props.isScriptLoadSucceed) {
+      this.initMap();
+    } else {
+      console.log('Google API script was not loaded yet');
+    }
   }
 
   changeModeHandler(e) {
     this.setState({mode: e.target.value});
   }
 
-  shouldComponentUpdate() {
-    return true;
+  shouldComponentUpdate(nextProps, nextState) {
+    return !equal(nextProps.destinations, this.props.destinations);
   }
   
   componentDidUpdate() {
-    console.log('MAP componentDidUpdate');
-    loadScript('https://maps.googleapis.com/maps/api/js?v=3.exp&key=AIzaSyByH0c5bxYDZ48BLQ401BBsm4DppG6QNkQ', this.initMap.bind(this));
+    if (this.props.isScriptLoaded && this.props.isScriptLoadSucceed) {
+      this.initMap();
+    } else {
+      console.log('Google API script was not loaded yet');
+    }
   }
 
   initMap() {
@@ -79,9 +82,8 @@ class MapView extends React.Component {
   }
 
   render() {
-    console.log('MAP RENDERING', this.props.destinations);
     var mapStyle = {
-      width: 500,
+      width: '100%',
       height: 500,
       border: '1px solid black'
     };
@@ -104,4 +106,4 @@ class MapView extends React.Component {
   }
 }
 
-export default MapView;
+export default scriptLoader([`https://maps.googleapis.com/maps/api/js?v=3.exp&key=${GOOGLE_MAP_API_KEY}`])(MapView);
