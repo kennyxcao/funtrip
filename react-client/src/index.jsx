@@ -25,8 +25,7 @@ class App extends React.Component {
       userId: '',
       trips: [],
       lastTrip: {destinations: [], reservations: [], preparationItems: [], objectives: [], trip: {}},
-      loggedIn: false,
-      sideBarOn: false
+      loggedIn: false
     };
 
     this.handleLogin = this.handleLogin.bind(this);
@@ -352,13 +351,3 @@ class App extends React.Component {
 
 
 ReactDOM.render(<App />, document.getElementById('app'));
-
-// Side Bar
-// var sidebarTestData = [{location: 'Paris'}, {location: 'San Francisco'}, {location: 'Alaska'}];
-// <Nav pullRight>
-//   <button type="button" className="btn btn-primary" onClick = {() => { this.setState({sideBarOn: !this.state.sideBarOn}); }}>
-//     <i className="glyphicon glyphicon-align-left"></i>
-//   My Trips
-//   </button>
-//   {this.state.sideBarOn ? <SideBar trips={this.state.trips} userName={this.state.user}/> : null}
-// </Nav>
