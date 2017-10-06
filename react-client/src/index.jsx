@@ -111,11 +111,17 @@ class App extends React.Component {
   }
 
   handleReservationAdd({name, category, referenceNumber, date, destination}) {
-    console.log(name, category, referenceNumber, date, destination);
+    let trip = this.state.lastTrip.trip._id;
+    let data = {name, category, referenceNumber, date, destination, trip};
+    ajaxPost('/res', JSON.stringify(data), 'application/json', 'text', (results) => {
+      this.fetchUserTrips();
+    });    
   }
 
   handleReservationDelete (resId) {
-    console.log(resId);
+    ajaxDelete('/res/' + resId, JSON.stringify({}), 'application/json', 'text', (results) => {
+      this.fetchUserTrips();
+    });  
   }
 
   handlePrepAdd ({name, dueDate, responsibleUser}) {
