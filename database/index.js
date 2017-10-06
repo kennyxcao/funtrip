@@ -381,6 +381,7 @@ module.exports = {
   db,
   User,
   Trip,
+  Destination,
   createUser,
   getUser,
   getUserTrips,
@@ -399,6 +400,7 @@ module.exports = {
   deleteTrip,
   addTripUser,
   createDestination,
-  deleteDestination
+  deleteDestination,
+  getDestinationForTrip
 };
 

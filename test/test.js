@@ -3,7 +3,17 @@ var expect = require('chai').expect;
 const DB = require('../database/index');
 var testUser = {username: 'testUserMochaChai', pw: '1'};
 var testTrip = {name: 'Super trip for test'};
-
+var testDestinations = [
+  { name: 'Test London',
+    startDate: new Date('11/02/2017'),
+    endDate: new Date('11/05/2017'),
+    lat: 51.509865,
+    lng: -0.118092},
+  { name: 'Test Paris',
+    startDate: new Date('11/05/2017'),
+    endDate: new Date('11/08/2017'),
+    lat: 48.864716,
+    lng: 2.349014} ];
 
 describe('', function() {
   before(function(done) {
@@ -14,12 +24,16 @@ describe('', function() {
   });
 
   after(function(done) {
+    var ids = [];
     DB.User.findOne({username: testUser.username}).populate('trips')
       .then(function(results) {
-        var ids = results.trips.map(function(trip) {
+        ids = ids.concat(results.trips.map(function(trip) {
           return trip._id;
-        });
+        }));
         return DB.Trip.remove({_id: {$in: ids}});
+      })
+      .then(function(results) {
+        return DB.Destination.remove({trip: {$in: ids}});
       })
       .then(function(results) {
         return DB.User.remove({username: testUser.username});
@@ -93,6 +107,41 @@ describe('', function() {
         });
     });
 
+  });
+
+  describe('Destination Creation:', function() {
+
+    it('should create destination for a trip', function(done) {
+      var destination = testDestinations[0];
+      DB.getUserTrips(testUser.username)
+        .then(function(results) {
+          destination.trip = results[0]._id;
+          return DB.createDestination(destination);
+        })
+        .then(function(results) {
+          expect(results).not.to.deep.equal({});
+          expect(results.name).to.equal(destination.name);
+          expect(results.trip).to.be.an('object');
+          done();
+        })
+        .catch(function(error) {
+          return done(error);
+        });
+    });
+
+    it('should return destinations for a trip', function(done) {
+      DB.getUserTrips(testUser.username)
+        .then(function(results) {
+          return DB.getDestinationForTrip(results[0]._id);
+        })
+        .then(function(results) {
+          expect(results.length).to.equal(1);
+          done();
+        })
+        .catch(function(error) {
+          return done(error);
+        });
+    });
 
   });
 
