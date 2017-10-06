@@ -30,7 +30,8 @@ class App extends React.Component {
     };
 
     this.handleLogin = this.handleLogin.bind(this);
-    this.handleLogout = this.handleLogout.bind(this);    
+    this.handleLogout = this.handleLogout.bind(this);
+    this.handleSignup = this.handleSignup.bind(this); 
     this.handleObjAdd = this.handleObjAdd.bind(this);
     this.handleObjItemChange = this.handleObjItemChange.bind(this);
     this.handleObjItemDelete = this.handleObjItemDelete.bind(this);
@@ -65,6 +66,25 @@ class App extends React.Component {
     });
   }
 
+  handleSignup ({username, pw}) {
+    if (!username || !pw) {
+      return console.error('Username or password cannot be empty');
+    }
+    ajaxPost('/signup', JSON.stringify({username, pw}), 'application/json', 'json', (results) => {
+      if (results.username) {
+        console.log('Sucessiful Signup');
+        this.setState({
+          loggedIn: true, 
+          user: results.username,
+          userId: results.userId
+        });  
+        this.fetchUserTrips(); 
+      } else {
+        console.error('Username already exists');          
+      }
+    });
+  }
+
   handleLogin(loginInfo) {
     let data = loginInfo ? JSON.stringify(loginInfo) : JSON.stringify({username: null});
     ajaxPost('/login', data, 'application/json', 'json', (results) => {
@@ -87,7 +107,9 @@ class App extends React.Component {
       this.setState({
         loggedIn: false,
         user: '',
-        userId: ''
+        userId: '',
+        trips: [],
+        lastTrip: {destinations: [], reservations: [], preparationItems: [], objectives: [], trip: {}}
       });
     });
   }  
@@ -227,6 +249,7 @@ class App extends React.Component {
               <Login 
                 loggedIn={this.state.loggedIn} 
                 handleLogin={this.handleLogin}
+                handleSignup={this.handleSignup}
               />
               <Logout 
                 loggedIn={this.state.loggedIn} 

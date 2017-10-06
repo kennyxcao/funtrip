@@ -10,6 +10,7 @@ class Login extends React.Component {
       pw: ''
     };
     this.getLoginData = this.getLoginData.bind(this);
+    this.getSignupData = this.getSignupData.bind(this);
     this.handleUsernameChange = this.handleUsernameChange.bind(this);
     this.handlePasswordChange = this.handlePasswordChange.bind(this);
     this.resetState = this.resetState.bind(this);
@@ -35,6 +36,11 @@ class Login extends React.Component {
     this.resetState();
   }
 
+  getSignupData (e) {
+    this.props.handleSignup({username: this.state.username, pw: this.state.pw});
+    this.resetState();
+  }
+
   render() {
     return (
       <div className='login'>
@@ -57,6 +63,7 @@ class Login extends React.Component {
             />
           </FormGroup>
           <Button bsStyle="primary" bsSize="small" onClick={this.getLoginData}>Login</Button>
+          <Button bsStyle="primary" bsSize="small" onClick={this.getSignupData}>Signup</Button>          
         </Navbar.Form>
         }
       </div>

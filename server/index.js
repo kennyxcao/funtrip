@@ -36,8 +36,7 @@ app.use('/css', express.static(__dirname + '/../react-client/css')); // redirect
 
 
 app.post('/login', Auth.verifySessionLogin, (req, res, next) => {
-  let loginInfo = req.body;
-  DB.User.findOne(loginInfo).exec()
+  DB.getUser(req.body).exec()
     .then(user => {
       if (user) {
         req.session.userId = user._id;
@@ -60,10 +59,23 @@ app.post('/logout', (req, res, next) => {
   });
 });
 
+app.post('/signup', (req, res, next) => {
+  DB.createUser(req.body)
+    .then(user => {
+      if (user) {
+        req.session.userId = user._id;
+        res.status(200).json({username: user.username, userId: user._id});
+      } else {
+        res.status(200).json({username: null});
+      }
+    });
+});
+
+
 app.get('/trips', (req, res) => {
   var dataToSend = {};
   DB.getUserTrips(req.query.username).then(function(trips) {
-    var lastTripId = trips[0]._id;
+    var lastTripId = trips[trips.length - 1]._id;
     dataToSend.trips = trips;
     return DB.getAllDataForTrip(lastTripId);
   }).then(function(trip) {
