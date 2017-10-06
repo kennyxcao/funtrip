@@ -68,11 +68,10 @@ app.post('/trips', (req, res) => {
     return DB.getAllDataForTrip(lastTripId);
   }).then(function(data) {
     dataToSend.lastTrip = data;
-    res.send(dataToSend);
+    res.status(200).json(dataToSend);
   }).catch(function(error) {
-    console.log('error on dataToSend', error);
-    res.status(200);
-    res.send(dataToSend);
+    console.error(error);
+    res.status(404).json(dataToSend);
   }); 
 });
 
@@ -80,47 +79,41 @@ app.get('/user', (req, res, next) => {
   console.log('/user get received');
 });
 
-app.post('/deletePrep', (req, res) => {
-  DB.deletePreparationItem(req.body._id).then(function(data) {
-    res.status(200);
-    res.send('deleted prep id');
-  }).catch(function(error) {
-    console.log('error on delete prep item', error);
-    res.status(200);
-    res.send('error on delete prep item');
-  }); 
+app.post('/prep', (req, res) => {
+  DB.createPreparationItem(req.body)
+    .then(result => {
+      res.status(201).send();
+    })
+    .catch(err => {
+      console.error(err);
+      res.status(400).send();
+    });
 });
 
-app.post('/addPrepItem', (req, res) => {
-  DB.createPreparationItem(req.body.name, req.body.dueDate, req.body.responsibleUser, req.body.tripId)
-    .then(function(data) {
-      res.status(200);
-      res.send('added new PrepItem');
-    }).catch(function(error) {
-      console.log('error on adding prep item', error);
-      res.status(200);
-      res.send('error on adding prep item');
-    }); 
+app.patch('/prep/:prepId', (req, res) => {
+  DB.updatePreparationItem(req.params.prepId, req.body.checked)
+    .then(result => {
+      res.status(202).send();    
+    })
+    .catch(err => {
+      console.error(err);
+      res.status(400).send();
+    });
 });
 
-app.post('/checkedPrepItem', (req, res) => {
-  DB.updatePreparationItem(req.body._id, req.body.checked).then(function(data) {
-    res.status(200);
-    res.send('checked prep id');
-  }).catch(function(error) {
-    console.log('error on checked prep item', error);
-    res.status(200);
-    res.send('error on checked prep item');
-  });
+app.delete('/prep/:prepId', (req, res) => {
+  DB.deletePreparationItem(req.params.prepId)
+    .then(result => {
+      res.status(202).send();          
+    })
+    .catch(err => {
+      console.error(err);
+      res.status(400).send();
+    });
 });
 
-app.post('/obj', (req, res) => {  
-  let name = req.body.name;
-  let category = req.body.category;
-  let destinationId = req.body.destination;
-  let tripId = req.body.trip;
-
-  DB.createObjective(name, category, tripId, destinationId)
+app.post('/obj', (req, res) => {
+  DB.createObjective(req.body)
     .then(result => {
       res.status(201).send();
     })
@@ -131,10 +124,7 @@ app.post('/obj', (req, res) => {
 });
 
 app.patch('/obj/:objId', (req, res) => {
-  let id = req.params.objId;
-  let checked = req.body.checked;
-
-  DB.updateObjItem(id, checked)
+  DB.updateObjItem(req.params.objId, req.body.checked)
     .then(result => {
       res.status(202).send();    
     })
@@ -145,9 +135,7 @@ app.patch('/obj/:objId', (req, res) => {
 });
 
 app.delete('/obj/:objId', (req, res) => {
-  let id = req.params.objId;
-
-  DB.deleteObjItem(id)
+  DB.deleteObjItem(req.params.objId)
     .then(result => {
       res.status(202).send();          
     })
@@ -155,14 +143,6 @@ app.delete('/obj/:objId', (req, res) => {
       console.error(err);
       res.status(400).send();
     });
-    
-  // let id = req.body.id;
-  // var promise = DB.deleteObjItem(id);
-  // promise.then(function(result) {
-  //   res.send('deleted Obj Item');
-  // }).error(function(error) {
-  //   console.log(error);
-  // });
 });
 
 let port = process.env.PORT || 3000;

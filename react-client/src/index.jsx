@@ -49,9 +49,14 @@ class App extends React.Component {
     this.handleLogin();
   }
 
+  fetchTrip () {
+    // fetch trip information based on user selection
+  }
+
   fetchUserTrips() {
     let data = {userName: this.state.user};
     ajaxPost('/trips', JSON.stringify(data), 'application/json', 'json', (results) => {
+      console.log('Fetched User Trips', results);
       this.setState({
         trips: results.trips, 
         lastTrip: results.lastTrip
@@ -114,54 +119,24 @@ class App extends React.Component {
   }
 
   handlePrepAdd ({name, dueDate, responsibleUser}) {
-    $.ajax({
-      method: 'POST',
-      url: '/addPrepItem', 
-      data: JSON.stringify({name: name, dueDate: dueDate, responsibleUser: this.state.trips[0]._id, tripId: this.state.trips[0]._id}),
-      contentType: 'application/json',
-      success: (results) => {
-        console.log('successfully Added prep item');
-        this.fetchUserTrips();
-      },
-      error: (error) => {
-        console.error('Add trip error');
-        console.error(error);        
-      }
-    }); 
+    let trip = this.state.lastTrip.trip._id;
+    let data = {name, dueDate, responsibleUser, trip};
+    ajaxPost('/prep', JSON.stringify(data), 'application/json', 'text', (results) => {
+      this.fetchUserTrips();
+    });
   }
 
-  handlePrepItemChange (prepId, checked) {
-    $.ajax({
-      method: 'POST',
-      url: '/checkedPrepItem', 
-      data: JSON.stringify({_id: prepId, checked: checked}),
-      contentType: 'application/json',
-      success: (results) => {
-        console.log('successfully checked prep item');
-        this.fetchUserTrips();
-      },
-      error: (error) => {
-        console.error('Trips Error');
-        console.error(error);        
-      }
-    }); 
+  handlePrepItemChange (prepId, newChecked) {
+    let data = {checked: newChecked};
+    ajaxPatch('/prep/' + prepId, JSON.stringify(data), 'application/json', 'text', (results) => {
+      this.fetchUserTrips();
+    });
   }
 
   handlePrepItemDelete (prepId) {
-    $.ajax({
-      method: 'POST',
-      url: '/deletePrep', 
-      data: JSON.stringify({_id: prepId}),
-      contentType: 'application/json',
-      success: (results) => {
-        console.log('successfully deleted prep item');
-        this.fetchUserTrips();
-      },
-      error: (error) => {
-        console.error('Trips Error');
-        console.error(error);        
-      }
-    }); 
+    ajaxDelete('/prep/' + prepId, JSON.stringify({}), 'application/json', 'text', (results) => {
+      this.fetchUserTrips();
+    });
   }
 
   handleTripAdd ({name}) {
