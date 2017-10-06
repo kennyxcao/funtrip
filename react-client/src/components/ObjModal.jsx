@@ -89,7 +89,7 @@ class ObjModal extends React.Component {
                 />
               </FormGroup>
             
-              <FormGroup controlId='reservationCategory'>
+              <FormGroup controlId='objectiveCategory'>
                 <ControlLabel>Category</ControlLabel>
                 <FormControl
                   componentClass='select' 

@@ -91,7 +91,7 @@ class PrepModal extends React.Component {
                   value={this.state.responsibleUser}
                 >
                   <option value='' disabled hidden>Choose a group member</option>
-                  {this.props.users.map((user, index) => <option value={user} key={index}>{user}</option>)}
+                  {this.props.users.map((user, index) => <option value={user._id} key={index}>{user.username}</option>)}
                 </FormControl>
               </FormGroup>          
             </form>
