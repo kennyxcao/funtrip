@@ -12,7 +12,7 @@ module.exports.verifySessionLogin = (req, res, next) => {
     DB.User.findById(req.session.userId).exec()
       .then(user => {
         if (user) {
-          res.status(200).json({username: user.username});
+          res.status(200).json({username: user.username, userId: user._id});
         } else {
           res.status(200).json({username: null});
         }

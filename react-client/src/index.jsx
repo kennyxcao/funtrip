@@ -22,6 +22,7 @@ class App extends React.Component {
     super(props);
     this.state = {
       user: '',
+      userId: '',
       trips: [],
       lastTrip: {destinations: [], reservations: [], preparationItems: [], objectives: [], trip: {}},
       loggedIn: false,
@@ -54,8 +55,8 @@ class App extends React.Component {
   }
 
   fetchUserTrips() {
-    let data = {userName: this.state.user};
-    ajaxPost('/trips', JSON.stringify(data), 'application/json', 'json', (results) => {
+    let data = {username: this.state.user};
+    ajaxGet('/trips', data, 'application/json', 'json', (results) => {
       console.log('Fetched User Trips', results);
       this.setState({
         trips: results.trips, 
@@ -71,7 +72,8 @@ class App extends React.Component {
         console.log('Sucessiful Login');
         this.setState({
           loggedIn: true, 
-          user: results.username
+          user: results.username,
+          userId: results.userId
         });  
         this.fetchUserTrips();        
       } else {
@@ -84,7 +86,8 @@ class App extends React.Component {
     ajaxPost('/logout', '', null, 'text', (results) => {
       this.setState({
         loggedIn: false,
-        user: ''
+        user: '',
+        userId: ''
       });
     });
   }  
@@ -146,7 +149,12 @@ class App extends React.Component {
   }
 
   handleTripAdd ({name}) {
-    console.log(name);
+    console.log(name, this.state.userId);
+    let users = [this.state.userId];
+    let data = {name, users};
+    ajaxPost('/trip', JSON.stringify(data), 'application/json', 'text', (results) => {
+      this.fetchUserTrips();
+    });
   }
 
   handleTripDelete (tripId) {
