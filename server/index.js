@@ -34,7 +34,7 @@ app.use('/js', express.static(__dirname + '/../node_modules/moment')); // redire
 app.use('/css', express.static(__dirname + '/../node_modules/bootstrap/dist/css')); // redirect CSS bootstrap
 app.use('/css', express.static(__dirname + '/../react-client/css')); // redirect custom css file
 
-
+// Server-side End Points Routers
 app.post('/login', Auth.verifySessionLogin, (req, res, next) => {
   DB.getUser(req.body).exec()
     .then(user => {
@@ -71,20 +71,29 @@ app.post('/signup', (req, res, next) => {
     });
 });
 
-
 app.get('/trips', (req, res) => {
-  var dataToSend = {};
+  let tripsData = {};
   DB.getUserTrips(req.query.username).then(function(trips) {
-    var lastTripId = trips[trips.length - 1]._id;
-    dataToSend.trips = trips;
+    let lastTripId = trips[trips.length - 1]._id;
+    tripsData.trips = trips;
     return DB.getAllDataForTrip(lastTripId);
   }).then(function(trip) {
-    dataToSend.lastTrip = trip;
-    res.status(200).json(dataToSend);
-  }).catch(function(error) {
-    console.error(error);
-    res.status(404).json(dataToSend);
+    tripsData.lastTrip = trip;
+    res.status(200).json(tripsData);
+  }).catch(function(err) {
+    console.error(err);
+    res.status(404).send();
   }); 
+});
+
+app.get('/trip', (req, res) => {
+  DB.getAllDataForTrip(req.query.tripId)
+    .then(function(trip) {
+      res.status(200).json({trip});
+    }).catch(function(err) {
+      console.error(err);
+      res.status(404).send();
+    }); 
 });
 
 app.post('/trip', (req, res) => {
