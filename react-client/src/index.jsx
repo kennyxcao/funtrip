@@ -163,7 +163,11 @@ class App extends React.Component {
   }
 
   handleTripJoin (tripId) {
-    console.log(tripId);
+    let userId = this.state.userId;
+    let data = {tripId, userId};
+    ajaxPost('/jointrip', JSON.stringify(data), 'application/json', 'text', (results) => {
+      this.fetchUserTrips();
+    });    
   }
 
   handleDestinationAdd ({name, startDate, endDate}) {

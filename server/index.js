@@ -103,6 +103,20 @@ app.delete('/trip/:tripId', (req, res) => {
     });
 });
 
+app.post('/jointrip', (req, res) => {
+  DB.addTripUser(req.body.userId, req.body.tripId)
+    .then(result => {
+      return DB.addUserTrip(req.body.userId, req.body.tripId);
+    })
+    .then(result => {
+      res.status(201).send();
+    })
+    .catch(err => {
+      console.error(err);
+      res.status(400).send();
+    });    
+});
+
 app.post('/prep', (req, res) => {
   DB.createPreparationItem(req.body)
     .then(result => {
