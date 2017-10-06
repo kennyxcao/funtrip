@@ -13,7 +13,8 @@ import DesinationList from './components/DestinationList.jsx';
 import CurrentInfo from './components/CurrentInfo.jsx';
 import MapView from './components/MapView.jsx';
 import SideBar from './components/SideBar.jsx';
-
+import GOOGLE_MAP_API_KEY from './config/googlemaps.js';
+const Promise = require('bluebird');
 
 class App extends React.Component {
   constructor(props) {
@@ -253,6 +254,26 @@ class App extends React.Component {
   handleDestinationAdd ({name, startDate, endDate}) {
     // Need to get fetch lat and lng value using google map API
     console.log(name, startDate, endDate);
+  }
+
+  getLocationForDestination(name) {
+    return new Promise(function(resolve, reject) {
+      var url = `https://maps.googleapis.com/maps/api/geocode/json?address=${name}&key=${GOOGLE_MAP_API_KEY}`;
+      $.ajax({
+        url: url,
+        success: (data) => {
+          var location = {lat: 0, lng: 0};
+          if ((data.status === 'OK') && (data.results.length > 0)) {
+            location = {lat: data.results[0].geometry.location.lat, lng: data.results[0].geometry.location.lng};
+          }
+          resolve(location);
+        },
+        error: (error) => {
+          console.error('getLocationForDestination error: ', error.message);
+          reject(error);
+        }
+      });
+    });
   }
 
   handleDestinationDelete (destinationId) {
