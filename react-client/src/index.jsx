@@ -46,6 +46,7 @@ class App extends React.Component {
     this.handleTripSelect = this.handleTripSelect.bind(this);
     this.handleDestinationAdd = this.handleDestinationAdd.bind(this);
     this.handleDestinationDelete = this.handleDestinationDelete.bind(this);
+    this.handleDestinationSelect = this.handleDestinationSelect.bind(this);
   }
 
   componentDidMount() {
@@ -68,8 +69,12 @@ class App extends React.Component {
       console.log('Fetched User Trips', results);
       this.setState({
         trips: results.trips, 
-        lastTrip: results.lastTrip
       });
+      if (!this.state.lastTrip.trip._id) {
+        this.fetchTrip(result.lastTrip.trip._id);
+      } else {
+        this.fetchTrip(this.state.lastTrip.trip._id);        
+      }
     });
   }
 
@@ -203,6 +208,10 @@ class App extends React.Component {
     this.fetchTrip(tripId);
   }
 
+  handleDestinationSelect (destId) {
+
+  }
+
   handleDestinationAdd ({name, startDate, endDate}) {
     // Need to get fetch lat and lng value using google map API
     this.fetchGeoCoordinates(name, ({lat, lng}) => {
@@ -267,6 +276,7 @@ class App extends React.Component {
               destinations={this.state.lastTrip.destinations}
               handleDestinationAdd={this.handleDestinationAdd}
               handleDestinationDelete={this.handleDestinationDelete}
+              handleDestinationSelect={this.handleDestinationSelect}
             />
             <TripList 
               loggedIn={this.state.loggedIn} 
