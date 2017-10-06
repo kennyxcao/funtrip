@@ -50,6 +50,7 @@ class App extends React.Component {
     this.handleDestinationAdd = this.handleDestinationAdd.bind(this);
     this.handleDestinationDelete = this.handleDestinationDelete.bind(this);
     this.handleDestinationSelect = this.handleDestinationSelect.bind(this);
+    this.handleCategorySelect = this.handleCategorySelect.bind(this);
   }
 
   componentDidMount() {
@@ -270,7 +271,17 @@ class App extends React.Component {
       callback(location);
     });    
   }
-
+  handleCategorySelect (category) {
+    if (category !== 'all') {
+      this.setState({
+        objectives: this.state.lastTrip.objectives.filter(objective => objective.category === category)           
+      });
+    } else {
+      this.setState({
+        objectives: this.state.lastTrip.objectives         
+      });
+    }
+  }
   // getLocationForDestination(name) {
   //   return new Promise(function(resolve, reject) {
   //     var url = `https://maps.googleapis.com/maps/api/geocode/json?address=${name}&key=${GOOGLE_MAP_API_KEY}`;
@@ -350,6 +361,7 @@ class App extends React.Component {
                 handleObjAdd={this.handleObjAdd}
                 handleObjItemChange={this.handleObjItemChange}
                 handleObjItemDelete={this.handleObjItemDelete}
+                handleCategorySelect={this.handleCategorySelect}
               />
             </Col>            
           </Row>

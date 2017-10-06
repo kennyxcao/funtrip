@@ -66,13 +66,13 @@ let reservationSample =[{
 
 let objectiveSample = [{
   name: 'Try local restaurant',
-  category: 'Place',
+  category: 'food',
   date: new Date('11/03/2017'),
   checked: 0
 },
 {
   name: 'Go to museum',
-  category: 'Place',
+  category: 'activities',
   date: new Date('11/03/2017'),
   checked: 0
 }];
