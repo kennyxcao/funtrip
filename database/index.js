@@ -380,6 +380,7 @@ var loadAllSampleData = function() {
 module.exports = {
   db,
   User,
+  Trip,
   createUser,
   getUser,
   getUserTrips,
