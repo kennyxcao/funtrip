@@ -21,7 +21,6 @@ db.once('open', function() {
   console.log('mongoose connected successfully');
 });
 
-
 // Database Schema definitions
 let userSchema = mongoose.Schema({
   username: {
@@ -136,7 +135,6 @@ let preparationItemSchema = mongoose.Schema({
   }
 });
 
-
 // Instantiate all collections
 let User = mongoose.model('User', userSchema);
 let Trip = mongoose.model('Trip', tripSchema);
@@ -144,7 +142,6 @@ let Destination = mongoose.model('Destination', destinationSchema);
 let Reservation = mongoose.model('Reservation', reservationSchema);
 let Objective = mongoose.model('Objective', objectiveSchema);
 let PreparationItem = mongoose.model('PreparationItem', preparationItemSchema);
-
 
 // Database helpers functions
 var getUser = function({username, pw}) {
@@ -190,9 +187,12 @@ var deleteTrip = function(id) {
   return Trip.remove({_id: id});
 };
 
+var createDestination = function({name, startDate, endDate, lat, lng, trip}) {
+  return Destination.create({name, startDate, endDate, lat, lng, trip});
+};
 
-var createDestination = function(name, startDate, endDate, lat, lng, trip) {
-  //link with trip
+var deleteDestination = function(id) {
+  return Destination.remove({_id: id});
 };
 
 var getDestinationForTrip = function(tripId) {
@@ -396,6 +396,8 @@ module.exports = {
   deleteReservation,
   createTrip,
   deleteTrip,
-  addTripUser
+  addTripUser,
+  createDestination,
+  deleteDestination
 };
 

@@ -205,32 +205,51 @@ class App extends React.Component {
 
   handleDestinationAdd ({name, startDate, endDate}) {
     // Need to get fetch lat and lng value using google map API
-    console.log(name, startDate, endDate);
-  }
-
-  getLocationForDestination(name) {
-    return new Promise(function(resolve, reject) {
-      var url = `https://maps.googleapis.com/maps/api/geocode/json?address=${name}&key=${GOOGLE_MAP_API_KEY}`;
-      $.ajax({
-        url: url,
-        success: (data) => {
-          var location = {lat: 0, lng: 0};
-          if ((data.status === 'OK') && (data.results.length > 0)) {
-            location = {lat: data.results[0].geometry.location.lat, lng: data.results[0].geometry.location.lng};
-          }
-          resolve(location);
-        },
-        error: (error) => {
-          console.error('getLocationForDestination error: ', error.message);
-          reject(error);
-        }
-      });
+    this.fetchGeoCoordinates(name, ({lat, lng}) => {
+      let trip = this.state.lastTrip.trip._id;
+      let data = {name, startDate, endDate, lat, lng, trip};
+      ajaxPost('/dest', JSON.stringify(data), 'application/json', 'text', (results) => {
+        this.fetchUserTrips();
+      });      
     });
   }
 
-  handleDestinationDelete (destinationId) {
-    console.log(destinationId);
+  handleDestinationDelete (destId) {
+    ajaxDelete('/dest/' + destId, JSON.stringify({}), 'application/json', 'text', (results) => {
+      this.fetchUserTrips();
+    });
   }  
+
+  fetchGeoCoordinates (name, callback) {
+    let url = `https://maps.googleapis.com/maps/api/geocode/json?address=${name}&key=${GOOGLE_MAP_API_KEY}`;
+    ajaxGet(url, '', null, 'json', (data) => {
+      let location = {lat: 0, lng: 0};
+      if ((data.status === 'OK') && (data.results.length > 0)) {
+        location = {lat: data.results[0].geometry.location.lat, lng: data.results[0].geometry.location.lng};
+      }
+      callback(location);
+    });    
+  }
+
+  // getLocationForDestination(name) {
+  //   return new Promise(function(resolve, reject) {
+  //     var url = `https://maps.googleapis.com/maps/api/geocode/json?address=${name}&key=${GOOGLE_MAP_API_KEY}`;
+  //     $.ajax({
+  //       url: url,
+  //       success: (data) => {
+  //         var location = {lat: 0, lng: 0};
+  //         if ((data.status === 'OK') && (data.results.length > 0)) {
+  //           location = {lat: data.results[0].geometry.location.lat, lng: data.results[0].geometry.location.lng};
+  //         }
+  //         resolve(location);
+  //       },
+  //       error: (error) => {
+  //         console.error('getLocationForDestination error: ', error.message);
+  //         reject(error);
+  //       }
+  //     });
+  //   });
+  // }
 
   render () {
     return (
