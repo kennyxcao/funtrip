@@ -149,9 +149,20 @@ var getUser = function(username) {
   return User.findOne({username: username});
 };
 
-var createTrip = function(name, user) {
-  //link with user
-  //add trip to user.trips
+var addUserTrip = function(userId, tripId) {
+  return User.findByIdAndUpdate(userId, {'$push': {'trips': tripId}});
+};
+
+var deleteUserTrip = function(userId, tripId) {
+  return User.findByIdAndUpdate(userId, {'$pull': {'trips': tripId}});
+};
+
+var createTrip = function({name, users}) {
+  return Trip.create({name, users});
+};
+
+var deleteTrip = function(id) {
+  return Trip.remove({_id: id});
 };
 
 var getTrip = function(tripId) {
@@ -359,6 +370,8 @@ module.exports = {
   db,
   User,
   getUserTrips,
+  addUserTrip,
+  deleteUserTrip,
   getAllDataForTrip,
   deletePreparationItem,
   createPreparationItem,
@@ -367,7 +380,9 @@ module.exports = {
   deleteObjItem,
   updateObjItem,
   createReservation,
-  deleteReservation
+  deleteReservation,
+  createTrip,
+  deleteTrip
 };
 
 

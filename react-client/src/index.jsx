@@ -149,7 +149,6 @@ class App extends React.Component {
   }
 
   handleTripAdd ({name}) {
-    console.log(name, this.state.userId);
     let users = [this.state.userId];
     let data = {name, users};
     ajaxPost('/trip', JSON.stringify(data), 'application/json', 'text', (results) => {
@@ -158,7 +157,9 @@ class App extends React.Component {
   }
 
   handleTripDelete (tripId) {
-    console.log(tripId);
+    ajaxDelete('/trip/' + tripId, JSON.stringify({userId: this.state.userId}), 'application/json', 'text', (results) => {
+      this.fetchUserTrips();
+    });  
   }
 
   handleTripJoin (tripId) {

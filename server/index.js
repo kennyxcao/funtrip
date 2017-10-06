@@ -62,12 +62,12 @@ app.post('/logout', (req, res, next) => {
 
 app.get('/trips', (req, res) => {
   var dataToSend = {};
-  DB.getUserTrips(req.query.username).then(function(data) {
-    var lastTripId = data[0]._id;
-    dataToSend.trips = data;
+  DB.getUserTrips(req.query.username).then(function(trips) {
+    var lastTripId = trips[0]._id;
+    dataToSend.trips = trips;
     return DB.getAllDataForTrip(lastTripId);
-  }).then(function(data) {
-    dataToSend.lastTrip = data;
+  }).then(function(trip) {
+    dataToSend.lastTrip = trip;
     res.status(200).json(dataToSend);
   }).catch(function(error) {
     console.error(error);
@@ -75,8 +75,32 @@ app.get('/trips', (req, res) => {
   }); 
 });
 
-app.get('/user', (req, res, next) => {
-  console.log('/user get received');
+app.post('/trip', (req, res) => {
+  DB.createTrip(req.body)
+    .then(newTrip => {
+      return DB.addUserTrip(newTrip.users[0], newTrip._id);
+    })
+    .then(result => {
+      res.status(201).send();
+    })
+    .catch(err => {
+      console.error(err);
+      res.status(400).send();
+    });
+});
+
+app.delete('/trip/:tripId', (req, res) => {
+  DB.deleteTrip(req.params.tripId)
+    .then(result => {
+      return DB.deleteUserTrip(req.body.userId, req.params.tripId);
+    })
+    .then(result => {
+      res.status(202).send();          
+    })
+    .catch(err => {
+      console.error(err);
+      res.status(400).send();
+    });
 });
 
 app.post('/prep', (req, res) => {
