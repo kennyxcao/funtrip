@@ -142,11 +142,12 @@ let Reservation = mongoose.model('Reservation', reservationSchema);
 let Objective = mongoose.model('Objective', objectiveSchema);
 let PreparationItem = mongoose.model('PreparationItem', preparationItemSchema);
 
-var createUser = function(username, pw, firstName, lastName, email) {
-};
-
 var getUser = function(username) {
   return User.findOne({username: username});
+};
+
+var createUser = function(username, pw, firstName, lastName, email) {
+  // TODO - Implement create new user
 };
 
 var addUserTrip = function(userId, tripId) {
@@ -155,18 +156,6 @@ var addUserTrip = function(userId, tripId) {
 
 var deleteUserTrip = function(userId, tripId) {
   return User.findByIdAndUpdate(userId, {'$pull': {'trips': tripId}});
-};
-
-var createTrip = function({name, users}) {
-  return Trip.create({name, users});
-};
-
-var deleteTrip = function(id) {
-  return Trip.remove({_id: id});
-};
-
-var getTrip = function(tripId) {
-  return Trip.findOne({_id: tripId}).populate({path: 'users', select: 'username'});
 };
 
 var getUserTrips = function(username) {
@@ -179,6 +168,23 @@ var getUserTrips = function(username) {
       console.error('getUserTrips error:', error.message);
     });
 };
+
+var getTrip = function(tripId) {
+  return Trip.findOne({_id: tripId}).populate({path: 'users', select: 'username'});
+};
+
+var createTrip = function({name, users}) {
+  return Trip.create({name, users});
+};
+
+var addTripUser = function(userId, tripId) {
+  return Trip.findByIdAndUpdate(tripId, {'$push': {'users': userId}});
+};
+
+var deleteTrip = function(id) {
+  return Trip.remove({_id: id});
+};
+
 
 var createDestination = function(name, startDate, endDate, lat, lng, trip) {
   //link with trip
@@ -384,18 +390,4 @@ module.exports = {
   createTrip,
   deleteTrip
 };
-
-
-
-// module.exports.db = db;
-// module.exports.User = User;
-// module.exports.getUserTrips = getUserTrips;
-// module.exports.getAllDataForTrip = getAllDataForTrip;
-// module.exports.deletePreparationItem = deletePreparationItem;
-// module.exports.createPreparationItem = createPreparationItem;
-// module.exports.updatePreparationItem = updatePreparationItem;
-// module.exports.createObjective = createObjective;
-// module.exports.deleteObjItem = deleteObjItem;
-// module.exports.updateObjItem = updateObjItem;
-// module.exports.createReservation = createReservation;
 
