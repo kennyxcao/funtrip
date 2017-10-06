@@ -155,7 +155,7 @@ var createTrip = function(name, user) {
 };
 
 var getTrip = function(tripId) {
-  return Trip.findOne({_id: tripId});
+  return Trip.findOne({_id: tripId}).populate({path: 'users', select: 'username'});
 };
 
 var getUserTrips = function(username) {
@@ -178,7 +178,7 @@ var getDestinationForTrip = function(tripId) {
 };
 
 var createReservation = function({name, category, referenceNumber, date, trip, destination}) {
-  
+
   //link with trip
   //link with destination
 };
