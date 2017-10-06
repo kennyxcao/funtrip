@@ -27,26 +27,12 @@ const ajaxPost = (url, data, contentType, dataType, callback) => {
   ajax('POST', url, data, contentType, dataType, callback);
 };
 
-const ajaxDelete = () => {
+const ajaxDelete = (url, data, contentType, dataType, callback) => {
   ajax('DELETE', url, data, contentType, dataType, callback);
 };
 
-const ajaxPatch = () => {
+const ajaxPatch = (url, data, contentType, dataType, callback) => {
   ajax('PATCH', url, data, contentType, dataType, callback);
-  // $.ajax({
-  //   method: 'PATCH',
-  //   url: '/api/phrases/' + id,
-  //   data: JSON.stringify({newVals}),
-  //   contentType: 'application/json',
-  //   success: (results, status, xhr) => {
-  //     console.log('Patch Phrase New Status Success');
-  //     this.fetchPhrases();
-  //   },
-  //   error: (xhr, status, error) => {
-  //     console.error('Patch Phrase New Status Failed');
-  //     console.error(xhr, status, error);
-  //   }
-  // });  
 };
 
 
