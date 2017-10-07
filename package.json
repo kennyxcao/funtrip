@@ -2,7 +2,7 @@
   "name": "FunTrip",
   "version": "1.0.0",
   "description": "A Personal Trip Planner",
-  "main": "index.js",
+  "main": "server/index.js",
   "author": "Chocolate Mafia",
   "license": "MIT",
   "engines": {
