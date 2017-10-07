@@ -1,4 +1,5 @@
-@import url("//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap-glyphicons.css");
+@import url("http://netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap-glyphicons.css");
+@import url("https://fonts.googleapis.com/css?family=Lato:400,700")
 
 .userLogo {
   display: block;
@@ -15,11 +16,16 @@
 }
 
 body {
+  font-family: 'Lato', sans-serif;
   background-color: #fff; 
   background-image: 
   linear-gradient(90deg, transparent 79px, #abced4 79px, #abced4 81px, transparent 81px),
   linear-gradient(#eee .1em, transparent .1em);
   background-size: 100% 1.2em;
+}
+
+h3 {
+  font-weight: 700;
 }
 
 div.trip-list .navbar-right {
