@@ -38,6 +38,7 @@ class App extends React.Component {
     this.handleObjAdd = this.handleObjAdd.bind(this);
     this.handleObjItemChange = this.handleObjItemChange.bind(this);
     this.handleObjItemDelete = this.handleObjItemDelete.bind(this);
+    this.handleObjCategorySelect = this.handleObjCategorySelect.bind(this);
     this.handleReservationAdd = this.handleReservationAdd.bind(this);
     this.handlePrepAdd = this.handlePrepAdd.bind(this);
     this.handlePrepItemChange = this.handlePrepItemChange.bind(this);
@@ -50,7 +51,6 @@ class App extends React.Component {
     this.handleDestinationAdd = this.handleDestinationAdd.bind(this);
     this.handleDestinationDelete = this.handleDestinationDelete.bind(this);
     this.handleDestinationSelect = this.handleDestinationSelect.bind(this);
-    this.handleCategorySelect = this.handleCategorySelect.bind(this);
   }
 
   componentDidMount() {
@@ -184,6 +184,26 @@ class App extends React.Component {
     });
   }
 
+  handleObjCategorySelect (category) {
+    if (!this.state.destId && category === 'all') {
+      this.setState({
+        objectives: this.state.lastTrip.objectives         
+      });
+    } else if (!this.state.destId && category !== 'all') {
+      this.setState({
+        objectives: this.state.lastTrip.objectives.filter(objective => objective.category === category)           
+      });
+    } else if (this.state.destId && category === 'all') {
+      this.setState({
+        objectives: this.state.lastTrip.objectives.filter(objective => objective.destination === this.state.destId)           
+      });      
+    } else {
+      this.setState({
+        objectives: this.state.lastTrip.objectives.filter(objective => objective.destination === this.state.destId && objective.category === category)           
+      });   
+    }
+  }  
+
   handleReservationAdd({name, category, referenceNumber, date, destination}) {
     let trip = this.state.lastTrip.trip._id;
     let data = {name, category, referenceNumber, date, destination, trip};
@@ -279,17 +299,27 @@ class App extends React.Component {
       callback(location);
     });    
   }
-  handleCategorySelect (category) {
-    if (category !== 'all') {
-      this.setState({
-        objectives: this.state.lastTrip.objectives.filter(objective => objective.category === category)           
-      });
-    } else {
-      this.setState({
-        objectives: this.state.lastTrip.objectives         
-      });
-    }
-  }
+
+
+  // getLocationForDestination(name) {
+  //   return new Promise(function(resolve, reject) {
+  //     var url = `https://maps.googleapis.com/maps/api/geocode/json?address=${name}&key=${GOOGLE_MAP_API_KEY}`;
+  //     $.ajax({
+  //       url: url,
+  //       success: (data) => {
+  //         var location = {lat: 0, lng: 0};
+  //         if ((data.status === 'OK') && (data.results.length > 0)) {
+  //           location = {lat: data.results[0].geometry.location.lat, lng: data.results[0].geometry.location.lng};
+  //         }
+  //         resolve(location);
+  //       },
+  //       error: (error) => {
+  //         console.error('getLocationForDestination error: ', error.message);
+  //         reject(error);
+  //       }
+  //     });
+  //   });
+  // }
 
   render () {
     return (
@@ -350,7 +380,7 @@ class App extends React.Component {
                 handleObjAdd={this.handleObjAdd}
                 handleObjItemChange={this.handleObjItemChange}
                 handleObjItemDelete={this.handleObjItemDelete}
-                handleCategorySelect={this.handleCategorySelect}
+                handleObjCategorySelect={this.handleObjCategorySelect}
               />
             </Col>            
           </Row>
