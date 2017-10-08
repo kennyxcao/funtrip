@@ -1,5 +1,5 @@
 @import url("http://netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap-glyphicons.css");
-@import url("https://fonts.googleapis.com/css?family=Dosis:500,700|Lato:500");
+@import url("https://fonts.googleapis.com/css?family=Dosis:500,700|Lato:500|Laila:500");
 
 /*.userLogo {
   display: block;
@@ -26,7 +26,7 @@ body {
 }
 
 .current-info, .objective-list, .reservation-list, .prep-list {
-  font-family: 'Dosis', sans-serif;
+  font-family: 'Dosis';
   font-weight: 500;  
   font-size: 18px;
   box-shadow: 0 5px 6px rgba(0,0,0,0.12), 0 8px 5px rgba(0,0,0,0.24);
@@ -41,6 +41,34 @@ body {
   box-shadow: 0 14px 28px rgba(0,0,0,0.4);
   border-radius: 1em;
 }
+
+.navbar-default {
+/*  background-color: #F8F8F8;
+  border-color: #E7E7E7;*/
+  background-image: linear-gradient(to top, #09203f 0%, #537895 100%);  
+}
+
+.navbar-brand {
+ padding: 15px 8px;  
+}
+
+.navbar-brand:nth-of-type(2) {
+ padding: 18px 8px;  
+}
+
+#app-title {
+  font-family: 'Laila';
+  font-size: 28px;
+  font-weight: 500;
+  color: darkred;
+}
+
+.navbar-brand img {
+  width: 25px;
+  height: 25px;
+}
+
+
 
 h3 {
   font-size: 28px;

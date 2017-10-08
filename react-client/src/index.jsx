@@ -329,8 +329,11 @@ class App extends React.Component {
         <Navbar fluid>
           <Navbar.Header>
             <Navbar.Brand>
-              <a id='app-title' href="#">FunTrip</a>
+              <a id='app-logo' href="#"><img alt='FunTrip' src='../assets/logo.png'></img></a>
             </Navbar.Brand>
+            <Navbar.Brand>
+              <a id='app-title' href="#">FunTrip</a>
+            </Navbar.Brand>            
             <Navbar.Toggle />
           </Navbar.Header>
           <Navbar.Collapse>

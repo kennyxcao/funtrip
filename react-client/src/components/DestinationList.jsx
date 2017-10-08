@@ -5,7 +5,7 @@ import DestinationModal from './DestinationModal.jsx';
 const React = require('react');
 
 const DestinationList = (props) => (
-  <div className='desination-list'>
+  <div className='destination-list'>
     {!props.loggedIn ? null :
       <Nav>
         <NavItem eventKey={2} href="#" onClick={() => props.handleDestinationSelect()}>Overview</NavItem>
