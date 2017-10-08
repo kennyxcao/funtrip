@@ -184,7 +184,9 @@ class App extends React.Component {
     });
   }
 
-  handleObjCategorySelect (category) {
+  handleObjCategorySelect (eventKey) {
+    let categories = ['all', 'sightseeing', 'food', 'activities'];
+    let category = categories[eventKey];
     if (!this.state.destId && category === 'all') {
       this.setState({
         objectives: this.state.lastTrip.objectives         
