@@ -30,7 +30,8 @@ class App extends React.Component {
       objectives: [],
       destId: '',
       startDate: '',
-      endDate: ''
+      endDate: '',
+      weather: ''
     };
 
     this.handleLogin = this.handleLogin.bind(this);
@@ -77,7 +78,7 @@ class App extends React.Component {
           endDate: ''
         });
       }
-      
+
     } else {
       this.setState({
         preparationItems: this.state.lastTrip.preparationItems,
@@ -290,6 +291,7 @@ class App extends React.Component {
       destId: destId
     });
     this.renderComponentsByDestination(destId);
+    this.updateWeatherDate(destId);
   }
 
   handleDestinationAdd ({name, startDate, endDate}) {
@@ -340,6 +342,21 @@ class App extends React.Component {
   //     });
   //   });
   // }
+
+  updateWeatherDate (destId) {
+    let lat = this.state.lastTrip.destinations.filter(destination => destination._id === destId)[0].lat.toFixed(2);
+    let lon = this.state.lastTrip.destinations.filter(destination => destination._id === destId)[0].lng.toFixed(2);
+    this.fetchWeatherData(lat, lon, (data) => {
+      console.log(data);
+    });
+  }
+
+  fetchWeatherData (lat, lon, woeid, callback) {
+    let url = `api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&APPID=38a1bc2c8ae07a081d24c0fdb012b3b3`;
+    ajaxGet(url, '', null, 'json', (data) => {
+      callback(data);
+    });
+  }
 
   render () {
     return (
