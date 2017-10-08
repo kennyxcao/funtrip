@@ -6,11 +6,11 @@ const CurrentInfo = (props) => (
   <div className='current-info'>
     <h3> Current Information </h3>
     <hr className='divider'/>
-    <p><span className='bold'>Current TripId: </span>{props.trip._id}</p>
-    <p><span className='bold'>Trip Dates: </span><Moment format='YYYY/MM/DD' date={props.startDate}/> - <Moment format='YYYY/MM/DD' date={props.endDate}/></p>
+    <p><span className='bold'>Current TripId: &ensp;</span>{props.trip._id}</p>
+    <p><span className='bold'>Trip Dates: &ensp;</span><Moment format='YYYY/MM/DD' date={props.startDate}/> - <Moment format='YYYY/MM/DD' date={props.endDate}/></p>
     
-    <div className='weather-info'>
-      <p> <span className='bold'>Weather Info:</span></p>
+    <div className='weather-infos'>
+      <p> <span className='bold'>Current Weather:</span></p>
       {props.weathers.map((weather, index) => <WeatherInfo key={index} weather={weather} />)}
     </div>
 
