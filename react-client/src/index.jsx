@@ -330,14 +330,6 @@ class App extends React.Component {
     });    
   }
 
-  updateWeatherDate (destId) {
-    let lat = this.state.lastTrip.destinations.filter(destination => destination._id === destId)[0].lat.toFixed(2);
-    let lon = this.state.lastTrip.destinations.filter(destination => destination._id === destId)[0].lng.toFixed(2);
-    this.fetchWeatherData(lat, lon, (data) => {
-      console.log(data);
-    });
-  }
-
   updateAllDestinationsWeather (callback) {
     let trip = this.state.lastTrip;
     let count = 0;
@@ -359,7 +351,7 @@ class App extends React.Component {
     let data = {
       lat: lat,
       lon: lon,
-      APPID: '38a1bc2c8ae07a081d24c0fdb012b3b3'
+      APPID: '38a1bc2c8ae07a081d24c0fdb012b3b3' // kenny's api key from openweathermap 
     };
     ajaxGet(url, data, null, 'json', (weatherData) => {
       callback(weatherData);
