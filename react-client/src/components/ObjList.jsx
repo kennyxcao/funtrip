@@ -5,6 +5,7 @@ import {Grid, Row, Col, PageHeader, Navbar, Nav, NavDropdown, NavItem, MenuItem}
 const ObjList = (props) => (
   <div className='objective-list'>
     <ObjModal handleObjAdd={props.handleObjAdd} destinations={props.destinations}/>
+    <hr className='divider'/>    
     <Navbar>
       <Nav>
         <NavItem eventKey={1} href="#" value='all' onClick={props.handleObjCategorySelect.bind(null, 'all')}>All</NavItem>

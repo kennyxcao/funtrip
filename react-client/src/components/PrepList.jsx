@@ -5,6 +5,7 @@ import PrepModal from './PrepModal.jsx';
 const PrepList = (props) => (
   <div className='prep-list'>
     <PrepModal handlePrepAdd={props.handlePrepAdd} users={props.users}/>
+    <hr className='divider'/>
     <div> 
       There are {props.preparationItems.length} items to bring
     </div>
