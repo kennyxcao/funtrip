@@ -33,6 +33,7 @@ app.use('/js', express.static(__dirname + '/../node_modules/jquery/dist')); // r
 app.use('/js', express.static(__dirname + '/../node_modules/moment')); // redirect JS Moment
 app.use('/css', express.static(__dirname + '/../node_modules/bootstrap/dist/css')); // redirect CSS bootstrap
 app.use('/css', express.static(__dirname + '/../react-client/css')); // redirect custom css file
+app.use('/assets', express.static(__dirname + '/../react-client/assets'));  // redirect custom assets
 
 // Server-side End Points Routers
 app.post('/login', Auth.verifySessionLogin, (req, res, next) => {
@@ -77,20 +78,7 @@ app.get('/trips', (req, res) => {
   }).catch(function(err) {
     console.error(err);
     res.status(404).send();
-  }); 
-
-  // let tripsData = {};
-  // DB.getUserTrips(req.query.username).then(function(trips) {
-  //   let lastTripId = trips[trips.length - 1]._id;
-  //   tripsData.trips = trips;
-  //   return DB.getAllDataForTrip(lastTripId);
-  // }).then(function(trip) {
-  //   tripsData.lastTrip = trip;
-  //   res.status(200).json(tripsData);
-  // }).catch(function(err) {
-  //   console.error(err);
-  //   res.status(404).send();
-  // }); 
+  });
 });
 
 app.get('/trip', (req, res) => {
