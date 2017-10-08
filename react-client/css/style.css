@@ -68,6 +68,9 @@ body {
   color: #777;  
 }
 
+.bold {
+  font-weight: 700;
+}
 
 h3 {
   font-size: 28px;

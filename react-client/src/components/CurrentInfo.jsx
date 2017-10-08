@@ -1,25 +1,23 @@
 import React from 'react';
 import Moment from 'react-moment';
+import WeatherInfo from './WeatherInfo.jsx';
 
-class CurrentInfo extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-    };
-  }
+const CurrentInfo = (props) => (
+  <div className='current-info'>
+    <h3> Current Information </h3>
+    <hr className='divider'/>
+    <p><span className='bold'>Current TripId: </span>{props.trip._id}</p>
+    <p><span className='bold'>Trip Dates: </span><Moment format='YYYY/MM/DD' date={props.startDate}/> - <Moment format='YYYY/MM/DD' date={props.endDate}/></p>
+    
+    <div className='weather-info'>
+      <p> <span className='bold'>Weather Info:</span></p>
+      {props.weathers.map((weather, index) => <WeatherInfo key={index} weather={weather} />)}
+    </div>
 
-  render() {
-    return (
-      <div className='current-info'>
-        <h3> Current Information </h3>
-        <hr className='divider'/>
-        <p> Current TripId: {this.props.trip._id} </p>
-        <p> Trip Dates: <Moment format='YYYY/MM/DD' date={this.props.startDate}/> - <Moment format='YYYY/MM/DD' date={this.props.endDate}/></p>
-        <p> Weather Info : its hot </p>
-        <p> Currency Info : it's expensive </p>
-      </div>
-    );
-  }
-}
+    <div className='currency-info'>
+      <p><span className='bold'>Currency Info :</span></p>
+    </div>
+  </div>
+);
 
 export default CurrentInfo;
