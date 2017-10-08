@@ -1,23 +1,9 @@
 @import url("http://netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap-glyphicons.css");
 @import url("https://fonts.googleapis.com/css?family=Dosis:500,700|Lato:500|Laila:500");
 
-/*.userLogo {
-  display: block;
-  max-width:230px;
-  max-height:95px;
-  width: auto;
-  height: auto;
-  border-radius: 50%;
-}
-
-.addNewClass {
-  color: black;
-  background: red;
-}*/
-
 body {
   font-family: 'Lato', sans-serif;
-  font-size: 20px;
+  font-size: 18px;
   font-weight: 500;
   background-color: #fff; 
   background-image: linear-gradient(90deg, transparent 79px, #abced4 79px, #abced4 81px, transparent 81px), 
@@ -43,9 +29,7 @@ body {
 }
 
 .navbar-default {
-/*  background-color: #F8F8F8;
-  border-color: #E7E7E7;*/
-  background-image: linear-gradient(to top, #09203f 0%, #537895 100%);  
+  background-image: linear-gradient(to top, #dfe9f3 0%, white 100%);
 }
 
 .navbar-brand {
@@ -68,6 +52,17 @@ body {
   height: 25px;
 }
 
+.destination-list li{
+  color: darkblue;
+}
+
+.logout h4 {
+  color: #777;
+}
+
+.login label {
+  color: #777;  
+}
 
 
 h3 {
