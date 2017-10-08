@@ -1,7 +1,7 @@
 @import url("http://netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap-glyphicons.css");
-@import url("https://fonts.googleapis.com/css?family=Lato:400,700")
+@import url("https://fonts.googleapis.com/css?family=Dosis:700|Lato:400,700");
 
-.userLogo {
+/*.userLogo {
   display: block;
   max-width:230px;
   max-height:95px;
@@ -13,19 +13,23 @@
 .addNewClass {
   color: black;
   background: red;
-}
+}*/
 
 body {
-  font-family: 'Lato', sans-serif;
+  font-family: 'Dosis', sans-serif;
+  font-size: 18px;
+  font-weight: 400;
   background-color: #fff; 
-  background-image: 
-  linear-gradient(90deg, transparent 79px, #abced4 79px, #abced4 81px, transparent 81px),
-  linear-gradient(#eee .1em, transparent .1em);
+  background-image: linear-gradient(90deg, transparent 79px, #abced4 79px, #abced4 81px, transparent 81px), 
+                    linear-gradient(#eee .1em, transparent .1em);
   background-size: 100% 1.2em;
 }
 
 h3 {
+  font-family: 'Dosis', sans-serif;
+  font-size: 28px;
   font-weight: 700;
+  text-transform: uppercase;
 }
 
 div.trip-list .navbar-right {
@@ -49,16 +53,28 @@ div.login div > * {
 }
 
 .current-info, .objective-list, .reservation-list, .prep-list {  
-  box-shadow: 0 3px 6px rgba(0,0,0,0.12), 0 3px 5px rgba(0,0,0,0.24);
+  box-shadow: 0 5px 6px rgba(0,0,0,0.12), 0 6px 5px rgba(0,0,0,0.24);
   transition: all 0.3s cubic-bezier(.25,.8,.25,1);
-  background: linear-gradient(to bottom, #D5DEE7 0%, #E8EBF2 50%, #E2E7ED 100%), linear-gradient(to bottom, rgba(0,0,0,0.02) 50%, rgba(255,255,255,0.02) 61%, rgba(0,0,0,0.02) 73%), linear-gradient(33deg, rgba(255,255,255,0.20) 0%, rgba(0,0,0,0.20) 100%);
-  background-blend-mode: normal,color-burn;  
-  padding: 5px;
-  margin: 5px;
-  border-radius: 4px;
+  background-image: linear-gradient(to top, #ffb 0%, #ffe 100%);
+  padding: 1em;
+  margin: 0.5em;
+  border-radius: 1em;
 }
 
 .current-info:hover, .objective-list:hover, .reservation-list:hover, .prep-list:hover  {
-  box-shadow: 0 14px 28px rgba(0,0,0,0.25);
-  border-radius: 4px;
+  box-shadow: 0 14px 28px rgba(0,0,0,0.4);
+  border-radius: 1em;
+}
+
+hr.divider {
+  height: 1px;
+  width: 100%;
+  display: block; /* for use on default inline elements like span */
+  margin: 9px 0;
+  overflow: hidden;
+  background-color: #c5c5c5; 
+}
+
+h3 button {
+  margin-left: 4px;
 }

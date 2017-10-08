@@ -7,6 +7,7 @@ const React = require('react');
 const ReservationList = (props) => (
   <div className='reservation-list'>
     <ReservationModal handleReservationAdd={props.handleReservationAdd} destinations={props.destinations}/>
+    <hr className='divider'/>
     <Table striped bordered condensed hover>
       <thead>
         <tr>
