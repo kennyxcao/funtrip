@@ -31,7 +31,7 @@ class App extends React.Component {
       destId: '',
       startDate: '',
       endDate: '',
-      weather: ''
+      weathers: []
     };
 
     this.handleLogin = this.handleLogin.bind(this);
@@ -60,14 +60,15 @@ class App extends React.Component {
   }
 
   renderComponentsByDestination (destId) {
-    if (!destId) {
+    if (!destId) { // show all component data
       this.setState({
         preparationItems: this.state.lastTrip.preparationItems,
         reservations: this.state.lastTrip.reservations,
         objectives: this.state.lastTrip.objectives,
+        weathers: this.state.lastTrip.destinations.map(destination => destination.weather)        
       });
 
-      if (this.state.lastTrip.destinations.length > 0) {
+      if (this.state.lastTrip.destinations.length > 0) { // set start date to earliest start date and end date to latest end date of all desinations
         this.setState({
           startDate: this.state.lastTrip.destinations.reduce((min, dest) => new Date(dest.startDate) < new Date(min.startDate) ? dest : min).startDate,
           endDate: this.state.lastTrip.destinations.reduce((max, dest) => new Date(dest.endDate) > new Date(max.startDate) ? dest : max).endDate
@@ -79,13 +80,14 @@ class App extends React.Component {
         });
       }
 
-    } else {
+    } else { // filter component data by destination ID
       this.setState({
         preparationItems: this.state.lastTrip.preparationItems,
         reservations: this.state.lastTrip.reservations.filter(reservation => reservation.destination === destId),
         objectives: this.state.lastTrip.objectives.filter(objective => objective.destination === destId),
         startDate: this.state.lastTrip.destinations.filter(destination => destination._id === destId)[0].startDate,
-        endDate: this.state.lastTrip.destinations.filter(destination => destination._id === destId)[0].endDate        
+        endDate: this.state.lastTrip.destinations.filter(destination => destination._id === destId)[0].endDate,
+        weathers: this.state.lastTrip.destinations.filter(destination => destination._id === destId).map(destination => destination.weather)
       });
     }
   }
@@ -97,11 +99,18 @@ class App extends React.Component {
       this.setState({
         lastTrip: results.trip
       });
-      if (this.state.destId) {        
-        this.renderComponentsByDestination(this.state.destId);
-      } else {
-        this.renderComponentsByDestination();
-      }
+      // update weather data for all destinations
+      this.updateAllDestinationsWeather(trip => {
+        this.setState({
+          lastTrip: trip
+        });
+
+        if (this.state.destId) {        
+          this.renderComponentsByDestination(this.state.destId);
+        } else {
+          this.renderComponentsByDestination();
+        }
+      });
     });    
   }
 
@@ -291,7 +300,7 @@ class App extends React.Component {
       destId: destId
     });
     this.renderComponentsByDestination(destId);
-    this.updateWeatherDate(destId);
+    this.updateWeatherData(destId);
   }
 
   handleDestinationAdd ({name, startDate, endDate}) {
@@ -322,27 +331,6 @@ class App extends React.Component {
     });    
   }
 
-
-  // getLocationForDestination(name) {
-  //   return new Promise(function(resolve, reject) {
-  //     var url = `https://maps.googleapis.com/maps/api/geocode/json?address=${name}&key=${GOOGLE_MAP_API_KEY}`;
-  //     $.ajax({
-  //       url: url,
-  //       success: (data) => {
-  //         var location = {lat: 0, lng: 0};
-  //         if ((data.status === 'OK') && (data.results.length > 0)) {
-  //           location = {lat: data.results[0].geometry.location.lat, lng: data.results[0].geometry.location.lng};
-  //         }
-  //         resolve(location);
-  //       },
-  //       error: (error) => {
-  //         console.error('getLocationForDestination error: ', error.message);
-  //         reject(error);
-  //       }
-  //     });
-  //   });
-  // }
-
   updateWeatherDate (destId) {
     let lat = this.state.lastTrip.destinations.filter(destination => destination._id === destId)[0].lat.toFixed(2);
     let lon = this.state.lastTrip.destinations.filter(destination => destination._id === destId)[0].lng.toFixed(2);
@@ -351,10 +339,31 @@ class App extends React.Component {
     });
   }
 
-  fetchWeatherData (lat, lon, woeid, callback) {
-    let url = `api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&APPID=38a1bc2c8ae07a081d24c0fdb012b3b3`;
-    ajaxGet(url, '', null, 'json', (data) => {
-      callback(data);
+  updateAllDestinationsWeather (callback) {
+    let trip = this.state.lastTrip;
+    let count = 0;
+    for (let i = 0; i < trip.destinations.length; i++) {
+      let lat = trip.destinations[i].lat.toFixed(2);
+      let lon = trip.destinations[i].lng.toFixed(2);
+      this.fetchWeatherData(lat, lon, (weatherData) => {
+        trip.destinations[i]['weather'] = weatherData;
+        count++;
+        if (count === trip.destinations.length) {
+          callback(trip);
+        }
+      });
+    }
+  }
+
+  fetchWeatherData (lat, lon, callback) {
+    let url = 'http://api.openweathermap.org/data/2.5/weather';
+    let data = {
+      lat: lat,
+      lon: lon,
+      APPID: '38a1bc2c8ae07a081d24c0fdb012b3b3'
+    };
+    ajaxGet(url, data, null, 'json', (weatherData) => {
+      callback(weatherData);
     });
   }
 
@@ -407,7 +416,7 @@ class App extends React.Component {
             <Col sm={6} md={5} mdOffset={1}>
               <PrepList 
                 preparationItems={this.state.preparationItems}
-                users={this.state.lastTrip.trip.users ? this.state.lastTrip.trip.users : []} // users object not yet implemented in fetching trip state - only userId avaiable
+                users={this.state.lastTrip.trip.users ? this.state.lastTrip.trip.users : []}
                 handlePrepAdd={this.handlePrepAdd} 
                 handlePrepItemChange={this.handlePrepItemChange} 
                 handlePrepItemDelete={this.handlePrepItemDelete}
@@ -430,6 +439,7 @@ class App extends React.Component {
                 trip={this.state.lastTrip.trip}
                 startDate={this.state.startDate}
                 endDate={this.state.endDate}
+                weathers={this.state.weathers}
               />
             </Col>
             <Col sm={6} md={5}>
@@ -456,5 +466,26 @@ class App extends React.Component {
   }
 }
 
-
 ReactDOM.render(<App />, document.getElementById('app'));
+
+
+// Elena's helper function to fetch geo coordinates
+// getLocationForDestination(name) {
+//   return new Promise(function(resolve, reject) {
+//     var url = `https://maps.googleapis.com/maps/api/geocode/json?address=${name}&key=${GOOGLE_MAP_API_KEY}`;
+//     $.ajax({
+//       url: url,
+//       success: (data) => {
+//         var location = {lat: 0, lng: 0};
+//         if ((data.status === 'OK') && (data.results.length > 0)) {
+//           location = {lat: data.results[0].geometry.location.lat, lng: data.results[0].geometry.location.lng};
+//         }
+//         resolve(location);
+//       },
+//       error: (error) => {
+//         console.error('getLocationForDestination error: ', error.message);
+//         reject(error);
+//       }
+//     });
+//   });
+// }
