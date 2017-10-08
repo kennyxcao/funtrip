@@ -156,11 +156,19 @@ class App extends React.Component {
   }  
 
   handleObjAdd({name, category, date, destination}) {
-    let trip = this.state.lastTrip.trip._id;
-    let data = {name, category, date, destination, trip};
-    ajaxPost('/obj', JSON.stringify(data), 'application/json', 'text', (results) => {
-      this.fetchUserTrips();
-    }); 
+    // let trip = this.state.lastTrip.trip._id;
+    // let data = {name, category, date, destination, trip};
+    // ajaxPost('/obj', JSON.stringify(data), 'application/json', 'text', (results) => {
+    //   this.fetchUserTrips();
+    // });
+    this.fetchGeoCoordinates(name, ({lat, lng}) => {
+      console.log('lat, lng:', lat, lng);
+      let trip = this.state.lastTrip.trip._id;
+      let data = {name, category, date, destination, trip, lat, lng};
+      ajaxPost('/obj', JSON.stringify(data), 'application/json', 'text', (results) => {
+        this.fetchUserTrips();
+      });
+    });
   }
 
   handleObjItemChange (objId, newChecked) {
@@ -282,25 +290,6 @@ class App extends React.Component {
       });
     }
   }
-  // getLocationForDestination(name) {
-  //   return new Promise(function(resolve, reject) {
-  //     var url = `https://maps.googleapis.com/maps/api/geocode/json?address=${name}&key=${GOOGLE_MAP_API_KEY}`;
-  //     $.ajax({
-  //       url: url,
-  //       success: (data) => {
-  //         var location = {lat: 0, lng: 0};
-  //         if ((data.status === 'OK') && (data.results.length > 0)) {
-  //           location = {lat: data.results[0].geometry.location.lat, lng: data.results[0].geometry.location.lng};
-  //         }
-  //         resolve(location);
-  //       },
-  //       error: (error) => {
-  //         console.error('getLocationForDestination error: ', error.message);
-  //         reject(error);
-  //       }
-  //     });
-  //   });
-  // }
 
   render () {
     return (
@@ -384,6 +373,8 @@ class App extends React.Component {
             <Col sm={10} md={10} mdOffset={1}>
               <MapView 
                 destinations={this.state.lastTrip.destinations}
+                destId={this.state.destId}
+                objectives={this.state.objectives}
               />
             </Col>          
           </Row>             

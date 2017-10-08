@@ -9,16 +9,6 @@ class MapView extends React.Component {
     this.state = {};
   }
 
-  // componentWillReceiveProps ({ isScriptLoaded, isScriptLoadSucceed }) {
-  //   if (isScriptLoaded && !this.props.isScriptLoaded) {
-  //     if (isScriptLoadSucceed) {
-  //       this.initMap();
-  //     } else {
-  //       console.log('componentWillReceiveProps error: ', error.message);
-  //     }
-  //   }
-  // }
-
   componentDidMount() {
     if (this.props.isScriptLoaded && this.props.isScriptLoadSucceed) {
       this.initMap();
@@ -32,7 +22,10 @@ class MapView extends React.Component {
   }
 
   shouldComponentUpdate(nextProps, nextState) {
-    return !equal(nextProps.destinations, this.props.destinations);
+    var isDestinationsUpdated = !equal(nextProps.destinations, this.props.destinations);
+    var idDestIdUpdated = (nextProps.destId !== this.props.destId);
+    var isObjectivesUpdated = !equal(nextProps.objectives, this.props.objectives);
+    return isDestinationsUpdated || idDestIdUpdated || (isObjectivesUpdated && this.props.destId);
   }
   
   componentDidUpdate() {
@@ -43,7 +36,7 @@ class MapView extends React.Component {
     }
   }
 
-  initMap() {
+  renderOverviewMap() {
     var directionsDisplay;
     var directionsService = new google.maps.DirectionsService();
     var map;
@@ -81,6 +74,40 @@ class MapView extends React.Component {
     });
   }
 
+  renderDestinationMap() {
+    var currentDestination = this.props.destinations.filter(destination => destination._id === this.props.destId)[0];
+    var map = new google.maps.Map(document.getElementById('map'), {
+      zoom: 10,
+      center: {lat: currentDestination.lat, lng: currentDestination.lng}
+    });
+
+    for (let i = 0; i < this.props.objectives.length; i++) {
+      let objective = this.props.objectives[i];
+      if (objective.lat && objective.lng) {
+        let marker = new google.maps.Marker({
+          position: {lat: objective.lat, lng: objective.lng},
+          map: map,
+          title: objective.name
+        });
+        let contentString = `<div id=${objective._id}>${objective.name}</div>`;
+        let infowindow = new google.maps.InfoWindow({
+          content: contentString
+        });
+        marker.addListener('click', function() {
+          infowindow.open(map, marker);
+        });
+      }
+    }
+  }
+
+  initMap() {
+    if (!this.props.destId) {
+      this.renderOverviewMap();
+    } else {
+      this.renderDestinationMap();
+    }
+  }
+
   render() {
     var mapStyle = {
       width: '100%',
@@ -91,15 +118,6 @@ class MapView extends React.Component {
     return (
       <div>
         <h4>Trip Map</h4>
-        {/*        <div id="floating-panel">
-          <b>Mode of Travel: </b>
-          <select id="mode" ref='mode'>
-            <option value="DRIVING">Driving</option>
-            <option value="WALKING">Walking</option>
-            <option value="BICYCLING">Bicycling</option>
-            <option value="TRANSIT">Transit</option>
-          </select>
-        </div>*/}
         <div id="map" ref='map' style={mapStyle}></div>
       </div>
     );

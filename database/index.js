@@ -211,8 +211,8 @@ var getReservationsForTrip = function(tripId) {
   return Reservation.find({trip: tripId});
 };
 
-var createObjective = function({name, category, trip, destination}) {
-  return Objective.create({name, category, trip, destination});
+var createObjective = function({name, category, trip, destination, lat = 0, lng = 0}) {
+  return Objective.create({name, category, trip, destination, lat, lng});
 };
 
 var deleteObjItem = function(id) {
