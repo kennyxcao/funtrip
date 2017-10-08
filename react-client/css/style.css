@@ -56,6 +56,10 @@ body {
   color: darkblue;
 }
 
+.logout {
+  padding-top: 1px;
+}
+
 .logout h4 {
   color: #777;
 }
