@@ -300,7 +300,6 @@ class App extends React.Component {
       destId: destId
     });
     this.renderComponentsByDestination(destId);
-    this.updateWeatherData(destId);
   }
 
   handleDestinationAdd ({name, startDate, endDate}) {
