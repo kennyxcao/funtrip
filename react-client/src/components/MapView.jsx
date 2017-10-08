@@ -116,8 +116,9 @@ class MapView extends React.Component {
     };
 
     return (
-      <div>
-        <h4>Trip Map</h4>
+      <div className='trip-map'>
+        <h3>Trip Map</h3>
+        <hr className='divider'/>
         <div id="map" ref='map' style={mapStyle}></div>
       </div>
     );

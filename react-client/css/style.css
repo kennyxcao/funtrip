@@ -11,7 +11,7 @@ body {
   background-size: 100% 1.2em;
 }
 
-.current-info, .objective-list, .reservation-list, .prep-list {
+.current-info, .objective-list, .reservation-list, .prep-list, .trip-map {
   font-family: 'Dosis';
   font-weight: 500;  
   font-size: 18px;
@@ -23,7 +23,7 @@ body {
   border-radius: 1em;
 }
 
-.current-info:hover, .objective-list:hover, .reservation-list:hover, .prep-list:hover  {
+.current-info:hover, .objective-list:hover, .reservation-list:hover, .prep-list:hover, .trip-map:hover {
   box-shadow: 0 14px 28px rgba(0,0,0,0.4);
   border-radius: 1em;
 }
