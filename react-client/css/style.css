@@ -1,5 +1,5 @@
 @import url("http://netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap-glyphicons.css");
-@import url("https://fonts.googleapis.com/css?family=Dosis:700|Lato:400,700");
+@import url("https://fonts.googleapis.com/css?family=Dosis:500,700|Lato:400,700");
 
 /*.userLogo {
   display: block;
@@ -17,8 +17,8 @@
 
 body {
   font-family: 'Dosis', sans-serif;
-  font-size: 18px;
-  font-weight: 400;
+  font-size: 20px;
+  font-weight: 500;
   background-color: #fff; 
   background-image: linear-gradient(90deg, transparent 79px, #abced4 79px, #abced4 81px, transparent 81px), 
                     linear-gradient(#eee .1em, transparent .1em);
@@ -30,6 +30,7 @@ h3 {
   font-size: 28px;
   font-weight: 700;
   text-transform: uppercase;
+  color: #347ab7;
 }
 
 div.trip-list .navbar-right {
