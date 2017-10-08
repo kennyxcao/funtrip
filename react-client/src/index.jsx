@@ -178,17 +178,13 @@ class App extends React.Component {
         objectives: [],
         destId: '',
         startDate: '',
-        endDate: ''              
+        endDate: '',
+        weathers: []       
       });
     });
   }  
 
   handleObjAdd({name, category, date, destination}) {
-    // let trip = this.state.lastTrip.trip._id;
-    // let data = {name, category, date, destination, trip};
-    // ajaxPost('/obj', JSON.stringify(data), 'application/json', 'text', (results) => {
-    //   this.fetchUserTrips();
-    // });
     this.fetchGeoCoordinates(name, ({lat, lng}) => {
       console.log('lat, lng:', lat, lng);
       let trip = this.state.lastTrip.trip._id;

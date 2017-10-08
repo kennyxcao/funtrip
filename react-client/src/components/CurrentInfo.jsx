@@ -4,7 +4,7 @@ import WeatherInfo from './WeatherInfo.jsx';
 
 const CurrentInfo = (props) => (
   <div className='current-info'>
-    <h3> Current Information </h3>
+    <h3>Current Information</h3>
     <hr className='divider'/>
     <p><span className='bold'>Current TripId: &ensp;</span>{props.trip._id}</p>
     <p><span className='bold'>Trip Dates: &ensp;</span><Moment format='YYYY/MM/DD' date={props.startDate}/> - <Moment format='YYYY/MM/DD' date={props.endDate}/></p>
