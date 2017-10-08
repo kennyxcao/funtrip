@@ -72,6 +72,11 @@ body {
   font-weight: 700;
 }
 
+.italic {
+  font-style: italic;
+  font-size: 16px;
+}
+
 h3 {
   font-size: 28px;
   font-weight: 700;
