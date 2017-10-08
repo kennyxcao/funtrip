@@ -25,11 +25,41 @@ body {
   background-size: 100% 1.2em;
 }
 
+.current-info, .objective-list, .reservation-list, .prep-list {
+  font-family: 'Dosis', sans-serif;
+  font-weight: 500;  
+  font-size: 18px;
+  box-shadow: 0 5px 6px rgba(0,0,0,0.12), 0 8px 5px rgba(0,0,0,0.24);
+  transition: all 0.3s cubic-bezier(.25,.8,.25,1);
+  background-image: linear-gradient(to top, #ffc 0%, #ffe 100%);
+  padding: 1em;
+  margin: 0.5em;
+  border-radius: 1em;
+}
+
+.current-info:hover, .objective-list:hover, .reservation-list:hover, .prep-list:hover  {
+  box-shadow: 0 14px 28px rgba(0,0,0,0.4);
+  border-radius: 1em;
+}
+
 h3 {
   font-size: 28px;
   font-weight: 700;
   text-transform: uppercase;
   color: #347ab7;
+}
+
+h3 button {
+  margin-left: 4px;
+}
+
+hr.divider {
+  height: 1px;
+  width: 100%;
+  display: block; /* for use on default inline elements like span */
+  margin: 9px 0;
+  overflow: hidden;
+  background-color: #c5c5c5; 
 }
 
 div.trip-list .navbar-right {
@@ -52,32 +82,8 @@ div.login div > * {
   margin-left: 10px;
 }
 
-.current-info, .objective-list, .reservation-list, .prep-list {
-  font-family: 'Dosis', sans-serif;
-  font-weight: 500;  
-  font-size: 18px;
-  box-shadow: 0 5px 6px rgba(0,0,0,0.12), 0 8px 5px rgba(0,0,0,0.24);
-  transition: all 0.3s cubic-bezier(.25,.8,.25,1);
-  background-image: linear-gradient(to top, #ffb 0%, #ffe 100%);
-  padding: 1em;
-  margin: 0.5em;
-  border-radius: 1em;
+table thead {
+  background-color: #98c3e8;
 }
 
-.current-info:hover, .objective-list:hover, .reservation-list:hover, .prep-list:hover  {
-  box-shadow: 0 14px 28px rgba(0,0,0,0.4);
-  border-radius: 1em;
-}
 
-hr.divider {
-  height: 1px;
-  width: 100%;
-  display: block; /* for use on default inline elements like span */
-  margin: 9px 0;
-  overflow: hidden;
-  background-color: #c5c5c5; 
-}
-
-h3 button {
-  margin-left: 4px;
-}
