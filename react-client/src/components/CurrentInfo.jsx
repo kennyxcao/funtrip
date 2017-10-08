@@ -15,7 +15,7 @@ const CurrentInfo = (props) => (
     </div>
 
     <div className='currency-info'>
-      <p><span className='bold'>Currency Info :</span></p>
+      <p><span className='bold'>Currency Info: &ensp;</span> 1 USD = 0.85 Euro, 6.64 Yuan, 112.49 Yen, 58.16 Ruble</p>
     </div>
   </div>
 );
