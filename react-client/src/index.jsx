@@ -13,7 +13,6 @@ import TripList from './components/TripList.jsx';
 import DesinationList from './components/DestinationList.jsx';
 import CurrentInfo from './components/CurrentInfo.jsx';
 import MapView from './components/MapView.jsx';
-import SideBar from './components/SideBar.jsx';
 import GOOGLE_MAP_API_KEY from './config/googlemaps.js';
 const Promise = require('bluebird');
 
@@ -29,7 +28,9 @@ class App extends React.Component {
       reservations: [],
       preparationItems: [],
       objectives: [],
-      destId: ''
+      destId: '',
+      startDate: '',
+      endDate: ''
     };
 
     this.handleLogin = this.handleLogin.bind(this);
@@ -62,13 +63,28 @@ class App extends React.Component {
       this.setState({
         preparationItems: this.state.lastTrip.preparationItems,
         reservations: this.state.lastTrip.reservations,
-        objectives: this.state.lastTrip.objectives        
+        objectives: this.state.lastTrip.objectives,
       });
+
+      if (this.state.lastTrip.destinations.length > 0) {
+        this.setState({
+          startDate: this.state.lastTrip.destinations.reduce((min, dest) => new Date(dest.startDate) < new Date(min.startDate) ? dest : min).startDate,
+          endDate: this.state.lastTrip.destinations.reduce((max, dest) => new Date(dest.endDate) > new Date(max.startDate) ? dest : max).endDate
+        });
+      } else {
+        this.setState({
+          startDate: '',
+          endDate: ''
+        });
+      }
+      
     } else {
       this.setState({
         preparationItems: this.state.lastTrip.preparationItems,
         reservations: this.state.lastTrip.reservations.filter(reservation => reservation.destination === destId),
-        objectives: this.state.lastTrip.objectives.filter(objective => objective.destination === destId)           
+        objectives: this.state.lastTrip.objectives.filter(objective => objective.destination === destId),
+        startDate: this.state.lastTrip.destinations.filter(destination => destination._id === destId)[0].startDate,
+        endDate: this.state.lastTrip.destinations.filter(destination => destination._id === destId)[0].endDate        
       });
     }
   }
@@ -150,7 +166,9 @@ class App extends React.Component {
         reservations: [],
         preparationItems: [],
         objectives: [],
-        destId: ''        
+        destId: '',
+        startDate: '',
+        endDate: ''              
       });
     });
   }  
@@ -393,6 +411,8 @@ class App extends React.Component {
             <Col sm={6} md={5} mdOffset={1}>
               <CurrentInfo
                 trip={this.state.lastTrip.trip}
+                startDate={this.state.startDate}
+                endDate={this.state.endDate}
               />
             </Col>
             <Col sm={6} md={5}>
