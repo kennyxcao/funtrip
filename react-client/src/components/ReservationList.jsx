@@ -8,7 +8,7 @@ const ReservationList = (props) => (
   <div className='reservation-list'>
     <ReservationModal handleReservationAdd={props.handleReservationAdd} destinations={props.destinations}/>
     <hr className='divider'/>
-    <Table striped bordered condensed hover>
+    <Table bordered condensed hover>
       <thead>
         <tr>
           <th>Date</th>
