@@ -13,13 +13,9 @@ import TripList from './components/TripList.jsx';
 import DesinationList from './components/DestinationList.jsx';
 import CurrentInfo from './components/CurrentInfo.jsx';
 import MapView from './components/MapView.jsx';
-try {
-  import GOOGLE_MAP_API_KEY from './config/googlemaps.js';
-  import OPEN_WEATHER_MAP_API_KEY from './config/openweathermap.js';  
-}
-catch (e) {
-  console.error('No API config found'); 
-}
+import GOOGLE_MAP_API_KEY from './config/googlemaps.js';
+import OPEN_WEATHER_MAP_API_KEY from './config/openweathermap.js';  
+
 const Promise = require('bluebird');
 
 class App extends React.Component {
