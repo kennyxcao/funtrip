@@ -9,7 +9,8 @@ class PrepModal extends React.Component {
       showModal: false,
       name: '',
       responsibleUser: '',
-      dueDate: ''
+      dueDate: '',
+      error: false
     };
     this.close = this.close.bind(this);
     this.open = this.open.bind(this);
@@ -29,7 +30,7 @@ class PrepModal extends React.Component {
   }
 
   close() {
-    this.setState({ showModal: false });
+    this.setState({ showModal: false, error: false });
     this.reset();    
   }
 
@@ -52,8 +53,13 @@ class PrepModal extends React.Component {
   }
 
   handleClickSubmit () {
-    this.props.handlePrepAdd(this.state);
-    this.close();
+    this.setState({ error: false });
+    if (!this.state.name || !this.state.responsibleUser) {
+      this.setState({ error: true });
+    } else {    
+      this.props.handlePrepAdd(this.state);
+      this.close();
+    }
   }
 
   render() {
@@ -61,7 +67,7 @@ class PrepModal extends React.Component {
       <div className='preparation-modal inline'>
         <h3>Preparation List <Button bsStyle="primary" bsSize="small" onClick={this.open}><Glyphicon glyph="plus" /></Button></h3>
 
-        <Modal show={this.state.showModal} onHide={this.close}>
+        <Modal show={this.state.showModal} onHide={this.close} className={this.state.error ? 'animated shake' : ''}>
           <Modal.Header closeButton>
             <Modal.Title>Add a New Preparation Item</Modal.Title>
           </Modal.Header>
