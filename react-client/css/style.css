@@ -47,6 +47,10 @@ body {
   color: darkred;
 }
 
+.front-page img {
+  width: 100%;
+}
+
 .navbar-brand img {
   width: 25px;
   height: 25px;

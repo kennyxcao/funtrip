@@ -398,56 +398,68 @@ class App extends React.Component {
           </Navbar.Collapse>
         </Navbar>
 
-        <Grid fluid>
-          <Row>
-            <Col sm={6} md={5} mdOffset={1}>
-              <PrepList 
-                preparationItems={this.state.preparationItems}
-                users={this.state.lastTrip.trip.users ? this.state.lastTrip.trip.users : []}
-                handlePrepAdd={this.handlePrepAdd} 
-                handlePrepItemChange={this.handlePrepItemChange} 
-                handlePrepItemDelete={this.handlePrepItemDelete}
-              />
-            </Col>
-            <Col sm={6} md={5}>
-              <ObjList 
-                objectives={this.state.objectives}
-                destinations={this.state.lastTrip.destinations}
-                handleObjAdd={this.handleObjAdd}
-                handleObjItemChange={this.handleObjItemChange}
-                handleObjItemDelete={this.handleObjItemDelete}
-                handleObjCategorySelect={this.handleObjCategorySelect}
-              />
-            </Col>            
-          </Row>
-          <Row>
-            <Col sm={6} md={5} mdOffset={1}>
-              <CurrentInfo
-                trip={this.state.lastTrip.trip}
-                startDate={this.state.startDate}
-                endDate={this.state.endDate}
-                weathers={this.state.weathers}
-              />
-            </Col>
-            <Col sm={6} md={5}>
-              <ReservationList 
-                reservations={this.state.reservations}
-                destinations={this.state.lastTrip.destinations}
-                handleReservationAdd={this.handleReservationAdd}
-                handleReservationDelete={this.handleReservationDelete}
-              />
-            </Col>            
-          </Row>
-          <Row>
-            <Col sm={10} md={10} mdOffset={1}>
-              <MapView 
-                destinations={this.state.lastTrip.destinations}
-                destId={this.state.destId}
-                objectives={this.state.objectives}
-              />
-            </Col>          
-          </Row>             
-        </Grid>
+        {this.state.loggedIn ?
+          <Grid fluid>
+            <Row>
+              <Col sm={6} md={5} mdOffset={1}>
+                <PrepList 
+                  preparationItems={this.state.preparationItems}
+                  users={this.state.lastTrip.trip.users ? this.state.lastTrip.trip.users : []}
+                  handlePrepAdd={this.handlePrepAdd} 
+                  handlePrepItemChange={this.handlePrepItemChange} 
+                  handlePrepItemDelete={this.handlePrepItemDelete}
+                />
+              </Col>
+              <Col sm={6} md={5}>
+                <ObjList 
+                  objectives={this.state.objectives}
+                  destinations={this.state.lastTrip.destinations}
+                  handleObjAdd={this.handleObjAdd}
+                  handleObjItemChange={this.handleObjItemChange}
+                  handleObjItemDelete={this.handleObjItemDelete}
+                  handleObjCategorySelect={this.handleObjCategorySelect}
+                />
+              </Col>            
+            </Row>
+            <Row>
+              <Col sm={6} md={5} mdOffset={1}>
+                <CurrentInfo
+                  trip={this.state.lastTrip.trip}
+                  startDate={this.state.startDate}
+                  endDate={this.state.endDate}
+                  weathers={this.state.weathers}
+                />
+              </Col>
+              <Col sm={6} md={5}>
+                <ReservationList 
+                  reservations={this.state.reservations}
+                  destinations={this.state.lastTrip.destinations}
+                  handleReservationAdd={this.handleReservationAdd}
+                  handleReservationDelete={this.handleReservationDelete}
+                />
+              </Col>            
+            </Row>
+            <Row>
+              <Col sm={10} md={10} mdOffset={1}>
+                <MapView 
+                  destinations={this.state.lastTrip.destinations}
+                  destId={this.state.destId}
+                  objectives={this.state.objectives}
+                />
+              </Col>          
+            </Row>
+          </Grid>                    
+          :
+          <Grid fluid>
+            <Row>
+              <Col sm={12} md={12}>
+                <div className='front-page'>
+                  <img src='./assets/frontpage.jpg' alt='front page picture' />
+                </div>
+              </Col>          
+            </Row>  
+          </Grid>        
+        }
       </div>
     );
   }
