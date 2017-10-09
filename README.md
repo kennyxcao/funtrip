@@ -27,13 +27,12 @@ hrsf82 greenfield project
 ```
 npm install
 
-``
+```
 > Then run react-dev and server-dev in the terminal:
 
 ```
 npm run react-dev
 npm run server-dev
-
 ```
 > Connect the database: 
 
