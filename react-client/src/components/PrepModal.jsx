@@ -65,7 +65,7 @@ class PrepModal extends React.Component {
   render() {
     return (
       <div className='preparation-modal inline'>
-        <h3>Preparation List <Button bsStyle="primary" bsSize="small" onClick={this.open}><Glyphicon glyph="plus" /></Button></h3>
+        <h3>Preparation <Button bsStyle="primary" bsSize="small" onClick={this.open}><Glyphicon glyph="plus" /></Button></h3>
 
         <Modal show={this.state.showModal} onHide={this.close} className={this.state.error ? 'animated shake' : ''}>
           <Modal.Header closeButton>

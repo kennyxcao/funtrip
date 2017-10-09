@@ -72,7 +72,7 @@ class ObjModal extends React.Component {
   render() {
     return (
       <div className='objective-modal inline'>
-        <h3>Objective List <Button bsStyle="primary" bsSize="small" onClick={this.open}><Glyphicon glyph="plus" /></Button></h3>
+        <h3>Objectives <Button bsStyle="primary" bsSize="small" onClick={this.open}><Glyphicon glyph="plus" /></Button></h3>
 
         <Modal show={this.state.showModal} onHide={this.close} className={this.state.error ? 'animated shake' : ''}>
           <Modal.Header closeButton>
