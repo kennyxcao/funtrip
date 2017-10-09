@@ -79,7 +79,7 @@ View the user stories [here](https://docs.google.com/document/d/1j-vBE2c-PDgrn3o
 - Some read about React-Bootstrap [here](https://react-bootstrap.github.io/components.html)
 - Google Maps API for directions (https://developers.google.com/maps/documentation/directions/intro)
 - Google Maps API for Markers (https://developers.google.com/maps/documentation/javascript/markers)
-- Whether information API (https://openweathermap.org/current)
+- Wheather information API (https://openweathermap.org/current)
 
 ## Contributing
 
