@@ -41,9 +41,9 @@ npm run server-dev
 mongod
 
 ```
-> To start the project with some sample data, uncomment line 317 to line 323 in data.js
+> To start the project with some sample data, uncomment line 317 to line 323 in database/data.js
 
-> In order to correctly render the map, an API key is needed in the config folder.
+> In order to correctly render the map, an API key is needed in the config folder. You can get a KEY here: https://developers.google.com/maps/documentation/directions/intro
 
 ## Requirements
 
@@ -77,6 +77,9 @@ View the user stories [here](https://docs.google.com/document/d/1j-vBE2c-PDgrn3o
 - [Wireframe](https://drive.google.com/file/d/0B__VKvREYvbHZDNQS0pBR1ZmRFE/view?usp=sharing)
 - [Data schema](https://docs.google.com/document/d/1j-vBE2c-PDgrn3o0Rq3vqFsFftWiNFMYTguVCWzNqbw/edit?ts=59cc223a)
 - Some read about React-Bootstrap [here](https://react-bootstrap.github.io/components.html)
+- Google Maps API for directions (https://developers.google.com/maps/documentation/directions/intro)
+- Google Maps API for Markers (https://developers.google.com/maps/documentation/javascript/markers)
+- Whether information API (https://openweathermap.org/current)
 
 ## Contributing
 
