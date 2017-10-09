@@ -41,7 +41,7 @@ npm run server-dev
 mongod
 
 ```
-> To start the project with some sample data, uncomment line 317 t0 323 in data.js
+> To start the project with some sample data, uncomment line 317 to line 323 in data.js
 
 > In order to correctly render the map, an API key is needed in the config folder.
 
