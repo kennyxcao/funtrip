@@ -26,17 +26,20 @@ hrsf82 greenfield project
 
 ```
 npm install
+
 ``
 > Then run react-dev and server-dev in the terminal:
 
 ```
 npm run react-dev
 npm run server-dev
+
 ```
 > Connect the database: 
 
 ```
 mongod
+
 ```
 > To start the project with some sample data, uncomment line 317 t0 323 in data.js
 
@@ -58,8 +61,7 @@ From within the root directory:
 
 ```sh
 npm install
-npm run react-dev
-npm run server-dev
+
 ```
 
 ### Roadmap/Ticketing
