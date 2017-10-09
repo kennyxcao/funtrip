@@ -345,7 +345,7 @@ class App extends React.Component {
   }
 
   fetchWeatherData (lat, lon, callback) {
-    let url = 'http://api.openweathermap.org/data/2.5/weather';
+    let url = 'https://api.openweathermap.org/data/2.5/weather';
     let data = {
       lat: lat,
       lon: lon,
