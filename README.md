@@ -1,7 +1,7 @@
 # FunTrip
 hrsf82 greenfield project
 
-> Pithy project description
+> FunTrip is an all-in-one trip planning website that enables users to combine all their essential travel information together. Users will be able to create a checklist for things to bring to the trip, an objective list for things to do during the trip, a map to show their destinations, and a reservation list for all the hotel/flight information. Moreover, users can form a group and plan the trip together. 
 
 ## Team
 
@@ -22,7 +22,25 @@ hrsf82 greenfield project
 
 ## Usage
 
-> Some usage instructions
+> After forking and cloning the repo locally on a computer, install npm: 
+
+```
+npm install
+``
+> Then run react-dev and server-dev in the terminal:
+
+```
+npm run react-dev
+npm run server-dev
+```
+> Connect the database: 
+
+```
+mongod
+```
+> To start the project with some sample data, uncomment line 317 t0 323 in data.js
+
+> In order to correctly render the map, an API key is needed in the config folder.
 
 ## Requirements
 
@@ -39,15 +57,23 @@ hrsf82 greenfield project
 From within the root directory:
 
 ```sh
-npm install -g bower
 npm install
-bower install
+npm run react-dev
+npm run server-dev
 ```
 
-### Roadmap
+### Roadmap/Ticketing
 
-View the project roadmap [here](LINK_TO_DOC)
+View the roadmap and ticketing information [here](https://trello.com/b/1dkFWLno/funtrip)
 
+### User Stories
+
+View the user stories [here](https://docs.google.com/document/d/1j-vBE2c-PDgrn3o0Rq3vqFsFftWiNFMYTguVCWzNqbw/edit?usp=sharing)
+
+### Additional information 
+
+- [Wireframe](https://drive.google.com/file/d/0B__VKvREYvbHZDNQS0pBR1ZmRFE/view?usp=sharing)
+- [Data schema](Link here)
 
 ## Contributing
 
