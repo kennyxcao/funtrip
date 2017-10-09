@@ -1,6 +1,12 @@
 import React from 'react';
 import scriptLoader from 'react-async-script-loader';
-import GOOGLE_MAP_API_KEY from '../config/googlemaps.js';
+try {
+  import GOOGLE_MAP_API_KEY from '../config/googlemaps.js';
+}
+catch (e) {
+  console.error('No API config found'); 
+}
+
 
 var equal = require('deep-equal');
 
