@@ -16,8 +16,9 @@ hrsf82 greenfield project
 1. [Requirements](#requirements)
 1. [Development](#development)
     1. [Installing Dependencies](#installing-dependencies)
-    1. [Tasks](#tasks)
 1. [Roadmap](#roadmap)
+1. [User Stories](#user-stories)
+1. [Additional Information](#additional-information)
 1. [Contributing](#contributing)
 
 ## Usage
@@ -34,7 +35,7 @@ npm install
 npm run react-dev
 npm run server-dev
 ```
-> Connect the database: 
+> Connect the database in the terminal: 
 
 ```
 mongod
@@ -63,18 +64,19 @@ npm install
 
 ```
 
-### Roadmap/Ticketing
+## Roadmap
 
 View the roadmap and ticketing information [here](https://trello.com/b/1dkFWLno/funtrip)
 
-### User Stories
+## User Stories
 
 View the user stories [here](https://docs.google.com/document/d/1j-vBE2c-PDgrn3o0Rq3vqFsFftWiNFMYTguVCWzNqbw/edit?usp=sharing)
 
-### Additional information 
+## Additional Information 
 
 - [Wireframe](https://drive.google.com/file/d/0B__VKvREYvbHZDNQS0pBR1ZmRFE/view?usp=sharing)
-- [Data schema](Link here)
+- [Data schema](https://docs.google.com/document/d/1j-vBE2c-PDgrn3o0Rq3vqFsFftWiNFMYTguVCWzNqbw/edit?ts=59cc223a)
+- Some read about React-Bootstrap [here](https://react-bootstrap.github.io/components.html)
 
 ## Contributing
 
