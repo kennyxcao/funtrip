@@ -1,6 +1,7 @@
 import React from 'react';
 import scriptLoader from 'react-async-script-loader';
 import GOOGLE_MAP_API_KEY from '../config/googlemaps.js';
+
 var equal = require('deep-equal');
 
 class MapView extends React.Component {
@@ -125,4 +126,4 @@ class MapView extends React.Component {
   }
 }
 
-export default scriptLoader([`https://maps.googleapis.com/maps/api/js?v=3.exp&key=${GOOGLE_MAP_API_KEY}`])(MapView);
+export default scriptLoader([`https://maps.googleapis.com/maps/api/js?v=3.exp&key=${process.env.GOOGLE_MAP_API_KEY || GOOGLE_MAP_API_KEY}`])(MapView);

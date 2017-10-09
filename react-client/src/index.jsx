@@ -14,6 +14,7 @@ import DesinationList from './components/DestinationList.jsx';
 import CurrentInfo from './components/CurrentInfo.jsx';
 import MapView from './components/MapView.jsx';
 import GOOGLE_MAP_API_KEY from './config/googlemaps.js';
+import OPEN_WEATHER_MAP_API_KEY from './config/openweathermap.js';
 const Promise = require('bluebird');
 
 class App extends React.Component {
@@ -316,7 +317,7 @@ class App extends React.Component {
   }  
 
   fetchGeoCoordinates (name, callback) {
-    let url = `https://maps.googleapis.com/maps/api/geocode/json?address=${name}&key=${GOOGLE_MAP_API_KEY}`;
+    let url = `https://maps.googleapis.com/maps/api/geocode/json?address=${name}&key=${process.env.GOOGLE_MAP_API_KEY || GOOGLE_MAP_API_KEY}`;
     ajaxGet(url, '', null, 'json', (data) => {
       let location = {lat: 0, lng: 0};
       if ((data.status === 'OK') && (data.results.length > 0)) {
@@ -347,7 +348,7 @@ class App extends React.Component {
     let data = {
       lat: lat,
       lon: lon,
-      APPID: '38a1bc2c8ae07a081d24c0fdb012b3b3' // kenny's api key from openweathermap 
+      APPID: process.env.OPEN_WEATHER_MAP_API_KEY || OPEN_WEATHER_MAP_API_KEY 
     };
     ajaxGet(url, data, null, 'json', (weatherData) => {
       callback(weatherData);

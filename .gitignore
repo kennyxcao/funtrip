@@ -70,3 +70,4 @@ package-lock.json
 
 #config
 googlemaps.js
+openweathermap.js
