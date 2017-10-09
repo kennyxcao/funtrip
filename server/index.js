@@ -14,7 +14,7 @@ const DB = require('../database/index');
 
 const app = express();
 
-// Webpack config
+// Webpack development middleware configs
 if (process.env.NODE_ENV !== 'production') {
   const webpack = require('webpack');
   const webpackDevMiddleware = require('webpack-dev-middleware');
@@ -42,14 +42,13 @@ app.use(session({
   store: new MongoStore({ mongooseConnection: DB.db })
 }));
 
-// Static File Redirect
-const indexPath = path.join(__dirname, '/../react-client/index.html');
-const publicPath = express.static(path.join(__dirname, '/../react-client/dist'));
+// Public files redirect - not needed in this project
+// const indexPath = path.join(__dirname, '/../react-client/index.html');
+// const publicPath = express.static(path.join(__dirname, '/../react-client/dist'));
+// app.use('/public', publicPath);
+// app.get('/', function (_, res) { res.sendFile(indexPath); });
 
-app.use('/public', publicPath);
-app.get('/', function (_, res) { res.sendFile(indexPath); });
-
-
+// Static Files Redirect
 app.use(express.static(__dirname + '/../react-client'));
 app.use('/js', express.static(__dirname + '/../node_modules/bootstrap/dist/js'));  // redirect bootstrap JS
 app.use('/js', express.static(__dirname + '/../node_modules/jquery/dist')); // redirect JS jQuery
