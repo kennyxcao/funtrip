@@ -9,6 +9,8 @@
     "node": ">=6.11.1"
   },
   "scripts": {
+    "build": "NODE_ENV=production webpack --config ./webpack.prod.config.js --progress --colors",
+    "heroku-postbuild": "webpack -p --config ./webpack.prod.config.js --progress",
     "react-dev": "webpack -d --watch",
     "server-dev": "nodemon server/index.js",
     "lint": "eslint ./",
