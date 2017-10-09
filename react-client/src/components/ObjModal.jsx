@@ -10,7 +10,8 @@ class ObjModal extends React.Component {
       name: '',
       category: '',
       destination: '',
-      date: ''
+      date: '',
+      error: false
     };
     this.close = this.close.bind(this);
     this.open = this.open.bind(this);
@@ -32,7 +33,7 @@ class ObjModal extends React.Component {
   }
 
   close() {
-    this.setState({ showModal: false });
+    this.setState({ showModal: false, error: false });
     this.reset();    
   }
 
@@ -59,8 +60,13 @@ class ObjModal extends React.Component {
   }
 
   handleClickSubmit () {
-    this.props.handleObjAdd(this.state);
-    this.close();
+    this.setState({ error: false });
+    if (!this.state.name || !this.state.category || !this.state.destination || !this.state.date) {
+      this.setState({ error: true });
+    } else {
+      this.props.handleObjAdd(this.state);
+      this.close();
+    }
   }
 
   render() {
@@ -68,7 +74,7 @@ class ObjModal extends React.Component {
       <div className='objective-modal inline'>
         <h3>Objective List <Button bsStyle="primary" bsSize="small" onClick={this.open}><Glyphicon glyph="plus" /></Button></h3>
 
-        <Modal show={this.state.showModal} onHide={this.close}>
+        <Modal show={this.state.showModal} onHide={this.close} className={this.state.error ? 'animated shake' : ''}>
           <Modal.Header closeButton>
             <Modal.Title>Add a New Objective</Modal.Title>
           </Modal.Header>
