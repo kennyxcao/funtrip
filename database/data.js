@@ -2,25 +2,12 @@ var userSamples = [
   {
     username: 'kenny',
     pw: '1'
-  },
-  {
-    username: 'lena',
-    pw: '1'
-  },
-  {
-    username: 'aileen',
-    pw: '1'
-  },
-  {
-    username: 'javier',
-    pw: '1'
   }
 ];
 
-
 var tripSamples = [{
   name: 'Family trip to Europe'
-}]
+}];
 
 var destinationSamples = [{
   name: 'London',
@@ -44,21 +31,21 @@ var destinationSamples = [{
   lng: 2.154007
 }];
 
-let reservationSample =[{
+let reservationSample = [{
   name: 'Hilton',
-  category: 'Hotel',
+  category: 'hotel',
   referenceNumber: '6758440293423',
   date: new Date('11/02/2017')
 },
 {
   name: 'Marriot',
-  category: 'Hotel',
+  category: 'hotel',
   referenceNumber: '1111440293423',
   date: new Date('11/05/2017')
 },
 {
   name: 'Best Western',
-  category: 'Hotel',
+  category: 'hotel',
   referenceNumber: '3342440293423',
   date: new Date('11/09/2017')
 }
@@ -67,25 +54,21 @@ let reservationSample =[{
 let objectiveSample = [{
   name: 'Try local restaurant',
   category: 'food',
-  date: new Date('11/03/2017'),
-  checked: 0
+  date: new Date('11/03/2017')
 },
 {
   name: 'Go to museum',
   category: 'activities',
-  date: new Date('11/03/2017'),
-  checked: 0
+  date: new Date('11/03/2017')
 }];
 
 let preparationSample = [{
   name: 'Take passport',
-  dueDate: new Date('11/01/2017'),
-  checked: 0
+  dueDate: new Date('11/01/2017')
 },
 {
   name: 'Buy new luggage',
-  dueDate: new Date('10/29/2017'),
-  checked: 0
+  dueDate: new Date('10/29/2017')
 }];
 
 module.exports.userSamples = userSamples;

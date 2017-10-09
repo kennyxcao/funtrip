@@ -289,18 +289,23 @@ var loadAllSampleData = function() {
     PreparationItem.create(preparationItemTwo)])
     .then(function([user, trip, londonDest, parisDest, barcelonaDest, londonReser, parisReser, 
       barcelonaReser, objectiveOne, objectiveTwo, preparationItemOne, preparationItemTwo]) {
+      //update user
       var userPromise = User.findByIdAndUpdate(user._id, {'$push': {'trips': trip._id}});
+      //update trip
       var tripPromise = Trip.findByIdAndUpdate(trip._id, {'$push': {'users': user._id}});
+      //update Destinations
       var londonDestPromise = Destination.findByIdAndUpdate(londonDest._id, {'$set': {'trip': trip._id}});
       var parisDestPromise = Destination.findByIdAndUpdate(parisDest._id, {'$set': {'trip': trip._id}});
       var barcelonaDestPromise = Destination.findByIdAndUpdate(barcelonaDest._id, {'$set': {'trip': trip._id}});
-      var londonReserPromise = Reservation.findByIdAndUpdate(londonReser._id, {'$set': {'destination': londonDest._id, 'trip': trip._id}});
-      var parisReserPromise = Reservation.findByIdAndUpdate(parisReser._id, {'$set': {'destination': parisDest._id, 'trip': trip._id}});
-      var barcelonaReserPromise = Reservation.findByIdAndUpdate(barcelonaReser._id, {'$set': {'destination': barcelonaDest._id, 'trip': trip._id}});
+      //update Reservations
+      var londonReserPromise = Reservation.findByIdAndUpdate(londonReser._id, {'$set': {'destination': londonDest._id, 'trip': trip._id, 'user': user._id}});
+      var parisReserPromise = Reservation.findByIdAndUpdate(parisReser._id, {'$set': {'destination': parisDest._id, 'trip': trip._id, 'user': user._id}});
+      var barcelonaReserPromise = Reservation.findByIdAndUpdate(barcelonaReser._id, {'$set': {'destination': barcelonaDest._id, 'trip': trip._id, 'user': user._id}});
+      //update Objectives
       var objectiveOnePromise = Objective.findByIdAndUpdate(objectiveOne._id, {'$set': {'destination': barcelonaDest._id, 'trip': trip._id}});
       var objectiveTwoPromise = Objective.findByIdAndUpdate(objectiveTwo._id, {'$set': {'destination': parisDest._id, 'trip': trip._id}});
-      var preparationItemOnePromise = PreparationItem.findByIdAndUpdate(preparationItemOne._id, {'$set': {'trip': trip._id}});
-      var preparationItemTwoPromise = PreparationItem.findByIdAndUpdate(preparationItemTwo._id, {'$set': {'trip': trip._id}});
+      var preparationItemOnePromise = PreparationItem.findByIdAndUpdate(preparationItemOne._id, {'$set': {'trip': trip._id, 'responsibleUser': user._id}});
+      var preparationItemTwoPromise = PreparationItem.findByIdAndUpdate(preparationItemTwo._id, {'$set': {'trip': trip._id, 'responsibleUser': user._id}});
       return Promise.all([userPromise.exec(), tripPromise.exec(), londonDestPromise.exec(), parisDestPromise.exec(), barcelonaDestPromise.exec(), 
         londonReserPromise.exec(), parisReserPromise.exec(), barcelonaReserPromise.exec(), 
         objectiveOnePromise.exec(), objectiveTwoPromise.exec(), preparationItemOnePromise.exec(), preparationItemTwoPromise.exec()]);
@@ -321,61 +326,6 @@ var loadAllSampleData = function() {
 //   .catch(function(error) {
 //     console.log('Drop collections error: ', error.message);
 //   });
-
-//TO CHECK FORMAT FOR ALL GETTER FUNCTIONS UNCOMMENT THIS:
-// getUserTrips('kenny')
-//   .then(function(data) {
-//     console.log('User trips:', data);
-//     return getDestinationForTrip(data[0]._id);
-//   })
-//   .then(function(data) {
-//     console.log('Trip destinations:', data);
-//   });
-
-// getUserTrips('kenny')
-//   .then(function(data) {
-//     return getReservationsForTrip(data[0]._id);
-//   })
-//   .then(function(data) {
-//     console.log('Trip Reservations:', data);
-//   });
-
-// getUserTrips('kenny')
-//   .then(function(data) {
-//     return getObjectivesForTrip(data[0]._id);
-//   })
-//   .then(function(data) {
-//     console.log('Trip objectives:', data);
-//   });
-
-// getUserTrips('kenny')
-//   .then(function(data) {
-//     return getPreparationItemsForTrip(data[0]._id);
-//   })
-//   .then(function(data) {
-//     console.log('Trip preparationItems:', data);
-//   });
-
-// getUserTrips('kenny')
-//   .then(function(data) {
-//     return getAllDataForTrip(data[0]._id);
-//   })
-//   .then(function(data) {
-//     console.log('Trip all data:', data);
-//   });
-
-// sampleData.userSamples.forEach(function(user) {
-//   var newUser = new User({
-//     username: user.username,
-//     pw: user.pw,
-//   }).save(function(err) {
-//     if (err) {
-//       console.log(err);
-//     } else {
-//       console.log('user saved');
-//     }
-//   });
-// });
 
 module.exports = {
   db,
