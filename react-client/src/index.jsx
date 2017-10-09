@@ -458,33 +458,19 @@ class App extends React.Component {
                 </div>
               </Col>          
             </Row>  
-          </Grid>        
+          </Grid>
         }
+
+        <Navbar fluid>
+          <hr className='divider'/>
+          <footer>
+            <p>© Hack Reactor - Greenfield Project, 2017</p>
+          </footer>
+        </Navbar>        
+
       </div>
     );
   }
 }
 
 ReactDOM.render(<App />, document.getElementById('app'));
-
-
-// Elena's helper function to fetch geo coordinates
-// getLocationForDestination(name) {
-//   return new Promise(function(resolve, reject) {
-//     var url = `https://maps.googleapis.com/maps/api/geocode/json?address=${name}&key=${GOOGLE_MAP_API_KEY}`;
-//     $.ajax({
-//       url: url,
-//       success: (data) => {
-//         var location = {lat: 0, lng: 0};
-//         if ((data.status === 'OK') && (data.results.length > 0)) {
-//           location = {lat: data.results[0].geometry.location.lat, lng: data.results[0].geometry.location.lng};
-//         }
-//         resolve(location);
-//       },
-//       error: (error) => {
-//         console.error('getLocationForDestination error: ', error.message);
-//         reject(error);
-//       }
-//     });
-//   });
-// }
