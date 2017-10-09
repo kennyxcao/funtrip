@@ -12,10 +12,11 @@ const PrepList = (props) => (
     <div>
       {props.preparationItems.map((preparation, index) => 
         <PrepItem 
-          preparation={preparation} 
           key={index}
+          preparation={preparation} 
           handlePrepItemChange={props.handlePrepItemChange}
           handlePrepItemDelete={props.handlePrepItemDelete}
+          users={props.users}
         />)}    
     </div>  
   </div>
